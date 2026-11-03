@@ -4,9 +4,6 @@
     "display_name": {
       "type": "string"
     },
-    "description": {
-      "type": "string"
-    },
     "writing_style": {
       "type": "string",
       "minLength": 1
