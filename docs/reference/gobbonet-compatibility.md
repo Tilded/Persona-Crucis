@@ -67,6 +67,22 @@ The Storybook is retrieved in relevant excerpts. The Lore Summary Prompt is used
 
 Persona Crucis displays an approximate always-on token estimate before export. It is an estimate, not a tokenizer measurement.
 
+## Mara Sayegh reference audit
+
+The current and archived Mara Sayegh GobboNet card copies were checked as separate examples. Their field lengths show the intended structure:
+
+| Field | Current card | Archived card |
+|---|---:|---:|
+| Writing Style | 4,534 characters | 6,237 characters |
+| Personality | 661 characters | 1,034 characters |
+| Starting Lore | Empty | Empty |
+| RAG Storybook | 9,143 characters | 9,143 characters |
+| Lore Summary Prompt | 1,872 characters | 1,876 characters |
+
+The two versions do not place the full Character Bible into Writing Style and Personality. They keep the Storybook separate and leave Starting Lore empty. Some concepts recur across the operational and personality text, so Persona Crucis applies a stricter boundary: Writing Style describes how the character writes and interacts; Personality describes who the character is. The detailed reference remains in Storybook.
+
+This is a field-structure reference, not a request to copy Mara's biography, voice or scripts into a new character.
+
 ## Manual setup procedure
 
 1. Open the character editor in GobboNet.
