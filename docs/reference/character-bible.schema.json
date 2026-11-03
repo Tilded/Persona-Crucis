@@ -1,0 +1,519 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": [
+        "1.0"
+      ]
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tagline": {
+      "type": "string"
+    },
+    "concept": {
+      "type": "string"
+    },
+    "identity": {
+      "type": "object",
+      "properties": {
+        "age": {
+          "type": "integer",
+          "minimum": 18
+        },
+        "pronouns": {
+          "type": "string"
+        },
+        "gender_identity": {
+          "type": "string"
+        },
+        "birthplace": {
+          "type": "string"
+        },
+        "current_home": {
+          "type": "string"
+        },
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "heritage_and_culture": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "age",
+        "pronouns",
+        "gender_identity",
+        "birthplace",
+        "current_home",
+        "languages",
+        "heritage_and_culture"
+      ],
+      "additionalProperties": false
+    },
+    "appearance": {
+      "type": "object",
+      "properties": {
+        "height": {
+          "type": "string"
+        },
+        "build": {
+          "type": "string"
+        },
+        "features": {
+          "type": "string"
+        },
+        "hair": {
+          "type": "string"
+        },
+        "eyes": {
+          "type": "string"
+        },
+        "style": {
+          "type": "string"
+        },
+        "distinctive_details": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "height",
+        "build",
+        "features",
+        "hair",
+        "eyes",
+        "style",
+        "distinctive_details"
+      ],
+      "additionalProperties": false
+    },
+    "biography": {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "string"
+        },
+        "childhood": {
+          "type": "string"
+        },
+        "education": {
+          "type": "string"
+        },
+        "work": {
+          "type": "string"
+        },
+        "important_turning_points": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "current_circumstances": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "family",
+        "childhood",
+        "education",
+        "work",
+        "important_turning_points",
+        "current_circumstances"
+      ],
+      "additionalProperties": false
+    },
+    "psychology": {
+      "type": "object",
+      "properties": {
+        "temperament": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "convictions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "strengths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "flaws": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "contradictions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tension": {
+                "type": "string"
+              },
+              "how_it_shows": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "tension",
+              "how_it_shows"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "fears": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "desires": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "decision_style": {
+          "type": "string"
+        },
+        "capacity_to_change": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "temperament",
+        "values",
+        "convictions",
+        "strengths",
+        "flaws",
+        "contradictions",
+        "fears",
+        "desires",
+        "decision_style",
+        "capacity_to_change"
+      ],
+      "additionalProperties": false
+    },
+    "daily_life": {
+      "type": "object",
+      "properties": {
+        "routine": {
+          "type": "string"
+        },
+        "home": {
+          "type": "string"
+        },
+        "work_life": {
+          "type": "string"
+        },
+        "habits": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "interests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tastes": {
+          "type": "object",
+          "properties": {
+            "music": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "food": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "books_and_media": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "places": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "music",
+            "food",
+            "books_and_media",
+            "places"
+          ],
+          "additionalProperties": false
+        },
+        "current_projects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "routine",
+        "home",
+        "work_life",
+        "habits",
+        "interests",
+        "tastes",
+        "current_projects"
+      ],
+      "additionalProperties": false
+    },
+    "relationships": {
+      "type": "object",
+      "properties": {
+        "family_dynamics": {
+          "type": "string"
+        },
+        "friends_and_social_circle": {
+          "type": "string"
+        },
+        "romantic_history": {
+          "type": "string"
+        },
+        "starting_dynamic_with_user": {
+          "type": "string"
+        },
+        "relationship_boundaries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "family_dynamics",
+        "friends_and_social_circle",
+        "romantic_history",
+        "starting_dynamic_with_user",
+        "relationship_boundaries"
+      ],
+      "additionalProperties": false
+    },
+    "agency": {
+      "type": "object",
+      "properties": {
+        "independent_goals": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "near_term_plans": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ongoing_problems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "topics_she_might_raise": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ways_she_might_disagree": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "things_she_will_not_do": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "independent_goals",
+        "near_term_plans",
+        "ongoing_problems",
+        "topics_she_might_raise",
+        "ways_she_might_disagree",
+        "things_she_will_not_do"
+      ],
+      "additionalProperties": false
+    },
+    "voice": {
+      "type": "object",
+      "properties": {
+        "overall": {
+          "type": "string"
+        },
+        "sentence_rhythm": {
+          "type": "string"
+        },
+        "humour": {
+          "type": "string"
+        },
+        "preferred_topics": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "avoid": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sample_lines": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "overall",
+        "sentence_rhythm",
+        "humour",
+        "preferred_topics",
+        "avoid",
+        "sample_lines"
+      ],
+      "additionalProperties": false
+    },
+    "narrative_threads": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "situation": {
+            "type": "string"
+          },
+          "stakes": {
+            "type": "string"
+          },
+          "next_possible_development": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "situation",
+          "stakes",
+          "next_possible_development"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "tarot_trace": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "properties": {
+          "position": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "card": {
+            "type": "string"
+          },
+          "influence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "position",
+          "card",
+          "influence"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "continuity_baseline": {
+      "type": "object",
+      "properties": {
+        "psychological_state": {
+          "type": "string"
+        },
+        "relationship_state": {
+          "type": "string"
+        },
+        "intellectual_positions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "psychological_state",
+        "relationship_state",
+        "intellectual_positions"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "name",
+    "tagline",
+    "concept",
+    "identity",
+    "appearance",
+    "biography",
+    "psychology",
+    "daily_life",
+    "relationships",
+    "agency",
+    "voice",
+    "narrative_threads",
+    "tarot_trace",
+    "continuity_baseline"
+  ],
+  "additionalProperties": false
+}
