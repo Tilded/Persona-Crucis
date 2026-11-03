@@ -274,7 +274,8 @@ function mapImported(){
  if(src&&typeof src==="object"&&src.card)src=src.card;
  if(src&&typeof src==="object"&&src.gobbonet_character)src=src.gobbonet_character;
  if(src&&typeof src==="object"&&src.character_card)src=src.character_card;
- if(src&&typeof src==="object"&&src.data&&typeof src.data==="object")src=src.data;\n if(src&&typeof src==="object"&&src.extensions&&src.extensions.gobbonet&&src.extensions.gobbonet.card&&typeof src.extensions.gobbonet.card==="object")src=src.extensions.gobbonet.card;
+ if(src&&typeof src==="object"&&src.data&&typeof src.data==="object")src=src.data;
+ if(src&&typeof src==="object"&&src.extensions&&src.extensions.gobbonet&&src.extensions.gobbonet.card&&typeof src.extensions.gobbonet.card==="object")src=src.extensions.gobbonet.card;
  if(src&&typeof src==="object"&&src.character_bible)src=src.character_bible;
  else if(src&&typeof src==="object"&&src.character&&src.character.identity)src=src.character;
  const isObject=src&&typeof src==="object"&&!Array.isArray(src),pick=(o,...keys)=>{for(const k of keys)if(o&&typeof o[k]==="string"&&o[k].trim())return o[k];return""};
