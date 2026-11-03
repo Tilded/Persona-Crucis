@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#211f1b">
+  <meta name="description" content="A guided tarot-to-character workshop. Draw, interpret, develop, and export.">
+  <title>Persona Crucis — A Character Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="masthead">
+    <a class="brand" href="#home" aria-label="Persona Crucis home">
+      <span class="brand-mark">✦</span>
+      <span><strong>PERSONA CRUCIS</strong><small>THE ART OF CHARACTER</small></span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#method">The method</a><a href="#workshop">Workshop</a><a href="#export">The final card</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-copy">
+        <p class="kicker">A guided creative practice</p>
+        <h1>From the cards<br><em>to a living character.</em></h1>
+        <p class="hero-lede">A considered process for turning a tarot spread into a richly developed fictional person, then preparing that character for GobboNet.</p>
+        <div class="hero-actions"><a class="button primary" href="#workshop">Enter the workshop <span>↗</span></a><a class="text-link" href="#method">How it works</a></div>
+      </div>
+      <div class="hero-art" aria-label="Antique tarot-inspired still life">
+        <div class="arch arch-one"></div><div class="arch arch-two"></div>
+        <div class="sun-disc"></div><div class="star star-a">✦</div><div class="star star-b">✧</div>
+        <div class="art-caption">FIG. I &nbsp; / &nbsp; THE CROSSROADS</div>
+      </div>
+      <div class="hero-foot"><span>78 cards · 10 positions</span><span>Independent AI · Human direction</span><span>Browser-based · No account required</span></div>
+    </section>
+
+    <section id="method" class="method section-block">
+      <div class="section-intro"><p class="kicker">A simple arrangement</p><h2>Four movements.<br><em>One coherent person.</em></h2></div>
+      <div class="method-grid">
+        <article><span class="roman">I</span><h3>Draw</h3><p>Build a spread, record your question, and let the cards establish a symbolic starting point.</p></article>
+        <article><span class="roman">II</span><h3>Interpret</h3><p>Take a prepared prompt to the AI service you prefer. Review the reading and choose a direction.</p></article>
+        <article><span class="roman">III</span><h3>Develop</h3><p>Build the character in manageable stages. Keep the useful material, revise the weak parts, and leave unknowns alone.</p></article>
+        <article><span class="roman">IV</span><h3>Prepare</h3><p>Review the GobboNet fields, correct anything necessary, and download a clean character JSON.</p></article>
+      </div>
+      <aside class="principle-note"><span class="note-symbol">✧</span><p><strong>The cards are a source of creative pressure, not a verdict.</strong> They do not diagnose the user, dictate personality, or determine a character's fate. The finished person must stand on their own.</p></aside>
+    </section>
+
+    <section id="workshop" class="workshop section-block">
+      <div class="section-heading"><div><p class="kicker">The working room</p><h2>Begin the <em>workshop.</em></h2></div><p class="section-aside">Your progress is saved in this browser. Nothing is sent anywhere by this application.</p></div>
+      <div class="stepper" id="stepper">
+        <button class="step active" data-step="0"><span>01</span> The spread</button><button class="step" data-step="1"><span>02</span> The interpretation</button><button class="step" data-step="2"><span>03</span> The character</button><button class="step" data-step="3"><span>04</span> The final card</button>
+      </div>
+
+      <section class="work-panel active" data-panel="0">
+        <div class="panel-title"><div><p class="kicker">Movement I</p><h3>The Celtic Cross</h3><p>Set a question or creative brief. Draw ten cards, then adjust any card or orientation by hand.</p></div><div class="panel-actions"><button class="button secondary" id="drawBtn">Draw ten cards</button><button class="button ghost" id="clearSpreadBtn">Clear spread</button></div></div>
+        <label class="field-label" for="brief">Question or creative brief <span>Optional</span></label><textarea id="brief" rows="3" placeholder="A short creative direction, theme, or question. Avoid prescribing the character's entire personality."></textarea>
+        <div class="spread-toolbar"><span id="spreadStatus">The spread is waiting to be drawn.</span><button class="text-link" id="newSeedBtn">New draw / new seed ↻</button></div>
+        <div id="spreadGrid" class="spread-grid"></div>
+        <div class="bottom-actions"><button class="button primary" id="toInterpret">Continue to interpretation <span>→</span></button></div>
+      </section>
+
+      <section class="work-panel" data-panel="1">
+        <div class="panel-title"><div><p class="kicker">Movement II</p><h3>Interpret the spread</h3><p>Copy the prompt into your preferred AI service. Paste its response below to keep the result with this project.</p></div><span class="seal">AI BY YOUR CHOICE</span></div>
+        <div class="prompt-card"><div class="prompt-head"><div><span class="mini-label">PROMPT I</span><h4>Whole-spread interpretation</h4></div><button class="button secondary copy-btn" data-prompt="reading">Copy prompt</button></div><textarea id="readingPrompt" class="prompt-text" readonly rows="10"></textarea><p class="hint">Open ChatGPT, Claude, Gemini, or another AI separately. Paste the prompt, then copy its complete response back here.</p></div>
+        <label class="field-label" for="readingOutput">AI response <span>Paste the interpretation</span></label><textarea id="readingOutput" rows="12" placeholder="Paste the complete reading here. JSON is welcome; ordinary prose is also accepted."></textarea>
+        <div class="bottom-actions split"><button class="button ghost" data-back="0">← Back to spread</button><button class="button primary" id="toCharacter">Continue to character development →</button></div>
+      </section>
+
+      <section class="work-panel" data-panel="2">
+        <div class="panel-title"><div><p class="kicker">Movement III</p><h3>Develop the person</h3><p>Use smaller prompts rather than asking one model to produce an encyclopedia in a single sitting.</p></div><span class="seal">STAGED AUTHORING</span></div>
+        <div class="prompt-tabs" id="promptTabs"><button class="prompt-tab active" data-kind="concept">01 · Direction</button><button class="prompt-tab" data-kind="bible">02 · Character Bible</button><button class="prompt-tab" data-kind="gobbo">03 · GobboNet fields</button></div>
+        <div class="prompt-card"><div class="prompt-head"><div><span class="mini-label" id="stageLabel">PROMPT II-A</span><h4 id="stageTitle">Develop a character direction</h4></div><button class="button secondary copy-btn" data-prompt="concept">Copy prompt</button></div><textarea id="characterPrompt" class="prompt-text" readonly rows="12"></textarea></div>
+        <label class="field-label" for="characterOutput">Working material <span>Paste or write your results</span></label><textarea id="characterOutput" rows="14" placeholder="Paste the AI response, or write and edit the character material directly."></textarea>
+        <div class="field-row"><label class="field-label" for="characterName">Character name</label><input id="characterName" placeholder="Name of the character"></div>
+        <div class="bottom-actions split"><button class="button ghost" data-back="1">← Back to interpretation</button><button class="button primary" id="toExport">Continue to final card →</button></div>
+      </section>
+
+      <section class="work-panel" data-panel="3">
+        <div class="panel-title"><div><p class="kicker">Movement IV</p><h3>The GobboNet card</h3><p>Import an existing Bible or card, map its contents, then inspect and edit the actual destination fields. The application will not invent missing information.</p></div><span class="seal">LOCAL EXPORT</span></div>
+        <div class="import-box"><div><span class="mini-label">START WITH WHAT YOU HAVE</span><h4>Import a Bible or existing card</h4><p>Paste JSON or prose, or choose a local file. Recognized fields are mapped; anything else remains available in the source text.</p></div><div class="import-actions"><input type="file" id="importFile" accept=".json,.txt,.md,.markdown,application/json,text/plain"><button class="button secondary" id="mapImport">Map pasted content</button></div></div>
+        <label class="field-label" for="rawImport">Paste existing JSON, Bible, or dossier</label><textarea id="rawImport" rows="6" placeholder="Paste an existing Character Bible, lore dossier, or JSON card here."></textarea>
+        <div class="field-row"><label class="field-label" for="exportName">Display name</label><input id="exportName" placeholder="Character name"></div>
+        <div id="exportFields" class="export-fields"></div>
+        <div class="validation" id="validation"><strong>Not yet checked.</strong><span>Complete the fields below, then validate.</span></div>
+        <div class="bottom-actions split"><button class="button ghost" data-back="2">← Back to character</button><div class="export-actions"><button class="button secondary" id="validateBtn">Check card</button><button class="button primary" id="downloadBtn">Download GobboNet JSON ↓</button></div></div>
+      </section>
+    </section>
+
+    <section class="closing section-block">
+      <p class="kicker">A note on the method</p><h2>Good tools should<br><em>leave room for judgement.</em></h2>
+      <p>Persona Crucis organizes the work. The AI supplies drafts. The human author decides what belongs in the character.</p>
+    </section>
+  </main>
+  <footer><span>PERSONA CRUCIS</span><span>THE CARDS SUGGEST. THE AUTHOR DECIDES.</span><a href="README.md">Project notes ↗</a></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
