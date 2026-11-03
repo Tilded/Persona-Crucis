@@ -81,44 +81,44 @@ window.PC_TAROT = {
   ],
   "positions": [
     {
-      "label": "The Significator / Present · Core Ego & Immediate Atmosphere",
-      "meaning": "The character’s foundational identity, active demeanor, and tone of daily existence: the persona projected at first glance."
+      "label": "The Significator / Present · The Core Ego & Immediate Atmosphere",
+      "meaning": "The character’s foundational identity, active demeanor, and the tone of their current daily existence."
     },
     {
-      "label": "The Challenge / Cross · Fatal Flaw",
-      "meaning": "The internal or external struggle, personal paradox, recurring vice, or immediate dilemma that threatens to undo them."
+      "label": "The Challenge / Cross · The Immediate Friction & Fatal Flaw",
+      "meaning": "The character’s internal or external struggle, personal paradox, recurring vice, or immediate dilemma."
     },
     {
-      "label": "The Foundation / Root · Childhood & Origin",
-      "meaning": "Childhood background, ancestral roots, formative history, deep emotional programming, and instinctive reflexes."
+      "label": "The Foundation / Root · The Subconscious & Distant Origin",
+      "meaning": "Childhood background, ancestral roots, deep-seated emotional programming, and instinctive reflexes."
     },
     {
-      "label": "The Recent Past",
-      "meaning": "A recent loss, rupture, victory, or departure that is receding but still leaves an emotional aftershock."
+      "label": "The Recent Past · The Ghost of What Was Just Left Behind",
+      "meaning": "A recent loss, rupture, victory, or departure that leaves a lingering emotional aftershock."
     },
     {
-      "label": "The Crown / Higher Purpose · Aspiration",
-      "meaning": "The conscious ideal, moral compass, deliberate goal, dream companion, or highest potential the character strives toward."
+      "label": "The Crown / Higher Purpose · The Conscious Aspiration & Ideal",
+      "meaning": "What they deliberately strive for, their moral compass, their dream companion, and idealized destiny."
     },
     {
-      "label": "The Immediate Future",
-      "meaning": "The emerging event, trial, crossroads, or scenario backdrop approaching when the user meets the character; not a fixed prediction."
+      "label": "The Immediate Future · The Looming Encounter & Impending Shift",
+      "meaning": "The event, trial, or crossroads about to arrive in their path when the user meets them."
     },
     {
-      "label": "The Self / Internal Stance",
-      "meaning": "The character’s private self-perception, insecurities, self-worth, and convictions when their public mask falls away."
+      "label": "The Self / Internal Stance · The Unfiltered Self-Perception",
+      "meaning": "How the character truly sees themselves when all masks fall away: their insecurities or unshakeable convictions."
     },
     {
-      "label": "The Environment / Social Stance",
-      "meaning": "Family, friends, social circles, work, external expectations, social standing, and how others perceive the character."
+      "label": "The Environment / Social Stance · The World Around Them & How They Are Perceived",
+      "meaning": "The character’s social standing, how strangers misjudge them, and their cultural or physical habitat."
     },
     {
-      "label": "Hopes & Fears · Hidden Soft Spot",
-      "meaning": "The tender soft spot, gesture or phrase that softens their guard, and the fear that triggers defensiveness."
+      "label": "Hopes & Fears · The Deepest Longing & The Primal Nightmare",
+      "meaning": "Their tender soft spot: the exact phrase or gesture that softens their armor, and the terror that triggers defense."
     },
     {
-      "label": "The Outcome / Culmination",
-      "meaning": "The likely long-term trajectory and transformation if present patterns continue; a narrative possibility, never fate."
+      "label": "The Outcome / Culmination · The Ultimate Trajectory & Narrative Destiny",
+      "meaning": "The long-term transformation of this soul and the profound consequence of their companionship."
     }
   ]
 };
