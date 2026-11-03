@@ -365,7 +365,9 @@ function exportCard(){
   }
  };
  download("PersonaCrucis_"+slug+"_GobboNet.json",JSON.stringify(v3,null,2),"application/json");
- download("PersonaCrucis_"+slug+"_Field_Sheet_and_Source.txt",["PERSONA CRUCIS — GOBBONET FIELD SHEET","",...cardFields.map(([k,label])=>label+"\n"+(typeof card[k]==="string"?card[k]:Array.isArray(card[k])?card[k].join("\n\n"):"")),"","SOUL CONFIG",JSON.stringify(soul,null,2),"","ORIGINAL SOURCE",data.sourceText||""].join("\n\n"),"text/plain");
+ const manualKeys=["background","textColor","dialogColor","temperature","minP","topK","topP","repeatPenalty","repeatLastN","xtcProbability","xtcThreshold","dryMultiplier","bannedPhrases","loreEnabled","loreModelFile","loreCustomPrompt","altGreetingsEnabled","carouselEnabled","carouselMode","carouselPrompts","ragWordsToFire","customCodeEnabled","contextLimit","smartLimitEnabled","smartLimitTokens","thinkingEnabled","contextInputPercent","contextReplyPercent","contextLandPercent","contextKeepPercent","logitBiasStrength"];
+ const manualSettings=manualKeys.map(k=>k+": "+JSON.stringify(gobbo[k])).join("\n");
+ download("PersonaCrucis_"+slug+"_Field_Sheet_and_Source.txt",["PERSONA CRUCIS — GOBBONET FIELD SHEET","",...cardFields.map(([k,label])=>label+"\n"+(k==="custom_code"?customCode:k==="lore_prompt"?lorePrompt:typeof card[k]==="string"?card[k]:Array.isArray(card[k])?card[k].join("\n\n"):"")),"","GOBBONET SETTINGS — APPLY MANUALLY WHERE THE CURRENT IMPORTER DOES NOT RESTORE THEM","The Character Card V3 JSON is importable. GobboNet currently ignores several native settings in JSON extensions. Custom Code is always imported disabled; enable it manually after review.","",manualSettings,"","SOUL CONFIG",JSON.stringify(soul,null,2),"","ORIGINAL SOURCE",data.sourceText||""].join("\n\n"),"text/plain");
  $("customCodeReminder").hidden=false;
  toast("GobboNet V3 card exported. Import it, then enable Custom Code manually.");
 }
