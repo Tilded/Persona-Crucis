@@ -328,10 +328,9 @@ function exportCard(){
   xtcProbability:0,xtcThreshold:0.1,dryMultiplier:0,bannedPhrases:"",
   customCode,customCodeEnabled:true,contextLimit:0,smartLimitEnabled:false,smartLimitTokens:300,
   thinkingEnabled:false,contextInputPercent:null,contextReplyPercent:null,contextLandPercent:null,contextKeepPercent:null,
-  logitBiasStrength:-20,carouselEnabled:true,carouselMode:"random",carouselPrompts:card.carousel_prompts.join("\n"),
-  soulConfig:soul
+  logitBiasStrength:-20,carouselEnabled:true,carouselMode:"random",carouselPrompts:card.carousel_prompts.join("\n"),ragWordsToFire:1
  };
- const envelope={gobbonet_export:"cards",version:1,exported:new Date().toISOString(),characterCards:[gobbo]};
+ const envelope={gobbonet_export:"cards",version:1,exported:new Date().toISOString(),seed:data.seed,soulConfig:soul,characterCards:[gobbo]};
  download("PersonaCrucis_"+slug+"_GobboNet.json",JSON.stringify(envelope,null,2),"application/json");
  download("PersonaCrucis_"+slug+"_Field_Sheet_and_Source.txt",["PERSONA CRUCIS — GOBBONET FIELD SHEET","",...cardFields.map(([k,label])=>label+"\n"+(typeof card[k]==="string"?card[k]:Array.isArray(card[k])?card[k].join("\n\n"):"")),"","SOUL CONFIG",JSON.stringify(soul,null,2),"","ORIGINAL SOURCE",data.sourceText||""].join("\n\n"),"text/plain");
  $("customCodeReminder").hidden=false;
