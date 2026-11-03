@@ -33,11 +33,13 @@
     },
     "carousel_prompts": {
       "type": "array",
-      "maxItems": 12,
+      "maxItems": 20,
       "items": {
         "type": "string",
         "maxLength": 100
-      }
+      },
+      "minItems": 12,
+      "description": "12–20 character-specific behavioral texture lines; one line per response nudge, no mood labels or topic obsessions."
     }
   },
   "required": [
