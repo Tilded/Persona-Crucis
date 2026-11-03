@@ -31,4 +31,10 @@ const badMood=buildDemoConfig("bad-mood",0).config;badMood.mood.extra="not allow
 const badTrigger=buildDemoConfig("bad-trigger",0).config;badTrigger.triggers[0].emotion="not-in-vocabulary";assert.equal(validateSoulConfig(badTrigger).valid,false,"Trigger emotions must belong to the mood vocabulary");
 const badStages=buildDemoConfig("bad-stages",0).config;badStages.stages[2].minCloseness=10;assert.equal(validateSoulConfig(badStages).valid,false,"Stage thresholds must ascend from zero");
 
+const exported=JSON.parse(fs.readFileSync("examples/iris-vale-gobbonet-card.json","utf8"));
+const exportedSoul=exported.data.extensions.gobbonet.soulConfig;
+assert.equal(validateSoulConfig(exportedSoul).valid,true,"The example exported card must contain a valid Soul Config");
+assert.equal(exportedSoul.name,exported.data.name);
+assert.equal(exported.data.extensions.gobbonet.seed,exportedSoul.provenance.seed);
+assert.equal(exported.data.extensions.gobbonet.customCode.includes("/* SOUL_CONFIG_START */"),true);
 console.log("Soul Config validator: 3/3 seeded configs PASS; reversed-card, mood-cycle, Markdown, and tier-boundary guards PASS.");
