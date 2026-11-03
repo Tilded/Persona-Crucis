@@ -1,0 +1,43 @@
+name: Static application checks
+
+on:
+  push:
+    branches: [main, "build/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check JavaScript syntax
+        run: node --check app.js
+      - name: Check bundled tarot data
+        run: |
+          node - <<'NODE'
+          const fs = require('node:fs');
+          const vm = require('node:vm');
+          const source = fs.readFileSync('data/tarot.js', 'utf8');
+          const context = {};
+          vm.runInNewContext(source, context);
+          const tarot = context.window.PC_TAROT;
+          if (!tarot || tarot.cards.length !== 78) throw new Error('Expected exactly 78 cards');
+          if (tarot.positions.length !== 10) throw new Error('Expected exactly 10 Celtic Cross positions');
+          if (new Set(tarot.cards).size !== 78) throw new Error('Card names must be unique');
+          console.log('Tarot data verified: 78 unique cards, 10 positions.');
+          NODE
+      - name: Check static entry points
+        run: |
+          test -s index.html
+          test -s styles.css
+          grep -q 'data/tarot.js' index.html
+          grep -q 'app.js' index.html
+          ! grep -Eq 'fetch\(|/api/|localhost:|127\.0\.0\.1' app.js
+          echo "Static entry points verified; no application API or local model endpoint."
