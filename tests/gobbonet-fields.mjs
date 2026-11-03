@@ -23,7 +23,7 @@ assert.match(app,/spec:"chara_card_v3",spec_version:"3\.0"/,"Export must use Gob
 assert.match(app,/extensions:\{gobbonet:\{\.\.\.gobbo,seed:data\.seed,soulConfig:soul,card:gobbo\}\}/,"Full native fields, seed and soulConfig must be preserved in the GobboNet extension");
 assert.doesNotMatch(app,/characterCards:\[gobbo\]/,"Do not use the unsupported characterCards array wrapper");
 assert.match(app,/maraLorePromptTemplate/);
-assert.match(app,/name:gobbo\.name,id:slug/);
+assert.match(app,/name:card\.display_name\|\|\"Unnamed\",id:slug/);
 assert.match(app,/const avatar="data:image\/jpeg;base64,/);
 assert.match(app,/ragStorybook:card\.storybook/);
 assert.match(app,/carouselPrompts:card\.carousel_prompts\.join/);
