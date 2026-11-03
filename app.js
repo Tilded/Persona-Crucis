@@ -31,7 +31,8 @@ function readGobboSettings(){
  };
 }
 function save(){
- data.relationshipTrack=$("relationshipTrack")?.value||data.relationshipTrack||"open";data.startingFamiliarity=$("startingFamiliarity")?.value||data.startingFamiliarity||"acquaintances";data.soulConfigRaw=$("soulConfigOutput")?.value||data.soulConfigRaw||"";\n data.preferences={nsfw:$("nsfwToggle").checked,gender:$("genderPreference").value,genderOther:$("genderOther").value,communicationStyle:document.querySelector('input[name="communicationStyle"]:checked')?.value||"text"};
+ data.relationshipTrack=$("relationshipTrack")?.value||data.relationshipTrack||"open";data.startingFamiliarity=$("startingFamiliarity")?.value||data.startingFamiliarity||"acquaintances";data.soulConfigRaw=$("soulConfigOutput")?.value||data.soulConfigRaw||"";
+ data.preferences={nsfw:$("nsfwToggle").checked,gender:$("genderPreference").value,genderOther:$("genderOther").value,communicationStyle:document.querySelector('input[name="communicationStyle"]:checked')?.value||"text"};
  data.gobboSettings=readGobboSettings();
  data.directionResponse=$("directionResponse").value;data.directionNotes=$("directionNotes").value;data.gobboOutput=$("gobboOutput").value;data.soulConfigRaw=$("soulConfigOutput")?.value||data.soulConfigRaw||"";data.brief=$("brief").value;data.readingOutput=$("readingOutput").value;data.characterOutput=$("characterOutput").value;data.characterName=$("characterName").value;data.rawImport=$("rawImport").value;data.exportName=$("exportName").value;
  const fields={...(data.fields||{})};cardFields.forEach(([k])=>{const e=$("field_"+k);if(e)fields[k]=e.value});data.fields=fields;
