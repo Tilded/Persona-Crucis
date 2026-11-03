@@ -74,13 +74,19 @@ Return JSON only, with this exact shape and exactly three items:
 Do not include Markdown fences, commentary, or any additional keys.`}
 function biblePrompt(){return `Turn the following established character material into a complete, human-readable Character Bible. Do not redesign the character or add unsupported facts.
 
-SOURCE MATERIAL:
-${$("characterOutput").value||"[Paste the developed character material here.]"}
+AUTHOR-SELECTED CHARACTER DIRECTION:
+${selectedDirectionText()||"[No direction selected. Do not assume a choice; preserve the source material as supplied.]"}
+
+AUTHOR NOTES / ADJUSTMENTS:
+${$("directionNotes").value||"None supplied."}
+
+ADDITIONAL WORKING MATERIAL:
+${$("characterOutput").value||"[No additional working material supplied.]"}
 
 AUTHOR PREFERENCES:
 ${preferenceText()}
 
-Respect the author preferences above while preserving established facts, voice, contradictions, agency, boundaries, relationships, and independent life. A selected communication format must be reflected clearly in Voice and Conversation; NSFW Off excludes sexual / explicit content, while NSFW On permits mature adult themes but does not make them mandatory. Do not invent a name when the author left it blank. Organize the Bible under these headings: Core Identity; Appearance; Biography; Psychology and Values; Contradictions; Daily Life; Relationships; Agency and Boundaries; Voice and Conversation; Interests and Tastes; Narrative Threads; Tarot Design Trace; Unresolved / Unspecified Details.
+Respect the author-selected direction and notes above. Treat the selected direction as the author's chosen foundation, not an instruction to invent missing facts. Preserve established facts, voice, contradictions, agency, boundaries, relationships, and independent life. A selected communication format must be reflected clearly in Voice and Conversation; NSFW Off excludes sexual / explicit content, while NSFW On permits mature adult themes but does not make them mandatory. Do not invent a name when the author left it blank. Organize the Bible under these headings: Core Identity; Appearance; Biography; Psychology and Values; Contradictions; Daily Life; Relationships; Agency and Boundaries; Voice and Conversation; Interests and Tastes; Narrative Threads; Tarot Design Trace; Unresolved / Unspecified Details.
 
 Rules:
 - The character is an adult.
