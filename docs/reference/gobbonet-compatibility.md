@@ -1,63 +1,83 @@
-# GobboNet compatibility
+# GobboNet compatibility and manual field map
 
-## Card field mapping
+This project targets the native GobboNet character-card model. The final stage is a **field-by-field manual setup sheet**. It does not ask the user to import a generated card into GobboNet. Copy each text box into the matching field in the GobboNet character editor.
 
-This project follows the field map already established and tested in the user's Mara Sayegh project. The generated character package uses these GobboNet card fields:
+The source of truth for runtime behavior is the current GobboNet implementation, especially js/08-rag.js, js/15-cards.js, js/16-card-io.js, and js/07-prompt.js. Recheck these files when GobboNet changes version.
 
-| GobboNet field | Generated content |
-|---|---|
-| id | Stable slug from character name |
-| name | Display name |
-| desc | Compact description |
-| writingStyle | Primary operational prompt |
-| personality | Compact identity and temperament |
-| greeting | Opening message |
-| altGreetingsEnabled, altGreetings | Optional alternate openings |
-| startingLore | Short always-on background |
-| loreEnabled | Enabled |
-| loreModelFile | Empty, uses default model |
-| loreCustomPrompt, lorePrompt | Custom summary instructions and text |
-| ragStorybook | Detailed retrieval-oriented reference |
-| memoryFiles | Empty array in the initial package |
-| customCode | Empty string |
-| customCodeEnabled | False |
-| thinkingEnabled | False by default |
-| `carouselEnabled`, `carouselPrompts`, `carouselMode` | Per-turn character nudges, enabled when generated lines exist, random by default |
-| sampling fields | Conservative creative defaults |
+## Actual card destinations
 
-The card also includes a simple icon string and display colors. Avatar is omitted until the user supplies an image or a future image-generation stage creates one.
+| GobboNet editor field / card property | Correct content | Runtime behavior |
+|---|---|---|
+| Name / name | Character's display name | Card identity |
+| Description / desc | Optional short card metadata | Not the character's main prompt |
+| Writing Style / writingStyle | Operational instructions: voice, output format, conversational conduct, factual integrity, boundaries and relationship pacing | Sent every turn; primary operational directive, placed late among system blocks |
+| Personality / personality | Compact identity, stable background, temperament, values and contradictions | Sent persistently every turn in current GobboNet source |
+| Greeting / greeting | First message for a new conversation | Opening message only |
+| Alternative Greetings / altGreetings + altGreetingsEnabled | Distinct alternative opening messages | Used only when selecting an opening |
+| Starting Lore / startingLore | Minimum initial premise facts that genuinely need to remain always available | Sent every turn only while Lore System is enabled; may be blank |
+| Lore System / loreEnabled | Enable or disable native conversation compression | Controls rolling thread-summary behavior and whether Starting Lore is included |
+| Edit the lore summary prompt / loreCustomPrompt | Whether to override GobboNet's built-in compression prompt | Does not create an ordinary-turn prompt |
+| Lore Summary Prompt / lorePrompt | Instructions for summarising new conversation messages during compression | Used only during compression, not on ordinary chat turns |
+| RAG Storybook / ragStorybook | Detailed, retrieval-friendly reference: biography, work, setting, relationships, routines, interests, values and unresolved facts | Relevant excerpts are retrieved on demand; the full Storybook is not automatically frontloaded |
+| Plain-text fires on / ragWordsToFire | Threshold from 1 to 5 matching words | Controls plain-text Storybook entry matching; default is 1 |
+| Memory Files / memoryFiles | Optional separate .md / .txt reference files | Retrieved as files; not the Lore System summary and not a prose prompt field |
+| Carousel Prompt / carouselPrompts, carouselEnabled, carouselMode | Optional short, distinct per-response nudges | At most one line is injected per response when explicitly enabled; random or sequential |
+| Custom Code / customCode, customCodeEnabled | Optional reviewed JavaScript | Executable hooks; keep empty and disabled unless the author deliberately supplies a script |
+| Thinking / thinkingEnabled | Optional per-card reasoning setting | Generation setting, not character prose |
 
-## Why custom code is disabled
+## Keep the content in one proper home
 
-GobboNet deliberately forces imported customCodeEnabled to false. Do not silently switch it on in an exported card. The user must review any extension and explicitly enable it after import.
+### Writing Style
 
-The package includes an optional generic continuity extension under optional_extensions/gobbonet_continuity.js. It uses GobboNet's context hook, periodic maintenance callback, persistent store, save method, and model ask interface. A mock host test covers hook registration, context injection, exact-quote validation, commitment acceptance, diary/episode writes, and no-op handling. It has not yet been live-tested in the user's installed GobboNet build.
+This is not a second Character Bible. It should contain instructions about how the model writes and interacts: message style, voice execution, length, conversational judgment, factual integrity, agency, boundaries and relationship pacing.
 
-The card itself still has an empty customCode field and customCodeEnabled=false. To use the extension, review the source, paste it into the card's Custom Code field, enable Custom Code manually, and test with a disposable character. The Mara project is a reference for hook patterns and state authority, not code to copy wholesale into this new project.
+Do not put the full biography, physical description, job history, family, interests, values catalogue or Storybook here. Avoid repeating the Personality field.
 
-## Field separation
+### Personality
 
-- Writing Style is not Personality.
-- Starting Lore is not the RAG Storybook.
-- Lore Prompt is not the running thread summary.
-- Storybook is reference material, not a mutable memory log.
-- Continuity state is not automatically written merely because a JSON template exists.
+This is the compact answer to who the character is: identity, stable background, temperament, values, motives and meaningful contradictions. It is not a list of output-format rules. Do not repeat the Writing Style text.
 
-This prevents duplicated prompts and competing sources of current truth.
+GobboNet's current upstream code injects Personality persistently every turn. Earlier builds used a different reminder cadence; verify the installed version rather than assuming historical behavior.
 
-## Import steps
+### Starting Lore
 
-1. Unzip the export.
-2. In GobboNet, open the character editor and import the gobbonet_character.json file using the character import workflow supported by your installed version.
-3. Review the display name, Writing Style, Personality, greeting, Starting Lore, and RAG Storybook.
-4. Save the card.
-5. The optional extension is not installed automatically. To test it, inspect optional_extensions/gobbonet_continuity.js, paste it into Custom Code, save, then enable Custom Code manually. Start with a disposable character and inspect the console for its ready message.
+This is the smallest useful always-on premise. It is not the whole biography, the Character Bible, or a duplicate Storybook. Leaving it blank is valid and intentional when no extra premise needs to be frontloaded.
 
-GobboNet's exact editor labels can change between versions. Consult the installed version's own interface rather than assuming that every historical field label remains identical.
+### RAG Storybook
 
+This is where the detailed reference belongs. GobboNet parses it into named or plain-text entries and retrieves relevant parts. Use clear headings and self-contained sections. Do not copy the entire Storybook into Writing Style, Personality or Starting Lore.
 
-## Carousel Lines
+### Lore Summary Prompt
 
-Carousel Lines are a separate GobboNet card feature, not part of the continuity script. GobboNet chooses one non-empty line on each assistant turn (random or sequential) and adds it as a hidden prompt nudge. Tarot Character Studio generates 8-12 lines from the completed character bible, not directly from isolated card keywords. Each line starts with "This turn, " and is limited to 100 characters. The export maps these to the native card fields `carouselEnabled`, `carouselPrompts` (newline-separated), and `carouselMode`.
+This is only for GobboNet's native compression pass over older messages. It is not a lorebook, a character summary, a memory-writer script, or an always-on system prompt. Leave the custom-prompt toggle off when GobboNet's built-in summary instructions are sufficient.
 
-These nudges should colour attention or conversational stance lightly. They must not create events, dictate opinions, force topics, or override the character core instructions. They are not memories and do not change continuity state.
+### Carousel
+
+Carousel is optional. Leave it disabled by default. If the author deliberately enables it, use a small set of short, non-duplicative nudges. Never use it to repeat the Writing Style or Personality fields, create events, dictate opinions or force topics.
+
+### Custom Code and Memory Files
+
+Custom Code is executable JavaScript, not prose. Persona Crucis does not generate or enable scripts. Imported code is preserved for reference but remains disabled. Memory Files are separate attachments; they are not interchangeable with Starting Lore, Storybook or the running thread summary.
+
+## Context-cost rule
+
+Writing Style and Personality are sent every turn. Starting Lore is also sent every turn when Lore System is enabled. These are the fields that create persistent frontloaded character context.
+
+The Storybook is retrieved in relevant excerpts. The Lore Summary Prompt is used only during compression. Carousel contributes at most one short line when enabled. Do not move detailed reference material into always-on fields to make the card appear more complete.
+
+Persona Crucis displays an approximate always-on token estimate before export. It is an estimate, not a tokenizer measurement.
+
+## Manual setup procedure
+
+1. Open the character editor in GobboNet.
+2. Copy the Persona Crucis Writing Style / System Prompt box into GobboNet's Writing Style field.
+3. Copy the Personality box into Personality.
+4. Copy Greeting and Alternative Greetings into their separate fields. Enable Alternative Greetings only when you want them used.
+5. Copy Starting Lore only if it contains a short, genuinely necessary premise. Leave the GobboNet field empty when Persona Crucis shows it empty.
+6. Copy the Lore Summary Prompt only if the custom-prompt toggle is enabled. Otherwise leave GobboNet's built-in prompt in place.
+7. Copy the detailed reference into RAG Storybook. Set the plain-text trigger threshold deliberately; 1 is GobboNet's default.
+8. Leave Carousel disabled unless you deliberately want one hidden nudge per response.
+9. Leave Custom Code empty and disabled unless you have separately reviewed a script.
+10. Save the card, reopen it, and verify that the fields stayed separate.
+
+The downloadable JSON is a backup artifact. It is not the primary installation instruction and the user should not be told to rely on a generic card importer to distribute these fields.
