@@ -21,6 +21,8 @@ jobs:
         run: node --check app.js
       - name: Check GobboNet field separation
         run: node tests/gobbonet-fields.mjs
+      - name: Check Soul Config validation and seeded quality fixtures
+        run: node tests/soul-config.test.mjs
       - name: Check bundled tarot data
         run: |
           node - <<'NODE'
@@ -40,6 +42,9 @@ jobs:
           test -s index.html
           test -s styles.css
           grep -q 'data/tarot.js' index.html
+          grep -q 'soul-config.js' index.html
+          grep -q 'soul-engine.js' index.html
+          test -s soul-engine.js
           grep -q 'app.js' index.html
           ! grep -Eq 'fetch\(|/api/|localhost:|127\.0\.0\.1' app.js
           echo "Static entry points verified; no application API or local model endpoint."
