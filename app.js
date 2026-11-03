@@ -157,7 +157,7 @@ function gobboPrompt(){
  "- alternate_greetings: optional array of distinct alternative opening messages. Use [] if none are needed.",
  "- starting_lore: only the minimum premise facts that genuinely must be present on every turn. It may be an empty string. Do not copy the biography or Storybook here.",
  "- lore_prompt: optional instructions ONLY for summarising older conversation messages when GobboNet's Lore System compresses history. It is not character lore, not a system prompt and not a second writing_style. Use an empty string when the built-in GobboNet summary prompt is sufficient.",
- "- storybook: the detailed reference library. Preserve the useful Character Bible material here in well-labelled, self-contained sections: biography, appearance, work, setting, relationships, routines, interests, values, current threads and unresolved facts. GobboNet retrieves relevant parts on demand; it does not need to be repeated in always-on fields.",
+ "- storybook: the detailed factual reference library. Preserve useful material in self-contained sections: biography, appearance, family, work, setting, relationships, routines, interests, goals, current threads and unresolved facts. Do not restate the compact Personality summary or Writing Style instructions. GobboNet retrieves relevant parts on demand; it does not need to be repeated in always-on fields.",
  "- carousel_prompts: optional array of short, distinct per-response nudges. Use [] by default. Never restate the writing_style or personality. Do not generate generic filler just to populate this field.",
  "",
  "NON-NEGOTIABLE RULES:",
@@ -264,8 +264,8 @@ function validateCard(){
   const bb=new Set(String(b||"").split(/\n\s*\n/).map(x=>x.trim().toLowerCase().replace(/\s+/g," ")).filter(x=>x.length>50));
   return aa.filter(x=>bb.has(x)).length;
  };
- if(sameParagraphs(c.writing_style,c.personality)||sameParagraphs(c.personality,c.writing_style))warnings.push("One or more substantial paragraphs appear in both Writing Style and Personality.");
- if(sameParagraphs(c.starting_lore,c.storybook)||sameParagraphs(c.storybook,c.starting_lore))warnings.push("Starting Lore repeats material already in the Storybook. Keep only the minimum always-on premise in Starting Lore.");
+ const duplicatePairs=[["Writing Style","Personality",c.writing_style,c.personality],["Writing Style","RAG Storybook",c.writing_style,c.storybook],["Personality","RAG Storybook",c.personality,c.storybook],["Starting Lore","RAG Storybook",c.starting_lore,c.storybook]];
+ duplicatePairs.forEach(pair=>{if(sameParagraphs(pair[2],pair[3])||sameParagraphs(pair[3],pair[2]))warnings.push(pair[0]+" repeats one or more substantial paragraphs in "+pair[1]+". Give each fact one primary home and remove copied blocks.");});
  const alwaysTokens=Math.ceil((c.writing_style.length+c.personality.length+(settings.loreEnabled?c.starting_lore.length:0))/4);
  if(alwaysTokens>2500)warnings.push("Always-on character context is approximately "+alwaysTokens.toLocaleString()+" tokens. Reduce duplication and move detailed reference material into the RAG Storybook.");
  if(alwaysTokens>5000)warnings.push("Always-on context is very large. GobboNet sends Writing Style and Personality every turn, and Starting Lore every turn while Lore System is enabled.");
