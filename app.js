@@ -58,6 +58,9 @@ ${$("readingOutput").value||"[Paste the completed interpretation here before usi
 AUTHOR'S SELECTED DIRECTION / NOTES:
 ${$("characterOutput").value||"[Add the selected direction or notes here.]"}
 
+AUTHOR'S NAME PREFERENCE:
+${$("characterName").value.trim()||"No name supplied. You may suggest a name separately, but do not assume one is required."}
+
 AUTHOR PREFERENCES:
 ${preferenceText()}
 
