@@ -11,7 +11,9 @@ function validateSoulConfig(c){
  const req=(v,n,p)=>{if(typeof v!=="string"||!v.trim())err(p,"required string");else if(wc(v)>n)err(p,"over "+n+" words")};
  const list=(v,min,max,p)=>{if(!Array.isArray(v)||v.length<min||v.length>max){err(p,"must contain "+min+"–"+max+" items");return false}return true};
  const en=(v,values,p)=>{if(!values.includes(v))err(p,"invalid enum; expected "+values.join(", "))};
- Object.keys(c).forEach(k=>{if(!ALLOWED_KEYS.includes(k))err(k,"unsupported field; v1 has only frozen identity/stances and temporary mood");});\n const bytes=encodeURIComponent(JSON.stringify(c)).replace(/%[0-9A-F]{2}/g,"x").length;if(bytes>6144)err("soulConfig","must be under 6 KB; currently "+bytes+" bytes");\n if(c.schemaVersion!==1)err("schemaVersion","must be 1");
+ Object.keys(c).forEach(k=>{if(!ALLOWED_KEYS.includes(k))err(k,"unsupported field; v1 has only frozen identity/stances and temporary mood");});
+ const bytes=encodeURIComponent(JSON.stringify(c)).replace(/%[0-9A-F]{2}/g,"x").length;if(bytes>6144)err("soulConfig","must be under 6 KB; currently "+bytes+" bytes");
+ if(c.schemaVersion!==1)err("schemaVersion","must be 1");
  req(c.name,8,"name");req(c.voiceSummary,25,"voiceSummary");
  en(c.relationshipTrack,ENUMS.relationshipTrack,"relationshipTrack");en(c.startingFamiliarity,ENUMS.startingFamiliarity,"startingFamiliarity");en(c.closenessPace,ENUMS.closenessPace,"closenessPace");
  if(list(c.coreIdentity,3,5,"coreIdentity")){c.coreIdentity.forEach((v,i)=>req(v,20,"coreIdentity["+i+"]"));if(!c.coreIdentity.some(x=>/\b(but|yet|although|while|whereas|despite|however)\b/i.test(x)))err("coreIdentity","at least one statement must express a genuine internal contradiction");}
