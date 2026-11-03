@@ -27,6 +27,9 @@ const cycle=buildDemoConfig("cycle",0).config;cycle.mood.vocabulary[0].softensTo
 const markdown=buildDemoConfig("markdown",0).config;markdown.selfFacts[0]="**bold**";assert.equal(validateSoulConfig(markdown).valid,false,"Markdown strings must be rejected");
 const extra=buildDemoConfig("extra",0).config;extra.commitments=[];assert.equal(validateSoulConfig(extra).valid,false,"Unsupported runtime tiers must be rejected");
 const named=buildDemoConfig("named-entity",0).config;named.selfFacts[0]="She had lunch with Taylor Swift yesterday.";assert.equal(validateSoulConfig(named).valid,false,"Real-world named entities in selfFacts must be rejected");
+const leadingName=buildDemoConfig("leading-entity",0).config;leadingName.selfFacts[0]="Kyoto has narrow lanes and crowded stations.";assert.equal(validateSoulConfig(leadingName).valid,false,"A leading real-world place name must be rejected");
+const italic=buildDemoConfig("italic-markdown",0).config;italic.selfFacts[0]="She prefers *quiet* rooms after work.";assert.equal(validateSoulConfig(italic).valid,false,"Italic Markdown must be rejected");
+
 const badMood=buildDemoConfig("bad-mood",0).config;badMood.mood.extra="not allowed";assert.equal(validateSoulConfig(badMood).valid,false,"Unknown mood fields must be rejected");
 const badTrigger=buildDemoConfig("bad-trigger",0).config;badTrigger.triggers[0].emotion="not-in-vocabulary";assert.equal(validateSoulConfig(badTrigger).valid,false,"Trigger emotions must belong to the mood vocabulary");
 const badStages=buildDemoConfig("bad-stages",0).config;badStages.stages[2].minCloseness=10;assert.equal(validateSoulConfig(badStages).valid,false,"Stage thresholds must ascend from zero");
