@@ -1,8 +1,8 @@
 (function(root){
 "use strict";
 const ENUMS={relationshipTrack:["platonic","open","romantic"],startingFamiliarity:["strangers","acquaintances","friends","close"],closenessPace:["slow","normal","fast"],firmness:["soft","firm"],effect:["warms","cools","irritates","delights","unsettles"],decay:["slow","normal","fast"]};
-const MARKDOWN=/(^|\\n)\\s{0,3}(#{1,6}\\s|[-*+]\\s|\\d+\\.\\s|>\\s)|`{3}|`|\\*\\*|__|~~|\\[[^\\]]+\\]\\([^)]+\\)/m;
-const wc=s=>typeof s==="string"?s.trim().split(/\\s+/).filter(Boolean).length:0;
+const MARKDOWN=/(^|\n)\s{0,3}(#{1,6}\s|[-*+]\s|\d+\.\s|>\s)|`{3}|`|\*\*|__|~~|\[[^\]]+\]\([^)]+\)/m;
+const wc=s=>typeof s==="string"?s.trim().split(/\s+/).filter(Boolean).length:0;
 const isObj=v=>v&&typeof v==="object"&&!Array.isArray(v);
 function validateSoulConfig(c){
  const errors=[],err=(p,m)=>errors.push(p+": "+m);
@@ -13,7 +13,7 @@ function validateSoulConfig(c){
  if(c.schemaVersion!==1)err("schemaVersion","must be 1");
  req(c.name,8,"name");req(c.voiceSummary,25,"voiceSummary");
  en(c.relationshipTrack,ENUMS.relationshipTrack,"relationshipTrack");en(c.startingFamiliarity,ENUMS.startingFamiliarity,"startingFamiliarity");en(c.closenessPace,ENUMS.closenessPace,"closenessPace");
- if(list(c.coreIdentity,3,5,"coreIdentity")){c.coreIdentity.forEach((v,i)=>req(v,20,"coreIdentity["+i+"]"));if(!c.coreIdentity.some(x=>/\\b(but|yet|although|while|whereas|despite|however)\\b/i.test(x)))err("coreIdentity","at least one statement must express a genuine internal contradiction");}
+ if(list(c.coreIdentity,3,5,"coreIdentity")){c.coreIdentity.forEach((v,i)=>req(v,20,"coreIdentity["+i+"]"));if(!c.coreIdentity.some(x=>/\b(but|yet|although|while|whereas|despite|however)\b/i.test(x)))err("coreIdentity","at least one statement must express a genuine internal contradiction");}
  if(list(c.stances,4,8,"stances"))c.stances.forEach((s,i)=>{if(!isObj(s)){err("stances["+i+"]","must be an object");return}["topic","stance","why"].forEach(k=>req(s[k],20,"stances["+i+"]."+k));en(s.firmness,ENUMS.firmness,"stances["+i+"].firmness")});
  if(!Array.isArray(c.stages)||c.stages.length!==5)err("stages","exactly five stages required");
  let previous=-1;(Array.isArray(c.stages)?c.stages:[]).forEach((s,i)=>{if(!isObj(s)){err("stages["+i+"]","must be an object");return}if(!Number.isInteger(s.minCloseness)||s.minCloseness<0||s.minCloseness>100||s.minCloseness<=previous)err("stages["+i+"].minCloseness","must ascend strictly from 0 through 100");if(i===0&&s.minCloseness!==0)err("stages[0].minCloseness","must equal 0");previous=s.minCloseness;req(s.name,8,"stages["+i+"].name");req(s.behavior,30,"stages["+i+"].behavior");req(s.opens,20,"stages["+i+"].opens")});
@@ -28,8 +28,8 @@ function validateSoulConfig(c){
  vocab.forEach((v,i)=>{if(!isObj(v)){err("mood.vocabulary["+i+"]","must be an object");return}req(v.label,3,"mood.vocabulary["+i+"].label");req(v.expression,15,"mood.vocabulary["+i+"].expression");if(typeof v.softensTo!=="string"||(v.softensTo!=="baseline"&&!labels.has(v.softensTo)))err("mood.vocabulary["+i+"].softensTo","must be a vocabulary label or baseline")});
  if(vocabOK){const byLabel=new Map(vocab.filter(isObj).map(v=>[v.label,v]));vocab.forEach((v,i)=>{if(!isObj(v))return;let current=v.label,seen=new Set();while(current!=="baseline"){if(seen.has(current)){err("mood.vocabulary["+i+"].softensTo","decay chain contains a cycle");break}seen.add(current);const node=byLabel.get(current);if(!node||typeof node.softensTo!=="string"){err("mood.vocabulary["+i+"].softensTo","decay chain is broken");break}current=node.softensTo}if(current!=="baseline")err("mood.vocabulary["+i+"].softensTo","every decay chain must terminate at baseline")})}
  if(list(c.triggers,6,10,"triggers"))c.triggers.forEach((t,i)=>{if(!isObj(t)){err("triggers["+i+"]","must be an object");return}req(t.when,20,"triggers["+i+"].when");en(t.effect,ENUMS.effect,"triggers["+i+"].effect");if(!labels.has(t.emotion))err("triggers["+i+"].emotion","must match a mood vocabulary label")});
- const properNames=/\\b(?:Apple|Google|Microsoft|Amazon|Netflix|Spotify|Instagram|Facebook|TikTok|YouTube|ChatGPT|OpenAI|Paris|London|Tokyo|Rome|Berlin|Montreal|Montréal|Marseille|Tripoli|Limassol|United States|Canada|France|Greece|Lebanon)\\b|\\b(?:https?:\\/\\/|www\\.)/i;
- if(list(c.selfFacts,8,14,"selfFacts"))c.selfFacts.forEach((f,i)=>{req(f,20,"selfFacts["+i+"]");if(typeof f==="string"&&(properNames.test(f)||/\\b(?:Mr|Mrs|Ms|Dr)\\.?\\s+[A-Z][a-z]+/.test(f)||((f.match(/\\b[A-Z][a-z]{2,}\\b/g)||[]).length>1)))err("selfFacts["+i+"]","contains a likely real-world named entity; keep selfFacts fictional and non-specific")});
+ const properNames=/\b(?:Apple|Google|Microsoft|Amazon|Netflix|Spotify|Instagram|Facebook|TikTok|YouTube|ChatGPT|OpenAI|Paris|London|Tokyo|Rome|Berlin|Montreal|Montréal|Marseille|Tripoli|Limassol|United States|Canada|France|Greece|Lebanon)\b|\b(?:https?:\/\/|www\.)/i;
+ if(list(c.selfFacts,8,14,"selfFacts"))c.selfFacts.forEach((f,i)=>{req(f,20,"selfFacts["+i+"]");if(typeof f==="string"&&(properNames.test(f)||/\b(?:Mr|Mrs|Ms|Dr)\.?\s+[A-Z][a-z]+/.test(f)||((f.match(/\b[A-Z][a-z]{2,}\b/g)||[]).length>1)))err("selfFacts["+i+"]","contains a likely real-world named entity; keep selfFacts fictional and non-specific")});
  if(!Array.isArray(c.openThreads)||c.openThreads.length>4)err("openThreads","must contain zero to four items");(Array.isArray(c.openThreads)?c.openThreads:[]).forEach((x,i)=>req(x,20,"openThreads["+i+"]"));
  if(!isObj(c.privateAgenda))err("privateAgenda","required object");["secret","wants","avoids"].forEach(k=>req(c.privateAgenda&&c.privateAgenda[k],30,"privateAgenda."+k));
  req(c.diaryVoice,40,"diaryVoice");
