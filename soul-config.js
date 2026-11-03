@@ -2,7 +2,7 @@
 "use strict";
 const ENUMS={relationshipTrack:["platonic","open","romantic"],startingFamiliarity:["strangers","acquaintances","friends","close"],closenessPace:["slow","normal","fast"],firmness:["soft","firm"],effect:["warms","cools","irritates","delights","unsettles"],decay:["slow","normal","fast"]};
 const ALLOWED_KEYS=["schemaVersion","name","voiceSummary","screenName","relationshipTrack","startingFamiliarity","closenessPace","coreIdentity","stances","stages","mood","triggers","selfFacts","openThreads","privateAgenda","diaryVoice","factPriorities","provenance"];
-const MARKDOWN=/(^|\n)\s{0,3}(#{1,6}\s|[-*+]\s|\d+\.\s|>\s)|`{3}|`|\*\*|__|~~|\[[^\]]+\]\([^)]+\)/m;
+const MARKDOWN=/(^|\n)\s{0,3}(#{1,6}\s|[-*+]\s|\d+\.\s|>\s)|`{3}|`|\*\*|__|~~|\[[^\]]+\]\([^)]+\)|\*[^\s*][^*]*\*|_[^\s_][^_]*_/m;
 const wc=s=>typeof s==="string"?s.trim().split(/\s+/).filter(Boolean).length:0;
 const utf8Bytes=s=>Array.from(String(s)).reduce((n,ch)=>{const cp=ch.codePointAt(0);return n+(cp<=127?1:cp<=2047?2:cp<=65535?3:4)},0);
 const isObj=v=>v&&typeof v==="object"&&!Array.isArray(v);
@@ -34,7 +34,16 @@ function validateSoulConfig(c){
  if(vocabOK){const byLabel=new Map(vocab.filter(isObj).map(v=>[v.label,v]));vocab.forEach((v,i)=>{if(!isObj(v))return;let current=v.label,seen=new Set();while(current!=="baseline"){if(seen.has(current)){err("mood.vocabulary["+i+"].softensTo","decay chain contains a cycle");break}seen.add(current);const node=byLabel.get(current);if(!node||typeof node.softensTo!=="string"){err("mood.vocabulary["+i+"].softensTo","decay chain is broken");break}current=node.softensTo}if(current!=="baseline")err("mood.vocabulary["+i+"].softensTo","every decay chain must terminate at baseline")})}
  if(list(c.triggers,6,10,"triggers"))c.triggers.forEach((t,i)=>{if(!isObj(t)){err("triggers["+i+"]","must be an object");return}exact(t,["when","effect","emotion"],"triggers["+i+"]");req(t.when,20,"triggers["+i+"].when");en(t.effect,ENUMS.effect,"triggers["+i+"].effect");if(!labels.has(t.emotion))err("triggers["+i+"].emotion","must match a mood vocabulary label")});
  const properNames=/\b(?:Apple|Google|Microsoft|Amazon|Netflix|Spotify|Instagram|Facebook|TikTok|YouTube|ChatGPT|OpenAI|Paris|London|Tokyo|Rome|Berlin|Montreal|Montréal|Marseille|Tripoli|Limassol|United States|Canada|France|Greece|Lebanon)\b|\b(?:https?:\/\/|www\.)/i;
- if(list(c.selfFacts,8,14,"selfFacts"))c.selfFacts.forEach((f,i)=>{req(f,20,"selfFacts["+i+"]");if(typeof f==="string"&&(properNames.test(f)||/\b(?:Mr|Mrs|Ms|Dr)\.?\s+[A-Z][a-z]+/.test(f)||((f.match(/\b[A-Z][a-z]{2,}\b/g)||[]).length>1)))err("selfFacts["+i+"]","contains a likely real-world named entity; keep selfFacts fictional and non-specific")});
+ if(list(c.selfFacts,8,14,"selfFacts"))c.selfFacts.forEach((f,i)=>{
+  req(f,20,"selfFacts["+i+"]");
+  if(typeof f==="string"){
+   const caps=f.match(/\b[A-Z][a-z]{2,}\b/g)||[];
+   const first=(f.match(/^\s*([A-Z][a-z]{2,})/)||[])[1]||"";
+   const allowedStarts=new Set(["She","He","They","Her","His","Their","The","A","An","Sometimes","When","After","Before","On","In","At","Every","Each","One","Most","Some",...String(c.name||"").split(/\s+/)]);
+   if(properNames.test(f)||/\b(?:Mr|Mrs|Ms|Dr)\.?\s+[A-Z][a-z]+/.test(f)||caps.length>1||(caps.length===1&&!allowedStarts.has(first)))
+    err("selfFacts["+i+"]","contains a likely real-world named entity; keep selfFacts fictional and non-specific");
+  }
+ });
  if(!Array.isArray(c.openThreads)||c.openThreads.length>4)err("openThreads","must contain zero to four items");(Array.isArray(c.openThreads)?c.openThreads:[]).forEach((x,i)=>req(x,20,"openThreads["+i+"]"));
  if(!isObj(c.privateAgenda))err("privateAgenda","required object");else exact(c.privateAgenda,["secret","wants","avoids"],"privateAgenda");["secret","wants","avoids"].forEach(k=>req(c.privateAgenda&&c.privateAgenda[k],30,"privateAgenda."+k));
  req(c.diaryVoice,40,"diaryVoice");
