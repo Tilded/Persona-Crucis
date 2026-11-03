@@ -8,7 +8,8 @@ const isObj=v=>v&&typeof v==="object"&&!Array.isArray(v);
 function validateSoulConfig(c){
  const errors=[],err=(p,m)=>errors.push(p+": "+m);
  if(!isObj(c))return{valid:false,errors:["soulConfig must be an object"]};
- const exact=(o,keys,p)=>{if(!isObj(o))return;Object.keys(o).forEach(k=>{if(!keys.includes(k))err(p+"."+k,"unsupported field")});keys.forEach(k=>{if(!Object.prototype.hasOwnProperty.call(o,k))err(p+"."+k,"required field missing")})};\n const req=(v,n,p)=>{if(typeof v!=="string"||!v.trim())err(p,"required string");else if(wc(v)>n)err(p,"over "+n+" words")};
+ const exact=(o,keys,p)=>{if(!isObj(o))return;Object.keys(o).forEach(k=>{if(!keys.includes(k))err(p+"."+k,"unsupported field")});keys.forEach(k=>{if(!Object.prototype.hasOwnProperty.call(o,k))err(p+"."+k,"required field missing")})};
+ const req=(v,n,p)=>{if(typeof v!=="string"||!v.trim())err(p,"required string");else if(wc(v)>n)err(p,"over "+n+" words")};
  const list=(v,min,max,p)=>{if(!Array.isArray(v)||v.length<min||v.length>max){err(p,"must contain "+min+"–"+max+" items");return false}return true};
  const en=(v,values,p)=>{if(!values.includes(v))err(p,"invalid enum; expected "+values.join(", "))};
  Object.keys(c).forEach(k=>{if(!ALLOWED_KEYS.includes(k))err(k,"unsupported field; v1 has only frozen identity/stances and temporary mood");});
