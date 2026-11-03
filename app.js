@@ -34,7 +34,7 @@ function save(){
  data.preferences={nsfw:$("nsfwToggle").checked,gender:$("genderPreference").value,genderOther:$("genderOther").value,communicationStyle:document.querySelector('input[name="communicationStyle"]:checked')?.value||"text"};
  data.gobboSettings=readGobboSettings();
  data.directionResponse=$("directionResponse").value;data.directionNotes=$("directionNotes").value;data.gobboOutput=$("gobboOutput").value;data.brief=$("brief").value;data.readingOutput=$("readingOutput").value;data.characterOutput=$("characterOutput").value;data.characterName=$("characterName").value;data.rawImport=$("rawImport").value;data.exportName=$("exportName").value;
- data.fields={};cardFields.forEach(([k])=>{const e=$("field_"+k);if(e)data.fields[k]=e.value});
+ const fields={...(data.fields||{})};cardFields.forEach(([k])=>{const e=$("field_"+k);if(e)fields[k]=e.value});data.fields=fields;
  try{localStorage.setItem(STORE,JSON.stringify(data))}catch(e){toast("Browser storage is full. Download a backup.")}
 }
 function load(){
@@ -44,7 +44,7 @@ function load(){
    data={...data,...saved};
    data.gobboSettings={...data.gobboSettings,...(saved.gobboSettings||{})};
    $("brief").value=data.brief||"";$("readingOutput").value=data.readingOutput||"";$("characterOutput").value=data.characterOutput||"";$("gobboOutput").value=data.gobboOutput||"";$("directionResponse").value=data.directionResponse||"";$("directionNotes").value=data.directionNotes||"";$("characterName").value=data.characterName||"";$("rawImport").value=data.rawImport||"";$("exportName").value=data.exportName||"";
-   const p=data.preferences||{};$("nsfwToggle").checked=!!p.nsfw;$("genderPreference").value=p.gender||"any";$("genderOther").value=p.genderOther||"";$("genderOther").hidden=$("genderPreference").value!=="other";
+   const p=data.preferences||{};$("nsfwToggle").checked=!!p.nsfw;$("genderPreference").value=p.gender||"any";$("genderOther").value=p.genderOther||"";$("genderOther").hidden=$("genderPreference").value!=="other";const g=data.gobboSettings||{};$("loreEnabled").checked=g.loreEnabled!==false;$("loreCustomPrompt").checked=!!g.loreCustomPrompt;$("altGreetingsEnabled").checked=!!g.altGreetingsEnabled;$("carouselEnabled").checked=!!g.carouselEnabled;$("carouselMode").value=g.carouselMode||"random";$("ragWordsToFire").value=String(g.ragWordsToFire||1);$("customCodeEnabled").checked=!!g.customCodeEnabled;$("thinkingEnabled").checked=!!g.thinkingEnabled;
    const style=p.communicationStyle||"text";const radio=document.querySelector('input[name="communicationStyle"][value="'+style+'"]');if(radio)radio.checked=true;$("nsfwLabel").textContent=p.nsfw?"On · NSFW permitted":"Off · SFW";
   }
  }catch(e){}
