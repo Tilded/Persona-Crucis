@@ -9,7 +9,7 @@ for(const [seed,index] of fixtures){
  const built=buildDemoConfig(seed,index,"open","acquaintances");
  const config=built.config,check=validateSoulConfig(config);
  assert.equal(check.valid,true,seed+": "+check.errors.join(" | "));
- const bytes=encodeURIComponent(JSON.stringify(config)).replace(/%[0-9A-F]{2}/g,"x").length;
+ const bytes=Buffer.byteLength(JSON.stringify(config),"utf8");
  assert.ok(bytes<6144,seed+" exceeds the 6 KB cap: "+bytes);
  assert.ok(config.coreIdentity.some(x=>/\b(but|yet|although|while|whereas|despite|however)\b/i.test(x)),seed+" lacks an internal contradiction");
  assert.equal(config.stages.length,5);
