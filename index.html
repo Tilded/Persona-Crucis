@@ -114,7 +114,14 @@
           <div class="gobbo-setting"><label><input type="checkbox" id="thinkingEnabled" data-gobbo-setting> Enable character thinking</label><p>Optional per-card generation setting.</p></div>
         </div>
         <div id="contextEstimate" class="context-estimate">Approximate always-on context will be calculated from Writing Style, Personality and enabled Starting Lore.</div>
-        <div id="exportFields" class="export-fields"></div>
+        <section class="stage-handoff soul-stage" id="soulStage">
+ <div><span class="mini-label">SECOND GENERATION STAGE</span><h4>Generate the Soul Config</h4><p>Run this after the completed GobboNet fields are mapped. It derives the character's frozen identity, seeded stances, temporary mood, relationship stages, and private continuity from the finished card and this exact spread.</p></div>
+ <button class="button secondary" id="copySoulPrompt" type="button">Copy Soul Config prompt</button>
+ <label class="field-label" for="soulConfigOutput">Soul Config JSON <span>Paste the complete second-stage response</span></label>
+ <textarea id="soulConfigOutput" rows="14" placeholder="Paste strict soulConfig JSON here. The validator rejects malformed or out-of-spec output."></textarea>
+ <div class="validation" id="soulValidation"><strong>Not yet checked.</strong><span>Generate and paste the second-stage Soul Config before exporting.</span></div>
+ <button class="button ghost" id="validateSoulBtn" type="button">Validate Soul Config</button>
+</section>\n<div id="customCodeReminder" class="manual-setup-note" hidden><strong>After importing into GobboNet: enable Custom Code manually.</strong><p>GobboNet disables imported Custom Code for safety. Open the character settings and switch Custom Code on after import. The included engine is a replaceable logging stub.</p></div>\n<div id="exportFields" class="export-fields"></div>
         <p id="memoryFileNote" class="hint">Memory Files: none. No separate attachments are needed for this character.</p>
         <div class="validation" id="validation"><strong>Not yet checked.</strong><span>Complete Writing Style, Personality and Greeting. Leave optional fields blank when they have no proper destination.</span></div>
         <div class="bottom-actions split"><button class="button ghost" data-back="2">← Back to character</button><div class="export-actions"><button class="button secondary" id="validateBtn">Check field separation</button><button class="button primary" id="downloadBtn">Download field backup ↓</button></div></div>
