@@ -26,4 +26,9 @@ const reversed=buildDemoConfig("reversal",0).config;reversed.provenance.spread[8
 const cycle=buildDemoConfig("cycle",0).config;cycle.mood.vocabulary[0].softensTo="irritated";cycle.mood.vocabulary[1].softensTo="curious";assert.equal(validateSoulConfig(cycle).valid,false,"Mood decay cycle must be rejected");
 const markdown=buildDemoConfig("markdown",0).config;markdown.selfFacts[0]="**bold**";assert.equal(validateSoulConfig(markdown).valid,false,"Markdown strings must be rejected");
 const extra=buildDemoConfig("extra",0).config;extra.commitments=[];assert.equal(validateSoulConfig(extra).valid,false,"Unsupported runtime tiers must be rejected");
+const named=buildDemoConfig("named-entity",0).config;named.selfFacts[0]="She had lunch with Taylor Swift yesterday.";assert.equal(validateSoulConfig(named).valid,false,"Real-world named entities in selfFacts must be rejected");
+const badMood=buildDemoConfig("bad-mood",0).config;badMood.mood.extra="not allowed";assert.equal(validateSoulConfig(badMood).valid,false,"Unknown mood fields must be rejected");
+const badTrigger=buildDemoConfig("bad-trigger",0).config;badTrigger.triggers[0].emotion="not-in-vocabulary";assert.equal(validateSoulConfig(badTrigger).valid,false,"Trigger emotions must belong to the mood vocabulary");
+const badStages=buildDemoConfig("bad-stages",0).config;badStages.stages[2].minCloseness=10;assert.equal(validateSoulConfig(badStages).valid,false,"Stage thresholds must ascend from zero");
+
 console.log("Soul Config validator: 3/3 seeded configs PASS; reversed-card, mood-cycle, Markdown, and tier-boundary guards PASS.");
