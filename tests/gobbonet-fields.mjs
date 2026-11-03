@@ -20,7 +20,9 @@ assert.match(app,/loreCustomPrompt:true/,"Export must stamp custom Lore Summary 
 assert.match(app,/altGreetingsEnabled:true/,"Export must stamp Alternative Greetings enabled");
 assert.match(app,/carouselMode:"random"/,"Export must use random Carousel mode");
 assert.match(app,/SOUL_CONFIG_START/,"Export must stamp the Soul Config wrapper");
-assert.match(app,/spec:"chara_card_v3",spec_version:"3\.0"/,"Export must use the GobboNet-supported Character Card V3 wrapper");\nassert.match(app,/extensions:\{gobbonet:\{\.\.\.gobbo,seed:data\.seed,soulConfig:soul,card:gobbo\}\}/,"Export must preserve full GobboNet fields, seed, and Soul Config in the GobboNet extension");\nassert.doesNotMatch(app,/characterCards:\[gobbo\]/,"Do not wrap the card in an unsupported characterCards array");
+assert.match(app,/spec:"chara_card_v3",spec_version:"3\.0"/,"Export must use the GobboNet-supported Character Card V3 wrapper");
+assert.match(app,/extensions:\{gobbonet:\{\.\.\.gobbo,seed:data\.seed,soulConfig:soul,card:gobbo\}\}/,"Export must preserve full GobboNet fields, seed, and Soul Config in the GobboNet extension");
+assert.doesNotMatch(app,/characterCards:\[gobbo\]/,"Do not wrap the card in an unsupported characterCards array");
 assert.match(app,/maraLorePromptTemplate/,"Export must use the Mara-derived Lore Summary template");
 assert.match(app,/name:gobbo\.name,id:slug/,"Card ID must be slugged from the character name");
 assert.match(app,/const avatar="data:image\/jpeg;base64,/,"Export must provide a JPEG data URI avatar");
