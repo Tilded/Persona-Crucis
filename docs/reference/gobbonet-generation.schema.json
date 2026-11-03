@@ -36,7 +36,8 @@
       "maxItems": 20,
       "items": {
         "type": "string",
-        "maxLength": 100
+        "maxLength": 180,
+        "description": "Maximum 20 words; every line begins with the same 'This turn, ...' frame."
       },
       "minItems": 12,
       "description": "12–20 character-specific behavioral texture lines; one line per response nudge, no mood labels or topic obsessions."
