@@ -333,8 +333,9 @@ function mapImported(){
   if(book&&Array.isArray(book.entries)){
    const entries=book.entries.filter(e=>e&&e.enabled!==false&&typeof e.content==="string"&&e.content.trim());
    if(entries.length)parts.push("# Imported Character Book\n\n"+entries.map(e=>{
-    const title=(e.name||e.comment||(Array.isArray(e.keys)?e.keys.join(", "):"Lore entry")).trim();
-    return "## "+title+"\n\n"+e.content.trim();
+    const keys=Array.isArray(e.keys)?e.keys.filter(Boolean):[];
+    const title=(e.name||e.comment||keys.join(", ")||"Lore entry").trim();
+    return "# "+title+(keys.length?", ["+keys.join(", ")+"]":"")+"\n\n"+e.content.trim();
    }).join("\n\n"));
   }
   next.storybook=parts.join("\n\n");
