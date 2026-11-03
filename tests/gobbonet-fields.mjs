@@ -4,7 +4,9 @@ const app=fs.readFileSync("app.js","utf8");
 const html=fs.readFileSync("index.html","utf8");
 const stub=fs.readFileSync("soul-engine.js","utf8");
 const contract=fs.readFileSync("docs/reference/gobbonet-compatibility.md","utf8");
-const schema=JSON.parse(fs.readFileSync("docs/reference/gobbonet-generation.schema.json","utf8"));\nconst sample=JSON.parse(fs.readFileSync("examples/iris-vale-gobbonet-card.json","utf8"));\nconst sampleGobbo=sample.data.extensions.gobbonet;
+const schema=JSON.parse(fs.readFileSync("docs/reference/gobbonet-generation.schema.json","utf8"));
+const sample=JSON.parse(fs.readFileSync("examples/iris-vale-gobbonet-card.json","utf8"));
+const sampleGobbo=sample.data.extensions.gobbonet;
 for(const field of ["writing_style","personality","greeting","alternate_greetings","starting_lore","lore_prompt","storybook","carousel_prompts","custom_code"])
  assert.ok(app.includes('["'+field+'"')||app.includes('"'+field+'"'),"Missing authoring field: "+field);
 assert.match(app,/writingStyle","writing_style"/);
@@ -52,9 +54,9 @@ assert.equal(sampleGobbo.carouselEnabled,true);
 assert.equal(sampleGobbo.carouselMode,"random");
 assert.equal(sampleGobbo.customCodeEnabled,true);
 assert.ok(sampleGobbo.customCode.includes("/* SOUL_CONFIG_START */"));
-assert.ok(sampleGobbo.customCode.endsWith('gobb.log(SOUL_CONFIG.name + " soul config loaded");\\n'));
+assert.ok(sampleGobbo.customCode.endsWith('gobb.log(SOUL_CONFIG.name + " soul config loaded");\n'));
 assert.equal(sampleGobbo.ragStorybook.split(/^# --- /m).length-1,8);
-assert.equal(sampleGobbo.carouselPrompts.split("\\n").length,12);
+assert.equal(sampleGobbo.carouselPrompts.split("\n").length,12);
 assert.ok(!Object.hasOwn(sampleGobbo,"_import"));
 
 console.log("GobboNet field contract checks passed: full fields, Character Card V3 wrapper, Soul Config stamping, stub, and import reminder.");
