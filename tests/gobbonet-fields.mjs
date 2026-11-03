@@ -37,7 +37,7 @@ assert.match(html,/copySoulPrompt/);
 assert.match(html,/soulValidation/);
 assert.match(html,/customCodeReminder/);
 assert.ok(html.indexOf('src="soul-config.js"')<html.indexOf('src="app.js"'));
-assert.ok(html.indexOf('src="soul-engine.js"')<html.indexOf('src="app.js"'));
+assert.match(app,/fetch\("soul-engine\.js"\)/,"Generator must load the replaceable engine as source text, not execute it.");
 assert.ok(contract.includes("Personality persistently every turn"));
 assert.ok(contract.includes("manual setup sheet"));
 assert.equal(schema.properties.carousel_prompts.minItems,12);
