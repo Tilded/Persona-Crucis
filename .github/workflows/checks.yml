@@ -19,6 +19,8 @@ jobs:
           node-version: 22
       - name: Check JavaScript syntax
         run: node --check app.js
+      - name: Check GobboNet field separation
+        run: node tests/gobbonet-fields.mjs
       - name: Check bundled tarot data
         run: |
           node - <<'NODE'
