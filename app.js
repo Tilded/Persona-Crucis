@@ -82,7 +82,8 @@ Return a clear, detailed interpretation with: (1) whole-spread synthesis, (2) al
 function preferenceText(){const p=data.preferences||{};const gender=p.gender||"any";return [
 "NSFW: "+(p.nsfw?"ON — mature adult themes are permitted, never compulsory.":"OFF — keep the character and generated material SFW; no sexual or explicit content."),
 "Gender: "+(gender==="any"?"No preference; do not assume prematurely.":gender==="other"?(p.genderOther||"Another identity, details unspecified."):gender.charAt(0).toUpperCase()+gender.slice(1)+"."),
-"Relationship track: "+(data.relationshipTrack||"open")+". Starting familiarity: "+(data.startingFamiliarity||"acquaintances")+". These are explicit author choices, never tarot-derived.",\n"Communication: "+((p.communicationStyle||"text")==="text"?"Text-message / AIM style: direct conversational messages, no routine roleplay actions, stage directions, or scene narration.":"Traditional roleplay: natural scene-aware prose, actions, and descriptive narration are permitted.")
+"Relationship track: "+(data.relationshipTrack||"open")+". Starting familiarity: "+(data.startingFamiliarity||"acquaintances")+". These are explicit author choices, never tarot-derived.",
+"Communication: "+((p.communicationStyle||"text")==="text"?"Text-message / AIM style: direct conversational messages, no routine roleplay actions, stage directions, or scene narration.":"Traditional roleplay: natural scene-aware prose, actions, and descriptive narration are permitted.")
 ].join("\n")}
 function conceptPrompt(){return `You are proposing character directions for a fictional adult character, using the tarot interpretation only as symbolic creative material.
  
