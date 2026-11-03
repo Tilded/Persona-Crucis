@@ -43,7 +43,7 @@ jobs:
           test -s styles.css
           grep -q 'data/tarot.js' index.html
           grep -q 'soul-config.js' index.html
-          grep -q 'soul-engine.js' index.html
+          grep -q 'soul-engine.js' app.js
           test -s soul-engine.js
           grep -q 'app.js' index.html
           ! grep -Eq 'fetch\(|/api/|localhost:|127\.0\.0\.1' app.js
