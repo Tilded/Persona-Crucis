@@ -18,9 +18,9 @@
       <span class="brand-mark">✦</span>
       <span><strong>PERSONA CRUCIS</strong><small>THE ART OF CHARACTER</small></span>
     </a>
-    <nav aria-label="Main navigation">
+    <div class="masthead-tools"><nav aria-label="Main navigation">
       <a href="#method">The method</a><a href="#workshop">Workshop</a><a href="#export">The final card</a>
-    </nav>
+    </nav><button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><span class="theme-icon" aria-hidden="true">☾</span><span class="theme-label">Dark mode</span></button></div>
   </header>
 
   <main>
@@ -75,12 +75,12 @@
         <div class="panel-title"><div><p class="kicker">Movement III</p><h3>Develop the person</h3><p>Use smaller prompts rather than asking one model to produce an encyclopedia in a single sitting.</p></div><span class="seal">STAGED AUTHORING</span></div>
         <div class="prompt-tabs" id="promptTabs"><button class="prompt-tab active" data-kind="concept">01 · Direction</button><button class="prompt-tab" data-kind="bible">02 · Character Bible</button><button class="prompt-tab" data-kind="gobbo">03 · GobboNet fields</button></div>
         <div class="prompt-card"><div class="prompt-head"><div><span class="mini-label" id="stageLabel">PROMPT II-A</span><h4 id="stageTitle">Develop a character direction</h4></div><button class="button secondary copy-btn" data-prompt="concept">Copy prompt</button></div><textarea id="characterPrompt" class="prompt-text" readonly rows="12"></textarea></div>
-        <label class="field-label" for="characterOutput">Working material <span>Paste or write your results</span></label><textarea id="characterOutput" rows="14" placeholder="Paste the AI response, or write and edit the character material directly."></textarea>
+        <label class="field-label" for="characterOutput">Character working material <span>Keep your concept and complete Character Bible here</span></label><textarea id="characterOutput" rows="14" placeholder="Paste the developed character concept, then the completed Character Bible. This remains your source material."></textarea><div class="stage-handoff" id="gobboHandoff" hidden><strong>Final conversion</strong><p>With your completed Character Bible above, copy the GobboNet prompt, run it in your chosen AI service, then paste the returned JSON below. This separate box keeps your Bible intact.</p><label class="field-label" for="gobboOutput">GobboNet conversion result</label><textarea id="gobboOutput" rows="12" placeholder="Paste the complete JSON object returned by the GobboNet fields prompt."></textarea></div>
         <div class="field-row"><label class="field-label" for="characterName">Character name</label><input id="characterName" placeholder="Name of the character"></div>
         <div class="bottom-actions split"><button class="button ghost" data-back="1">← Back to interpretation</button><button class="button primary" id="toExport">Continue to final card →</button></div>
       </section>
 
-      <section class="work-panel" data-panel="3">
+      <section class="work-panel" data-panel="3" id="export">
         <div class="panel-title"><div><p class="kicker">Movement IV</p><h3>The GobboNet card</h3><p>Import an existing Bible or card, map its contents, then inspect and edit the actual destination fields. The application will not invent missing information.</p></div><span class="seal">LOCAL EXPORT</span></div>
         <div class="import-box"><div><span class="mini-label">START WITH WHAT YOU HAVE</span><h4>Import a Bible or existing card</h4><p>Paste JSON or prose, or choose a local file. Recognized fields are mapped; anything else remains available in the source text.</p></div><div class="import-actions"><input type="file" id="importFile" accept=".json,.txt,.md,.markdown,application/json,text/plain"><button class="button secondary" id="mapImport">Map pasted content</button></div></div>
         <label class="field-label" for="rawImport">Paste existing JSON, Bible, or dossier</label><textarea id="rawImport" rows="6" placeholder="Paste an existing Character Bible, lore dossier, or JSON card here."></textarea>
