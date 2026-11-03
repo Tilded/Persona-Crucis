@@ -33,6 +33,9 @@ const italic=buildDemoConfig("italic-markdown",0).config;italic.selfFacts[0]="Sh
 
 const badMood=buildDemoConfig("bad-mood",0).config;badMood.mood.extra="not allowed";assert.equal(validateSoulConfig(badMood).valid,false,"Unknown mood fields must be rejected");
 const badTrigger=buildDemoConfig("bad-trigger",0).config;badTrigger.triggers[0].emotion="not-in-vocabulary";assert.equal(validateSoulConfig(badTrigger).valid,false,"Trigger emotions must belong to the mood vocabulary");
+const badBaseline=buildDemoConfig("bad-baseline",0).config;badBaseline.mood.baseline="not-in-vocabulary";assert.equal(validateSoulConfig(badBaseline).valid,false,"Mood baseline must be a vocabulary label");
+const badSoftens=buildDemoConfig("bad-softens",0).config;badSoftens.mood.vocabulary[0].softensTo="not-in-vocabulary";assert.equal(validateSoulConfig(badSoftens).valid,false,"Mood softening targets must be valid vocabulary labels or baseline");
+
 const badStages=buildDemoConfig("bad-stages",0).config;badStages.stages[2].minCloseness=10;assert.equal(validateSoulConfig(badStages).valid,false,"Stage thresholds must ascend from zero");
 
 const exported=JSON.parse(fs.readFileSync("examples/iris-vale-gobbonet-card.json","utf8"));
@@ -41,4 +44,4 @@ assert.equal(validateSoulConfig(exportedSoul).valid,true,"The example exported c
 assert.equal(exportedSoul.name,exported.data.name);
 assert.equal(exported.data.extensions.gobbonet.seed,exportedSoul.provenance.seed);
 assert.equal(exported.data.extensions.gobbonet.customCode.includes("/* SOUL_CONFIG_START */"),true);
-console.log("Soul Config validator: 3/3 seeded configs PASS; reversed-card, mood-cycle, Markdown, and tier-boundary guards PASS.");
+console.log("Soul Config validator: 3/3 seeded configs PASS; reversed-card, mood-chain, Markdown, named-entity, trigger, stage, and tier-boundary guards PASS.");
