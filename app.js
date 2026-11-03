@@ -275,7 +275,7 @@ function mapImported(){
  if(src&&typeof src==="object"&&src.card)src=src.card;
  if(src&&typeof src==="object"&&src.gobbonet_character)src=src.gobbonet_character;
  if(src&&typeof src==="object"&&src.character_card)src=src.character_card;
- if(src&&typeof src==="object"&&src.data&&typeof src.data==="object")src=src.data;
+ if(src&&typeof src==="object"&&src.data&&typeof src.data==="object")src=src.data;\n if(src&&typeof src==="object"&&src.extensions&&src.extensions.gobbonet&&src.extensions.gobbonet.card&&typeof src.extensions.gobbonet.card==="object")src=src.extensions.gobbonet.card;
  if(src&&typeof src==="object"&&src.character_bible)src=src.character_bible;
  else if(src&&typeof src==="object"&&src.character&&src.character.identity)src=src.character;
  const isObject=src&&typeof src==="object"&&!Array.isArray(src),pick=(o,...keys)=>{for(const k of keys)if(o&&typeof o[k]==="string"&&o[k].trim())return o[k];return""};
@@ -324,12 +324,12 @@ function maraLorePromptTemplate(name){
 function exportCard(){
  const result=validateCard();if(result.issues.length){toast("Resolve required fields before export.");return}
  const soulResult=parseSoulConfig();if(!soulResult.valid){$("soulValidation").textContent=soulResult.errors.join(" · ");$("soulValidation").className="validation invalid";toast("A valid Soul Config is required before export.");return}
- const card=result.card,settings=readGobboSettings(),soul=soulResult.config;data.soulConfig=soul;data.soulConfigRaw=$("soulConfigOutput").value;save();
+ const card=result.card,soul=soulResult.config;data.soulConfig=soul;data.soulConfigRaw=$("soulConfigOutput").value;save();
  const slug=card.display_name.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"unnamed-character";
  const colors=data.nativeCardExtras||{};
  const avatar="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAP//////////////////////////////////////////////////////////////////////////////////////2wBDAf//////////////////////////////////////////////////////////////////////////////////////wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAH/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAEFAqf/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAEDAQE/AT//xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oACAEDAQE/AT//xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAY/Ap//xAAUEAEAAAAAAAAAAAAAAAAAAAAA/9oACAEBAAE/IT//2Q==";
  const lorePrompt=maraLorePromptTemplate(card.display_name||"the character");
- const engine=(window.PC_SOUL_ENGINE_SOURCE||'if (typeof gobbo !== "undefined" && gobbo && typeof gobbo.log === "function") gobbo.log(SOUL_CONFIG.name + " soul config loaded");').trim();
+ const engine=(window.PC_SOUL_ENGINE_SOURCE||'gobb.log(SOUL_CONFIG.name + " soul config loaded");').trim();
  const customCode="/* SOUL_CONFIG_START */\nvar SOUL_CONFIG = "+JSON.stringify(soul,null,2)+";\n/* SOUL_CONFIG_END */\n\n"+engine+"\n";
  const gobbo={
   name:card.display_name||"Unnamed",id:slug,avatar,writingStyle:card.writing_style,personality:card.personality,
@@ -343,12 +343,25 @@ function exportCard(){
   thinkingEnabled:false,contextInputPercent:null,contextReplyPercent:null,contextLandPercent:null,contextKeepPercent:null,
   logitBiasStrength:-20,carouselEnabled:true,carouselMode:"random",carouselPrompts:card.carousel_prompts.join("\n"),ragWordsToFire:1
  };
- const envelope={gobbonet_export:"cards",version:1,exported:new Date().toISOString(),seed:data.seed,soulConfig:soul,characterCards:[gobbo]};
- download("PersonaCrucis_"+slug+"_GobboNet.json",JSON.stringify(envelope,null,2),"application/json");
+ const v3={
+  spec:"chara_card_v3",spec_version:"3.0",
+  data:{
+   name:gobbo.name,description:gobbo.writingStyle,personality:gobbo.personality,scenario:"",
+   first_mes:gobbo.greeting,mes_example:"",creator_notes:"Generated with Persona Crucis.",
+   system_prompt:"",post_history_instructions:"",alternate_greetings:card.alternate_greetings,
+   tags:["Persona Crucis"],creator:"Persona Crucis",character_version:"1.0",
+   avatar:gobbo.avatar,id:gobbo.id,
+   extensions:{gobbonet:{...gobbo,seed:data.seed,soulConfig:soul,card:gobbo}},
+   group_only_greetings:[],assets:[{type:"icon",uri:"ccdefault:",name:"main",ext:"png"}],
+   creation_date:Date.now(),modification_date:Date.now()
+  }
+ };
+ download("PersonaCrucis_"+slug+"_GobboNet.json",JSON.stringify(v3,null,2),"application/json");
  download("PersonaCrucis_"+slug+"_Field_Sheet_and_Source.txt",["PERSONA CRUCIS — GOBBONET FIELD SHEET","",...cardFields.map(([k,label])=>label+"\n"+(typeof card[k]==="string"?card[k]:Array.isArray(card[k])?card[k].join("\n\n"):"")),"","SOUL CONFIG",JSON.stringify(soul,null,2),"","ORIGINAL SOURCE",data.sourceText||""].join("\n\n"),"text/plain");
  $("customCodeReminder").hidden=false;
- toast("GobboNet card exported. After import, manually enable Custom Code in GobboNet.");
-}function initTheme(){const saved=localStorage.getItem("persona-crucis-theme");const theme=saved==="dark"?"dark":"light";document.documentElement.dataset.theme=theme;const btn=$("themeToggle");const sync=()=>{const dark=document.documentElement.dataset.theme==="dark";btn.setAttribute("aria-pressed",String(dark));btn.setAttribute("aria-label",dark?"Switch to light mode":"Switch to dark mode");btn.querySelector(".theme-icon").textContent=dark?"☀":"☾";btn.querySelector(".theme-label").textContent=dark?"Light mode":"Dark mode"};sync();btn.addEventListener("click",()=>{const next=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=next;localStorage.setItem("persona-crucis-theme",next);sync()})}
+ toast("GobboNet V3 card exported. Import it, then enable Custom Code manually.");
+}
+function initTheme(){const saved=localStorage.getItem("persona-crucis-theme");const theme=saved==="dark"?"dark":"light";document.documentElement.dataset.theme=theme;const btn=$("themeToggle");const sync=()=>{const dark=document.documentElement.dataset.theme==="dark";btn.setAttribute("aria-pressed",String(dark));btn.setAttribute("aria-label",dark?"Switch to light mode":"Switch to dark mode");btn.querySelector(".theme-icon").textContent=dark?"☀":"☾";btn.querySelector(".theme-label").textContent=dark?"Light mode":"Dark mode"};sync();btn.addEventListener("click",()=>{const next=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=next;localStorage.setItem("persona-crucis-theme",next);sync()})}
 function soulPrompt(){
  const c=readCard(),name=c.display_name||$("exportName").value.trim()||"the character";
  const spread=data.spread.map((s,i)=>({position:i+1,label:s.label,meaning:s.meaning,card:s.card,orientation:s.orientation,readerNote:s.note||""}));
