@@ -52,3 +52,31 @@
 :root[data-theme="dark"] .direction-selector{background:#20231f}
 :root[data-theme="dark"] .direction-option{background:#292c27}
 @media(max-width:560px){.direction-selector{padding:14px}.direction-option{grid-template-columns:16px 22px 1fr;padding:11px;gap:8px}.direction-actions{align-items:flex-start;flex-direction:column}}
+
+
+/* GobboNet field sheet: each destination stays visible and independently copyable. */
+.manual-setup-note{margin:1rem 0 1.25rem;padding:1rem 1.1rem;border:1px solid var(--line);background:var(--paper-light);color:var(--ink-soft)}
+.manual-setup-note strong{display:block;color:var(--ink);font-family:var(--serif);font-size:1.2rem;margin-bottom:.25rem}
+.manual-setup-note p{margin:0;line-height:1.55}
+.gobbo-settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin:1.1rem 0}
+.gobbo-setting{min-width:0;padding:.8rem .9rem;border:1px solid var(--line);background:var(--paper-light)}
+.gobbo-setting label{display:flex;align-items:center;gap:.55rem;font-weight:650;color:var(--ink)}
+.gobbo-setting input[type=checkbox]{accent-color:var(--wine);width:1rem;height:1rem}
+.gobbo-setting select{display:block;width:100%;margin-top:.35rem;padding:.55rem;border:1px solid var(--line);background:var(--paper);color:var(--ink);font:inherit}
+.gobbo-setting p{margin:.4rem 0 0;color:var(--muted);font-size:.82rem;line-height:1.45}
+.context-estimate{margin:1rem 0;padding:.8rem 1rem;border-left:3px solid var(--moss);background:var(--paper-light);color:var(--ink-soft);font-size:.88rem;line-height:1.5}
+.context-estimate.elevated{border-left-color:var(--gold)}
+.context-estimate.high{border-left-color:var(--wine);font-weight:650}
+.field-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem}
+.field-head .field-label{flex:1}
+.field-copy{flex:0 0 auto;white-space:nowrap;padding:.4rem .7rem;font-size:.78rem}
+.export-field textarea{width:100%}
+.export-field.full textarea{min-height:9rem}
+.export-field:has(#field_storybook) textarea{min-height:22rem}
+.export-field:has(#field_writing_style) textarea{min-height:16rem}
+.export-field:has(#field_personality) textarea{min-height:9rem}
+.export-field:has(#field_custom_code) textarea{min-height:12rem;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.82rem}
+.validation.warning{border-color:var(--gold);background:var(--paper-light)}
+.validation.warning strong{color:var(--wine)}
+@media(max-width:760px){.gobbo-settings{grid-template-columns:1fr}.field-head{align-items:flex-start}.field-copy{font-size:.72rem;padding:.35rem .5rem}}
+:root[data-theme="dark"] .manual-setup-note,:root[data-theme="dark"] .gobbo-setting,:root[data-theme="dark"] .context-estimate{background:var(--paper-light);color:var(--ink-soft)}
