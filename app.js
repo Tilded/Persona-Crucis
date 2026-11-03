@@ -244,10 +244,10 @@ function validateCard(){
  const c=readCard(),settings=readGobboSettings(),issues=[],warnings=[];
  ["writing_style","personality","greeting"].forEach(k=>{if(!c[k])issues.push("Missing "+k.replaceAll("_"," ")+".")});
  if(Math.ceil(c.writing_style.length/4)>700)issues.push("Writing Style exceeds the approximate 700-token limit.");
- if(c.personality.split(/\\s+/).filter(Boolean).length>100)issues.push("Personality exceeds 100 words.");
+ if(c.personality.split(/\s+/).filter(Boolean).length>100)issues.push("Personality exceeds 100 words.");
  const storyEntries=c.storybook.split(/^# --- /m).slice(1);
  if(storyEntries.length!==8)issues.push("RAG Storybook must contain exactly eight topic entries.");
- storyEntries.forEach((entry,i)=>{const lines=entry.split(/\\r?\\n/).map(x=>x.trim()).filter(Boolean);if(!lines[0]||!lines[0].endsWith(" ---"))issues.push("RAG Storybook entry "+(i+1)+" has an invalid heading.");if(!lines[1]||!/^[a-z0-9_]+_tags:\\s*.+$/i.test(lines[1]))issues.push("RAG Storybook entry "+(i+1)+" is missing its weighted tag line.");if(lines.length<3)issues.push("RAG Storybook entry "+(i+1)+" needs plain prose.");});
+ storyEntries.forEach((entry,i)=>{const lines=entry.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);if(!lines[0]||!lines[0].endsWith(" ---"))issues.push("RAG Storybook entry "+(i+1)+" has an invalid heading.");if(!lines[1]||!/^[a-z0-9_]+_tags:\s*.+$/i.test(lines[1]))issues.push("RAG Storybook entry "+(i+1)+" is missing its weighted tag line.");if(lines.length<3)issues.push("RAG Storybook entry "+(i+1)+" needs plain prose.");});
  const colors=data.nativeCardExtras||{};
  ["background","textColor","dialogColor"].forEach(k=>{if(typeof colors[k]!=="string"||!/^#[0-9a-f]{6}$/i.test(colors[k]))issues.push("Missing valid character-specific hex color: "+k+".")});
 
