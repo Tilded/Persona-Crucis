@@ -4,7 +4,7 @@ import vm from "node:vm";
 const sandbox={};vm.runInNewContext(fs.readFileSync("soul-config.js","utf8"),sandbox);
 const {validateSoulConfig,buildDemoConfig}=sandbox.PCSoul;
 const fixtures=[["iris-1907",0],["celeste-4421",1],["nadia-8813",2]];
-const names=[],voices=[];
+const names=[],voices=[],prioritySets=[];
 for(const [seed,index] of fixtures){
  const built=buildDemoConfig(seed,index,"open","acquaintances");
  const config=built.config,check=validateSoulConfig(config);
@@ -17,11 +17,12 @@ for(const [seed,index] of fixtures){
  assert.ok(config.factPriorities.length>=4);
  assert.equal(config.provenance.seed,seed);
  for(const p of config.provenance.spread)if(p.reversed)assert.ok(p.fedFields.every(x=>["privateAgenda","diaryVoice"].includes(x)),"Reversed card fed an impermissible field");
- names.push(config.name);voices.push(config.voiceSummary);
+ names.push(config.name);voices.push(config.voiceSummary);prioritySets.push(JSON.stringify(config.factPriorities));
  console.log("PASS "+config.name+" | seed="+seed+" | "+bytes+" bytes | contradiction, specific priorities, 10-position provenance");
 }
 assert.equal(new Set(names).size,3,"Fixture names must be distinct");
 assert.equal(new Set(voices).size,3,"Character voices must be clearly distinct");
+assert.equal(new Set(prioritySets).size,3,"Fact priorities must be character-specific across the three fixtures");
 const reversed=buildDemoConfig("reversal",0).config;reversed.provenance.spread[8].reversed=true;reversed.provenance.spread[8].fedFields=["triggers"];assert.equal(validateSoulConfig(reversed).valid,false,"Reversed-card guard must reject trigger leakage");
 const cycle=buildDemoConfig("cycle",0).config;cycle.mood.vocabulary[0].softensTo="irritated";cycle.mood.vocabulary[1].softensTo="curious";assert.equal(validateSoulConfig(cycle).valid,false,"Mood decay cycle must be rejected");
 const markdown=buildDemoConfig("markdown",0).config;markdown.selfFacts[0]="**bold**";assert.equal(validateSoulConfig(markdown).valid,false,"Markdown strings must be rejected");
