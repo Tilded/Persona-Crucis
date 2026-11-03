@@ -81,44 +81,44 @@ window.PC_TAROT = {
   ],
   "positions": [
     {
-      "label": "The Significator / Present · The Core Ego & Immediate Atmosphere",
-      "meaning": "The character’s foundational identity, active demeanor, and the tone of their current daily existence."
+      "label": "The Significator / Present",
+      "meaning": "The Core Ego & Immediate Atmosphere: The character’s foundational identity, active demeanor, and the tone of their current daily existence."
     },
     {
-      "label": "The Challenge / Cross · The Immediate Friction & Fatal Flaw",
-      "meaning": "The character’s internal or external struggle, personal paradox, recurring vice, or immediate dilemma."
+      "label": "The Challenge / Cross",
+      "meaning": "The Immediate Friction & Fatal Flaw: The character’s internal or external struggle, personal paradox, recurring vice, or immediate dilemma."
     },
     {
-      "label": "The Foundation / Root · The Subconscious & Distant Origin",
-      "meaning": "Childhood background, ancestral roots, deep-seated emotional programming, and instinctive reflexes."
+      "label": "The Foundation / Root",
+      "meaning": "The Subconscious & Distant Origin: Childhood background, ancestral roots, deep-seated emotional programming, and instinctive reflexes."
     },
     {
-      "label": "The Recent Past · The Ghost of What Was Just Left Behind",
-      "meaning": "A recent loss, rupture, victory, or departure that leaves a lingering emotional aftershock."
+      "label": "The Recent Past",
+      "meaning": "The Ghost of What Was Just Left Behind: A recent loss, rupture, victory, or departure that leaves a lingering emotional aftershock."
     },
     {
-      "label": "The Crown / Higher Purpose · The Conscious Aspiration & Ideal",
-      "meaning": "What they deliberately strive for, their moral compass, their dream companion, and idealized destiny."
+      "label": "The Crown / Higher Purpose",
+      "meaning": "The Conscious Aspiration & Ideal: What they deliberately strive for, their moral compass, their dream companion, and idealized destiny."
     },
     {
-      "label": "The Immediate Future · The Looming Encounter & Impending Shift",
-      "meaning": "The event, trial, or crossroads about to arrive in their path when the user meets them."
+      "label": "The Immediate Future",
+      "meaning": "The Looming Encounter & Impending Shift: The event, trial, or crossroads about to arrive in their path when the user meets them."
     },
     {
-      "label": "The Self / Internal Stance · The Unfiltered Self-Perception",
-      "meaning": "How the character truly sees themselves when all masks fall away: their insecurities or unshakeable convictions."
+      "label": "The Self / Internal Stance",
+      "meaning": "The Unfiltered Self-Perception: How the character truly sees themselves when all masks fall away, including insecurities and convictions."
     },
     {
-      "label": "The Environment / Social Stance · The World Around Them & How They Are Perceived",
-      "meaning": "The character’s social standing, how strangers misjudge them, and their cultural or physical habitat."
+      "label": "The Environment / Social Stance",
+      "meaning": "The World Around Them & How They Are Perceived: Social standing, how strangers misjudge them, and their cultural or physical habitat."
     },
     {
-      "label": "Hopes & Fears · The Deepest Longing & The Primal Nightmare",
-      "meaning": "Their tender soft spot: the exact phrase or gesture that softens their armor, and the terror that triggers defense."
+      "label": "Hopes & Fears",
+      "meaning": "The Deepest Longing & The Primal Nightmare: Their tender soft spot, the gesture that softens their armor, and the fear that triggers defense."
     },
     {
-      "label": "The Outcome / Culmination · The Ultimate Trajectory & Narrative Destiny",
-      "meaning": "The long-term transformation of this soul and the profound consequence of their companionship."
+      "label": "The Outcome / Culmination",
+      "meaning": "The Ultimate Trajectory & Narrative Destiny: The long-term transformation of this soul and the profound consequence of their companionship."
     }
   ]
 };
