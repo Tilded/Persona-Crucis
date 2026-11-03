@@ -3,7 +3,6 @@
 const $ = id => document.getElementById(id);
 const STORE = "persona-crucis-draft-v1";
 const cardFields = [
-  ["description","Description / card summary","GobboNet card-list metadata only. Keep this to one concise sentence; it is not a character prompt."],
   ["writing_style","Writing Style / System Prompt","Operational instructions only: voice, output format, interaction rules, factual integrity and boundaries. Sent every turn."],
   ["personality","Personality","Compact identity and temperament: who the character is, stable background, values and contradictions. Sent every turn. No writing instructions."],
   ["greeting","Greeting","The opening message for a new conversation only."],
@@ -141,7 +140,6 @@ function gobboPrompt(){
  "Return one valid JSON object with exactly these fields:",
  "{",
  '  "display_name":"",',
- '  "description":"",',
  '  "writing_style":"",',
  '  "personality":"",',
  '  "greeting":"",',
@@ -153,7 +151,6 @@ function gobboPrompt(){
  "}",
  "",
  "STRICT FIELD BOUNDARIES:",
- "- description: one concise card-list blurb only. It is metadata, not a prompt.",
  "- writing_style: operational instructions only. Include voice, message format, response length, conversational conduct, factual integrity, boundaries and relationship pacing. Do not put biography, appearance, work history, interests, values lists or the full character concept here.",
  "- personality: concise identity and temperament only. Include established identity, compact background, stable traits, values, motives and defining contradictions. Do not include formatting instructions, prompt rules or repeated writing_style text.",
  "- greeting: one natural opening message.",
@@ -189,7 +186,7 @@ function alternateGreetingArray(value){
 }
 function fieldValue(key){const el=$("field_"+key);return el?el.value:(data.card[key]||"")}
 function readCard(){
- const card={display_name:$("exportName").value.trim()};
+ const card={display_name:$("exportName").value.trim(),description:data.card.description||""};
  cardFields.forEach(([key])=>{
   const val=fieldValue(key).trim();
   if(key==="alternate_greetings")card[key]=alternateGreetingArray(val);
