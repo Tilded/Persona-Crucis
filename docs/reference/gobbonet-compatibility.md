@@ -97,3 +97,17 @@ This is a field-structure reference, not a request to copy Mara's biography, voi
 10. Save the card, reopen it, and verify that the fields stayed separate.
 
 The downloadable JSON is a backup artifact. It is not the primary installation instruction and the user should not be told to rely on a generic card importer to distribute these fields.
+
+
+## Character Card JSON import contract (verified against GobboNet `js/16-card-io.js`)
+
+Persona Crucis exports one standard Character Card V3 JSON object:
+
+- Root: `spec: "chara_card_v3"`, `spec_version: "3.0"`, and `data`.
+- `data.description` carries Writing Style; `data.personality` carries Personality; `data.first_mes` carries Greeting; `data.alternate_greetings` carries the alternate openings.
+- GobboNet-specific data travels under `data.extensions.gobbonet`. The current importer reads `ragStorybook`, `ragWordsToFire`, `memoryFiles`, `customCode`, and `lorePrompt` from this namespace.
+- The importer deliberately disables imported Custom Code, regardless of the file's `customCodeEnabled` value. The user must enable it manually after reviewing the code.
+- The current JSON importer does not restore every GobboNet-native field from the extension. In particular, Carousel settings, card colors, sampling settings, context-budget overrides, and an avatar embedded as a JSON data URI are retained in the extension payload but are not applied by the current importer. Use the accompanying field sheet to apply those settings manually where needed.
+- The current importer also constructs its internal Writing Style by concatenating V3 `description` and `personality`, while separately preserving Personality. This duplicates Personality in the imported Writing Style field. This is behavior in GobboNet's importer, not a Persona Crucis export-envelope issue; Persona Crucis does not modify GobboNet.
+
+Do not wrap a card in a custom `characterCards` array or a `gobbonet_export` envelope. Those are not recognized by the current importer.
