@@ -16,7 +16,7 @@ assert.match(app, /pick\(src,"system_prompt"\),pick\(src,"post_history_instructi
 assert.doesNotMatch(app, /pick\(src,"lorePrompt","lore_prompt","post_history_instructions"\)/, "Post-history instructions must never be misrouted to Lore Summary Prompt");
 assert.match(app, /# Example Dialogue\\n\\n"\+examples/, "Example dialogue must be labelled when preserved in Storybook");
 assert.match(app, /\["writing_style","personality","greeting"\]/, "Starting Lore and Storybook must not be mandatory non-empty fields");
-assert.match(app, /carouselEnabled:false/, "Carousel must default to disabled");
+assert.match(app, /carouselEnabled:true/, "New character cards must enable Carousel by default");
 assert.match(app, /settings\.carouselEnabled=false/, "Imported cards without explicit Carousel opt-in must remain disabled");
 assert.match(app, /customCodeEnabled:false/, "Imported Custom Code must remain disabled");
 assert.match(app, /data-copy-field/, "Every text destination must have a field-copy control");
@@ -37,4 +37,4 @@ assert.equal(schema.properties.carousel_prompts.minItems, undefined, "Carousel i
 assert.equal(schema.properties.starting_lore.type, "string", "Starting Lore may be empty");
 assert.equal(schema.properties.lore_prompt.type, "string", "Custom Lore Summary Prompt may be empty");
 
-console.log("GobboNet field contract checks passed.");
+assert.match(app,/SOUL_CONFIG_START/,"Export must stamp the Soul Config wrapper");\nassert.match(app,/gobbonet_export:"cards".*characterCards:\\[gobbo\\]/,"Export must use GobboNet cards envelope");\nassert.match(html,/soul-config\\.js/,"Soul validator must load before app");\nassert.match(html,/customCodeReminder/,"Post-import Custom Code reminder must be present");\nconsole.log("GobboNet field contract checks passed.");
