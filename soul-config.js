@@ -1,7 +1,8 @@
 (function(root){
 "use strict";
 const ENUMS={relationshipTrack:["platonic","open","romantic"],startingFamiliarity:["strangers","acquaintances","friends","close"],closenessPace:["slow","normal","fast"],firmness:["soft","firm"],effect:["warms","cools","irritates","delights","unsettles"],decay:["slow","normal","fast"]};
-const ALLOWED_KEYS=["schemaVersion","name","voiceSummary","screenName","relationshipTrack","startingFamiliarity","closenessPace","coreIdentity","stances","stages","mood","triggers","selfFacts","openThreads","privateAgenda","diaryVoice","factPriorities","provenance"];\nconst MARKDOWN=/(^|\n)\s{0,3}(#{1,6}\s|[-*+]\s|\d+\.\s|>\s)|`{3}|`|\*\*|__|~~|\[[^\]]+\]\([^)]+\)/m;
+const ALLOWED_KEYS=["schemaVersion","name","voiceSummary","screenName","relationshipTrack","startingFamiliarity","closenessPace","coreIdentity","stances","stages","mood","triggers","selfFacts","openThreads","privateAgenda","diaryVoice","factPriorities","provenance"];
+const MARKDOWN=/(^|\n)\s{0,3}(#{1,6}\s|[-*+]\s|\d+\.\s|>\s)|`{3}|`|\*\*|__|~~|\[[^\]]+\]\([^)]+\)/m;
 const wc=s=>typeof s==="string"?s.trim().split(/\s+/).filter(Boolean).length:0;
 const isObj=v=>v&&typeof v==="object"&&!Array.isArray(v);
 function validateSoulConfig(c){
