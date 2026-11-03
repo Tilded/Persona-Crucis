@@ -3,7 +3,7 @@
 const ENUMS={relationshipTrack:["platonic","open","romantic"],startingFamiliarity:["strangers","acquaintances","friends","close"],closenessPace:["slow","normal","fast"],firmness:["soft","firm"],effect:["warms","cools","irritates","delights","unsettles"],decay:["slow","normal","fast"]};
 const ALLOWED_KEYS=["schemaVersion","name","voiceSummary","screenName","relationshipTrack","startingFamiliarity","closenessPace","coreIdentity","stances","stages","mood","triggers","selfFacts","openThreads","privateAgenda","diaryVoice","factPriorities","provenance"];
 const MARKDOWN=/(^|\n)\s{0,3}(#{1,6}\s|[-*+]\s|\d+\.\s|>\s)|`{3}|`|\*\*|__|~~|\[[^\]]+\]\([^)]+\)/m;
-const wc=s=>typeof s==="string"?s.trim().split(/\s+/).filter(Boolean).length:0;
+const wc=s=>typeof s==="string"?s.trim().split(/\s+/).filter(Boolean).length:0;\nconst utf8Bytes=s=>Array.from(String(s)).reduce((n,ch)=>{const cp=ch.codePointAt(0);return n+(cp<=127?1:cp<=2047?2:cp<=65535?3:4)},0);
 const isObj=v=>v&&typeof v==="object"&&!Array.isArray(v);
 function validateSoulConfig(c){
  const errors=[],err=(p,m)=>errors.push(p+": "+m);
@@ -13,7 +13,7 @@ function validateSoulConfig(c){
  const list=(v,min,max,p)=>{if(!Array.isArray(v)||v.length<min||v.length>max){err(p,"must contain "+min+"–"+max+" items");return false}return true};
  const en=(v,values,p)=>{if(!values.includes(v))err(p,"invalid enum; expected "+values.join(", "))};
  Object.keys(c).forEach(k=>{if(!ALLOWED_KEYS.includes(k))err(k,"unsupported field; v1 has only frozen identity/stances and temporary mood");});
- const bytes=encodeURIComponent(JSON.stringify(c)).replace(/%[0-9A-F]{2}/g,"x").length;if(bytes>6144)err("soulConfig","must be under 6 KB; currently "+bytes+" bytes");
+ const bytes=utf8Bytes(JSON.stringify(c));if(bytes>6144)err("soulConfig","must be under 6 KB; currently "+bytes+" bytes");
  if(c.schemaVersion!==1)err("schemaVersion","must be 1");
  req(c.name,8,"name");req(c.voiceSummary,25,"voiceSummary");if(c.screenName!==undefined)req(c.screenName,6,"screenName");["schemaVersion","name","voiceSummary","relationshipTrack","startingFamiliarity","closenessPace","coreIdentity","stances","stages","mood","triggers","selfFacts","openThreads","privateAgenda","diaryVoice","factPriorities","provenance"].forEach(k=>{if(!Object.prototype.hasOwnProperty.call(c,k))err(k,"required field missing")});
  en(c.relationshipTrack,ENUMS.relationshipTrack,"relationshipTrack");en(c.startingFamiliarity,ENUMS.startingFamiliarity,"startingFamiliarity");en(c.closenessPace,ENUMS.closenessPace,"closenessPace");
