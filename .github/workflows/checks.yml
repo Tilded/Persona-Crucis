@@ -25,7 +25,7 @@ jobs:
           const fs = require('node:fs');
           const vm = require('node:vm');
           const source = fs.readFileSync('data/tarot.js', 'utf8');
-          const context = {};
+          const context = { window: {} };
           vm.runInNewContext(source, context);
           const tarot = context.window.PC_TAROT;
           if (!tarot || tarot.cards.length !== 78) throw new Error('Expected exactly 78 cards');
