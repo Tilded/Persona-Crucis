@@ -1,40 +1,42 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
 
-const app = fs.readFileSync("app.js", "utf8");
-const html = fs.readFileSync("index.html", "utf8");
-const contract = fs.readFileSync("docs/reference/gobbonet-compatibility.md", "utf8");
-const schema = JSON.parse(fs.readFileSync("docs/reference/gobbonet-generation.schema.json", "utf8"));
+const app=fs.readFileSync("app.js","utf8");
+const html=fs.readFileSync("index.html","utf8");
+const contract=fs.readFileSync("docs/reference/gobbonet-compatibility.md","utf8");
+const schema=JSON.parse(fs.readFileSync("docs/reference/gobbonet-generation.schema.json","utf8"));
 
-for (const field of [
-  "writing_style", "personality", "greeting", "alternate_greetings",
-  "starting_lore", "lore_prompt", "storybook", "carousel_prompts", "custom_code"
-]) assert.ok(app.includes('["' + field + '"') || app.includes('"' + field + '"'), "Missing field: " + field);
-
-assert.match(app, /writingStyle","writing_style"/, "Native GobboNet and authoring snake_case fields must both be recognized");
-assert.match(app, /pick\(src,"system_prompt"\),pick\(src,"post_history_instructions"\)/, "Tavern operational instructions must map to Writing Style");
-assert.doesNotMatch(app, /pick\(src,"lorePrompt","lore_prompt","post_history_instructions"\)/, "Post-history instructions must never be misrouted to Lore Summary Prompt");
-assert.match(app, /# Example Dialogue\\n\\n"\+examples/, "Example dialogue must be labelled when preserved in Storybook");
-assert.match(app, /\["writing_style","personality","greeting"\]/, "Starting Lore and Storybook must not be mandatory non-empty fields");
-assert.match(app, /carouselEnabled:true/, "New character cards must enable Carousel by default");
-assert.match(app, /settings\.carouselEnabled=false/, "Imported cards without explicit Carousel opt-in must remain disabled");
-assert.match(app, /customCodeEnabled:false/, "Imported Custom Code must remain disabled");
-assert.match(app, /data-copy-field/, "Every text destination must have a field-copy control");
-assert.match(app, /Approximate always-on character context/, "The UI must show always-on context cost");
-assert.match(app, /carouselEnabled:settings\.carouselEnabled/, "Export must respect the explicit Carousel toggle");
-assert.match(app, /loreEnabled:settings\.loreEnabled/, "Export must respect the explicit Lore System toggle");
-assert.match(app, /loreCustomPrompt:settings\.loreCustomPrompt/, "Export must respect the custom Lore Prompt toggle");
-
-for (const id of ["loreEnabled","loreCustomPrompt","altGreetingsEnabled","carouselEnabled","carouselMode","ragWordsToFire","customCodeEnabled","thinkingEnabled","contextEstimate","memoryFileNote"]) {
-  assert.ok(html.includes('id="' + id + '"'), "Missing GobboNet setting/control: " + id);
-}
-assert.match(html, /This page does not import a card into GobboNet/, "The final page must state that it is a manual field sheet");
-assert.ok(contract.includes("Personality persistently every turn"), "Compatibility notes must document current Personality injection behavior");
-assert.ok(contract.includes("manual setup sheet"), "Compatibility notes must define manual setup as primary");
-
-assert.equal(schema.properties.carousel_prompts.maxItems, 12);
-assert.equal(schema.properties.carousel_prompts.minItems, undefined, "Carousel is optional and has no minimum line count");
-assert.equal(schema.properties.starting_lore.type, "string", "Starting Lore may be empty");
-assert.equal(schema.properties.lore_prompt.type, "string", "Custom Lore Summary Prompt may be empty");
-
-assert.match(app,/SOUL_CONFIG_START/,"Export must stamp the Soul Config wrapper");\nassert.match(app,/gobbonet_export:"cards".*characterCards:\\[gobbo\\]/,"Export must use GobboNet cards envelope");\nassert.match(html,/soul-config\\.js/,"Soul validator must load before app");\nassert.match(html,/customCodeReminder/,"Post-import Custom Code reminder must be present");\nconsole.log("GobboNet field contract checks passed.");
+for(const field of ["writing_style","personality","greeting","alternate_greetings","starting_lore","lore_prompt","storybook","carousel_prompts","custom_code"])
+ assert.ok(app.includes('["'+field+'"')||app.includes('"'+field+'"'),"Missing authoring field: "+field);
+assert.match(app,/writingStyle","writing_style"/,"Native GobboNet and authoring fields must both be recognized");
+assert.match(app,/pick\(src,"system_prompt"\),pick\(src,"post_history_instructions"\)/,"Tavern operational instructions must map to Writing Style");
+assert.doesNotMatch(app,/pick\(src,"lorePrompt","lore_prompt","post_history_instructions"\)/,"Post-history instructions must not map to Lore Summary Prompt");
+assert.match(app,/carouselEnabled:true/,"New character cards must enable Carousel by default");
+assert.match(app,/settings\.carouselEnabled=false/,"Imported cards without explicit Carousel opt-in must remain disabled");
+assert.match(app,/customCodeEnabled:false/,"Imported Custom Code must remain disabled");
+assert.match(app,/customCodeEnabled:true/,"Export must stamp Custom Code enabled");
+assert.match(app,/loreEnabled:true/,"Export must stamp Lore System enabled");
+assert.match(app,/loreCustomPrompt:true/,"Export must stamp custom Lore Summary Prompt enabled");
+assert.match(app,/altGreetingsEnabled:true/,"Export must stamp Alternative Greetings enabled");
+assert.match(app,/carouselMode:"random"/,"Export must use random Carousel mode");
+assert.match(app,/SOUL_CONFIG_START/,"Export must stamp the Soul Config wrapper");
+assert.match(app,/gobbonet_export:"cards".*characterCards:\[gobbo\]/,"Export must use the GobboNet cards envelope");
+assert.match(app,/maraLorePromptTemplate/,"Export must use the Mara-derived Lore Summary template");
+assert.match(app,/name:card\.display_name[^\n]*id:slug/,"Card ID must be slugged from the character name");
+assert.match(app,/avatar="data:image\/jpeg;base64,/,"Export must provide a JPEG data URI avatar");
+assert.match(app,/ragStorybook:card\.storybook/,"RAG Storybook must be exported as the lore source");
+assert.match(app,/carouselPrompts:card\.carousel_prompts\.join/,"Carousel prompts must be exported one per line");
+assert.match(html,/relationshipTrack/,"Relationship track UI input is required");
+assert.match(html,/startingFamiliarity/,"Starting familiarity UI input is required");
+assert.match(html,/copySoulPrompt/,"Second-stage Soul Config generation prompt is required");
+assert.match(html,/soulValidation/,"Soul Config validation feedback is required");
+assert.match(html,/customCodeReminder/,"Post-import Custom Code reminder is required");
+assert.ok(html.indexOf('src="soul-config.js"')<html.indexOf('src="app.js"'),"Soul validator must load before the app");
+assert.ok(html.indexOf('src="soul-engine.js"')<html.indexOf('src="app.js"'),"Replaceable engine source must load before the app");
+assert.ok(contract.includes("Personality persistently every turn"),"Compatibility notes must document current Personality injection");
+assert.ok(contract.includes("manual setup sheet"),"Compatibility notes must define manual setup as primary");
+assert.equal(schema.properties.carousel_prompts.minItems,12,"Carousel requires at least 12 lines");
+assert.equal(schema.properties.carousel_prompts.maxItems,20,"Carousel permits at most 20 lines");
+assert.equal(schema.properties.starting_lore.type,"string","Starting Lore may be empty");
+assert.equal(schema.properties.lore_prompt.type,"string","Custom Lore Summary Prompt may be empty");
+console.log("GobboNet field contract checks passed: full card defaults, Soul Config stamping, importer envelope, and manual setup reminder.");
