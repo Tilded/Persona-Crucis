@@ -8,13 +8,16 @@
       "type": "string"
     },
     "writing_style": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "personality": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "greeting": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1
     },
     "alternate_greetings": {
       "type": "array",
@@ -33,18 +36,14 @@
     },
     "carousel_prompts": {
       "type": "array",
-      "minItems": 8,
       "maxItems": 12,
       "items": {
         "type": "string",
-        "minLength": 12,
         "maxLength": 100
       }
     }
   },
   "required": [
-    "display_name",
-    "description",
     "writing_style",
     "personality",
     "greeting",
