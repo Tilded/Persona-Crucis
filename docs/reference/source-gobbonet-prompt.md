@@ -13,7 +13,6 @@ IMPORTANT
 Return one valid JSON object only, with exactly these fields:
 {
   "display_name":"",
-  "description":"",
   "writing_style":"",
   "personality":"",
   "greeting":"",
@@ -25,7 +24,6 @@ Return one valid JSON object only, with exactly these fields:
 }
 
 FIELD BOUNDARIES
-- description: one concise card-list blurb. Metadata only; not a character prompt.
 - writing_style: operational instructions only: voice, message format, length, conversational conduct, factual integrity, agency, boundaries and relationship pacing. Do not put biography, appearance, work history, interests, values catalogues or the full character concept here.
 - personality: concise identity and temperament: established identity, compact background, stable traits, values, motives and defining contradictions. Do not include output-format rules or repeat Writing Style.
 - greeting: one natural first message.
