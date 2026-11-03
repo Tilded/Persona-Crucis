@@ -1,0 +1,58 @@
+{
+  "type": "object",
+  "properties": {
+    "display_name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "writing_style": {
+      "type": "string"
+    },
+    "personality": {
+      "type": "string"
+    },
+    "greeting": {
+      "type": "string"
+    },
+    "alternate_greetings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "starting_lore": {
+      "type": "string"
+    },
+    "lore_prompt": {
+      "type": "string"
+    },
+    "storybook": {
+      "type": "string"
+    },
+    "carousel_prompts": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 12,
+      "items": {
+        "type": "string",
+        "minLength": 12,
+        "maxLength": 100
+      }
+    }
+  },
+  "required": [
+    "display_name",
+    "description",
+    "writing_style",
+    "personality",
+    "greeting",
+    "alternate_greetings",
+    "starting_lore",
+    "lore_prompt",
+    "storybook",
+    "carousel_prompts"
+  ],
+  "additionalProperties": false
+}
