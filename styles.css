@@ -10,3 +10,28 @@
 :root[data-theme="dark"] .hero-art{box-shadow:14px 16px 0 #30332d}
 :root[data-theme="dark"] .work-panel{box-shadow:0 8px 24px #0005}
 :root[data-theme="dark"] .stage-handoff{background:#292c27}
+
+.creation-preferences{margin-top:30px;padding:22px;border:1px solid var(--line);background:var(--paper)}
+.preferences-heading h4{font:600 25px var(--serif);margin:3px 0}
+.preferences-heading p,.preference-card p{font-size:11px;color:var(--muted);margin:4px 0 0;max-width:500px}
+.preference-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.preference-card{border:1px solid var(--line);padding:15px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;min-width:0}
+.preference-card strong{font-size:12px;color:var(--ink)}
+.preference-card select,.preference-card input[type="text"]{width:100%;margin-top:8px}
+.preference-other[hidden]{display:none}
+.switch-control{display:flex;align-items:center;gap:10px;cursor:pointer;width:max-content}
+.switch-control input{position:absolute;opacity:0;width:1px;height:1px}
+.switch-track{width:38px;height:21px;border-radius:20px;background:var(--line);position:relative;transition:.2s}
+.switch-track:after{content:"";position:absolute;width:15px;height:15px;left:3px;top:3px;border-radius:50%;background:var(--paper-light);transition:.2s}
+.switch-control input:checked+.switch-track{background:var(--moss)}
+.switch-control input:checked+.switch-track:after{transform:translateX(17px);background:#fff}
+.switch-control input:focus-visible+.switch-track{outline:2px solid var(--wine);outline-offset:3px}
+.switch-label{font:600 10px var(--sans);color:var(--ink-soft)}
+.choice-stack{display:grid;gap:9px}
+.choice-stack label{display:flex;align-items:flex-start;gap:9px;cursor:pointer}
+.choice-stack input{width:auto;margin:3px 0 0;accent-color:var(--wine)}
+.choice-stack b{display:block;font-size:11px}
+.choice-stack small{display:block;font-size:10px;line-height:1.45;color:var(--muted);margin-top:2px}
+:root[data-theme="dark"] .creation-preferences{background:#20231f}
+:root[data-theme="dark"] .preference-card{background:#292c27}
+@media(max-width:560px){.preference-grid{grid-template-columns:1fr}.creation-preferences{padding:15px}}
