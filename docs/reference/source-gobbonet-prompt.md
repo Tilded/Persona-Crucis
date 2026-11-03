@@ -30,7 +30,7 @@ FIELD BOUNDARIES
 - alternate_greetings: optional distinct opening messages. Use [] if none are needed.
 - starting_lore: only the minimum premise facts that genuinely need to be available every turn. An empty string is valid. Do not copy the biography or Storybook here.
 - lore_prompt: optional instructions ONLY for summarising new conversation messages when GobboNet compresses older history. It is not character lore, a memory-writer script, or an ordinary-turn prompt. Use an empty string when GobboNet's built-in summary prompt is sufficient.
-- storybook: detailed, retrieval-friendly Markdown reference. Preserve useful Bible material in self-contained sections such as biography, appearance, family, work, setting, relationships, routines, interests, values, goals, current threads and unresolved facts. GobboNet retrieves relevant excerpts on demand; the full Storybook is not sent on every turn.
+- storybook: detailed, retrieval-friendly Markdown reference. Preserve useful factual material in self-contained sections such as biography, appearance, family, work, setting, relationships, routines, interests, goals, current threads and unresolved facts. Do not restate the compact Personality summary or Writing Style instructions. GobboNet retrieves relevant excerpts on demand; the full Storybook is not sent on every turn.
 - carousel_prompts: optional short and distinct per-response nudges. Use [] by default. Do not repeat Writing Style or Personality, invent events or force topics. Carousel remains disabled by default in the card settings.
 
 NON-NEGOTIABLE
