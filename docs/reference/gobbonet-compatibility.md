@@ -45,7 +45,7 @@ This is the smallest useful always-on premise. It is not the whole biography, th
 
 ### RAG Storybook
 
-This is where the detailed reference belongs. GobboNet parses it into named or plain-text entries and retrieves relevant parts. Use clear headings and self-contained sections. Do not copy the entire Storybook into Writing Style, Personality or Starting Lore.
+This is where the detailed reference belongs. GobboNet parses it into named or plain-text entries and retrieves relevant parts. Use clear headings and self-contained sections. Keep detailed facts here, but do not repeat the compact Personality block or operational Writing Style instructions. Do not copy the entire Storybook into always-on fields.
 
 ### Lore Summary Prompt
 
