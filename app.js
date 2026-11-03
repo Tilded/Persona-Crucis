@@ -370,9 +370,11 @@ function parseSoulConfig(){
  raw=raw.replace(/^\x60{3}(?:json)?\s*/i,"").replace(/\s*\x60{3}$/,"");
  let config;try{config=JSON.parse(raw)}catch(e){return{valid:false,errors:["Invalid JSON: "+e.message]}};
  const check=window.PCSoul?.validateSoulConfig(config)||{valid:false,errors:["Soul validator did not load."]};
- if(config.name!==readCard().display_name)check.errors.push("soulConfig.name does not match the completed card name.");\n if(config.relationshipTrack!==data.relationshipTrack)check.errors.push("relationshipTrack does not match the author-selected UI value.");
+ if(config.name!==readCard().display_name)check.errors.push("soulConfig.name does not match the completed card name.");
+ if(config.relationshipTrack!==data.relationshipTrack)check.errors.push("relationshipTrack does not match the author-selected UI value.");
  if(config.startingFamiliarity!==data.startingFamiliarity)check.errors.push("startingFamiliarity does not match the author-selected UI value.");
- if(String(config.provenance?.seed)!==String(data.seed))check.errors.push("provenance.seed does not match the saved spread seed.");\n if(Array.isArray(config.provenance?.spread))data.spread.forEach((s,i)=>{const p=config.provenance.spread[i];if(!p||p.card!==s.card)check.errors.push("provenance.spread["+i+"].card does not match the current spread.");if(!p||p.reversed!==(s.orientation==="reversed"))check.errors.push("provenance.spread["+i+"].reversed does not match the current spread.");if(p&&p.position!==s.label)check.errors.push("provenance.spread["+i+"].position does not match the current ArcanaPersona position.");});
+ if(String(config.provenance?.seed)!==String(data.seed))check.errors.push("provenance.seed does not match the saved spread seed.");
+ if(Array.isArray(config.provenance?.spread))data.spread.forEach((s,i)=>{const p=config.provenance.spread[i];if(!p||p.card!==s.card)check.errors.push("provenance.spread["+i+"].card does not match the current spread.");if(!p||p.reversed!==(s.orientation==="reversed"))check.errors.push("provenance.spread["+i+"].reversed does not match the current spread.");if(p&&p.position!==s.label)check.errors.push("provenance.spread["+i+"].position does not match the current ArcanaPersona position.");});
  return{...check,config};
 }
 function validateSoulConfigUI(){
