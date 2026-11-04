@@ -20,6 +20,14 @@ assert.match(app,/loreEnabled:true/);
 assert.match(app,/loreCustomPrompt:true/);
 assert.match(app,/altGreetingsEnabled:true/);
 assert.match(app,/carouselMode:"random"/);
+assert.match(app,/At least two exchanges must show genuine warmth or play/,"Examples must include warmth or play.");
+assert.match(app,/Examples show tone only\\. Never repeat them or write a speaker label\\./,"Example exchanges must be explicitly tone-only and unlabeled.");
+assert.match(app,/one concise, explicit one-line rule for how the character responds when the user is vulnerable/,"Writing Style must define a vulnerability response.");
+assert.match(app,/each of the words "practical", "useful", and "functional" no more than twice/,"Avoid adjective fixation across always-on fields.");
+assert.match(app,/2–3 specific interests outside the character’s occupation/,"Every character needs interests beyond their occupation.");
+assert.match(app,/At least three lines must deliberately redirect away from the character’s dominant trait/,"Carousel must counterbalance the dominant trait.");
+assert.match(app,/None of the carousel lines may mention the character’s occupation, workplace, work, jobs, tasks, duties, productivity, or getting things done/,"Carousel must stay clear of work and task references.");
+
 assert.match(app,/SOUL_CONFIG_START/);
 assert.match(app,/spec:"chara_card_v3",spec_version:"3\.0"/,"Export must use GobboNet's supported Character Card V3 wrapper");
 assert.ok(app.includes("extensions:{gobbonet:{...(({writingStyle,personality,...rest})=>rest)(gobbo),seed:data.seed,soulConfig:soul}}"),"Keep native settings without duplicating Writing Style or Personality");
