@@ -37,6 +37,8 @@ const badBaseline=buildDemoConfig("bad-baseline",0).config;badBaseline.mood.base
 const badSoftens=buildDemoConfig("bad-softens",0).config;badSoftens.mood.vocabulary[0].softensTo="not-in-vocabulary";assert.equal(validateSoulConfig(badSoftens).valid,false,"Mood softening targets must be valid vocabulary labels or baseline");
 
 const badStages=buildDemoConfig("bad-stages",0).config;badStages.stages[2].minCloseness=10;assert.equal(validateSoulConfig(badStages).valid,false,"Stage thresholds must ascend from zero");
+const vagueThread=buildDemoConfig("vague-thread",0).config;vagueThread.openThreads[0]="A personal project might move forward soon.";assert.equal(validateSoulConfig(vagueThread).valid,false,"Vague or hedged openThreads must be rejected");
+const statuslessThread=buildDemoConfig("statusless-thread",0).config;statuslessThread.openThreads[0]="Her brass kettle is an interesting object.";assert.equal(validateSoulConfig(statuslessThread).valid,false,"OpenThreads must state concrete progress or status");
 
 const exported=JSON.parse(fs.readFileSync("examples/iris-vale-gobbonet-card.json","utf8"));
 const exportedSoul=exported.data.extensions.gobbonet.soulConfig;
@@ -44,4 +46,10 @@ assert.equal(validateSoulConfig(exportedSoul).valid,true,"The example exported c
 assert.equal(exportedSoul.name,exported.data.name);
 assert.equal(exported.data.extensions.gobbonet.seed,exportedSoul.provenance.seed);
 assert.equal(exported.data.extensions.gobbonet.customCode.includes("/* SOUL_CONFIG_START */"),true);
+assert.equal(exported.data.extensions.gobbonet.card,undefined,"Do not duplicate the full GobboNet payload under extensions.gobbonet.card");
+const stampedCode=exported.data.extensions.gobbonet.customCode;
+let logged="";
+new Function("gobbo",stampedCode)({log:(message)=>{logged=message}});
+assert.match(logged,/soul config loaded$/);
+console.log("PASS stamped customCode executes with mock gobbo; syntax and runtime errors are fatal.");
 console.log("Soul Config validator: 3/3 seeded configs PASS; reversed-card, mood-chain, Markdown, named-entity, trigger, stage, and tier-boundary guards PASS.");
