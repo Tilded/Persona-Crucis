@@ -57,7 +57,7 @@ Carousel is optional. Leave it disabled by default. If the author deliberately e
 
 ### Custom Code and Memory Files
 
-Custom Code is executable JavaScript, not prose. Persona Crucis does not generate or enable scripts. Imported code is preserved for reference but remains disabled. Memory Files are separate attachments; they are not interchangeable with Starting Lore, Storybook or the running thread summary.
+Custom Code is executable JavaScript, not prose. Persona Crucis stamps the reviewed Soul Engine source after the serialized SOUL_CONFIG block. The engine uses GobboNet’s documented custom-code hooks and keeps runtime state in gobbo.store.soul. GobboNet imports Custom Code disabled; inspect the stamped source and enable it manually in the character editor. Memory Files are separate attachments; they are not interchangeable with Starting Lore, Storybook or the running thread summary.
 
 ## Context-cost rule
 
@@ -93,7 +93,7 @@ This is a field-structure reference, not a request to copy Mara's biography, voi
 6. Copy the Lore Summary Prompt only if the custom-prompt toggle is enabled. Otherwise leave GobboNet's built-in prompt in place.
 7. Copy the detailed reference into RAG Storybook. Set the plain-text trigger threshold deliberately; 1 is GobboNet's default.
 8. Leave Carousel disabled unless you deliberately want one hidden nudge per response.
-9. Leave Custom Code empty and disabled unless you have separately reviewed a script.
+9. Review the stamped Soul Engine source in Custom Code. Imported cards arrive with it disabled; enable it manually only after reviewing the code.
 10. Save the card, reopen it, and verify that the fields stayed separate.
 
 The downloadable JSON is a backup artifact. It is not the primary installation instruction and the user should not be told to rely on a generic card importer to distribute these fields.
@@ -106,7 +106,7 @@ Persona Crucis exports one standard Character Card V3 JSON object:
 - Root: `spec: "chara_card_v3"`, `spec_version: "3.0"`, and `data`.
 - `data.description` carries Writing Style; `data.personality` carries Personality; `data.first_mes` carries Greeting; `data.alternate_greetings` carries the alternate openings.
 - GobboNet-specific data travels under `data.extensions.gobbonet`. The current importer reads `ragStorybook`, `ragWordsToFire`, `memoryFiles`, `customCode`, and `lorePrompt` from this namespace.
-- The importer deliberately disables imported Custom Code, regardless of the file's `customCodeEnabled` value. The user must enable it manually after reviewing the code.
+- The importer deliberately disables imported Custom Code, regardless of the file's `customCodeEnabled` value. The stamped Soul Engine remains in the extension payload; review it and enable it manually in GobboNet.
 - The current JSON importer does not restore every GobboNet-native field from the extension. In particular, Carousel settings (`carouselEnabled`, `carouselMode`, `carouselPrompts`), card colors, sampling settings, `thinkingEnabled`, context-budget overrides, the supplied card ID, and an avatar embedded as a JSON data URI are retained in the extension payload but are not applied by the current importer. The importer generates a new ID, uses its default avatar, and inherits its own default for settings it does not map. Use the accompanying field sheet to apply those settings manually where needed.
 - The current importer also constructs its internal Writing Style by concatenating V3 `description` and `personality`, while separately preserving Personality. This duplicates Personality in the imported Writing Style field. This is behavior in GobboNet's importer, not a Persona Crucis export-envelope issue; Persona Crucis does not modify GobboNet.
 
