@@ -11,7 +11,7 @@ const cardFields = [
   ["lore_prompt","Lore Summary Prompt","Used only when GobboNet compresses older conversation messages. Optional custom override; not an ordinary-turn prompt."],
   ["storybook","RAG Storybook","Detailed character reference. GobboNet retrieves relevant parts on demand; do not duplicate this entire text in always-on fields."],
   ["carousel_prompts","Carousel Prompts","12–20 short character-specific behavioral texture lines. One line is injected per response."],
-  ["custom_code","Custom Code","Executable JavaScript, not prose. Keep blank unless a script is intentionally supplied and reviewed."]
+  ["custom_code","Custom Code","Executable JavaScript, not prose. Persona Crucis stamps the Soul Engine after SOUL_CONFIG; review it before enabling after import."]
 ];
 let data={cards:[],positions:[],spread:[],step:0,promptKind:"concept",seed:"",soulConfig:null,soulConfigRaw:"",relationshipTrack:"open",startingFamiliarity:"acquaintances",nativeCardExtras:{},card:{display_name:"",description:"",writing_style:"",personality:"",greeting:"",alternate_greetings:[],starting_lore:"",lore_prompt:"",storybook:"",carousel_prompts:[],custom_code:""},sourceText:"",directionResponse:"",directionOptions:[],selectedDirectionIndex:-1,directionNotes:"",memoryFiles:[],gobboSettings:{loreEnabled:true,loreCustomPrompt:true,altGreetingsEnabled:true,carouselEnabled:true,carouselMode:"random",ragWordsToFire:1,customCodeEnabled:false,thinkingEnabled:false},preferences:{nsfw:false,gender:"any",genderOther:"",communicationStyle:"text"}};
 let toastTimer;
