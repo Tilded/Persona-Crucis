@@ -48,10 +48,39 @@ assert.equal(exported.data.extensions.gobbonet.seed,exportedSoul.provenance.seed
 assert.equal(exported.data.extensions.gobbonet.customCode.includes("/* SOUL_CONFIG_START */"),true);
 assert.equal(exported.data.extensions.gobbonet.card,undefined,"Do not duplicate the full GobboNet payload under extensions.gobbonet.card");
 const stampedCode=exported.data.extensions.gobbonet.customCode;
-let logged="";
-const originalConsoleLog=console.log;
-console.log=(...args)=>{logged=args.join(" ")};
-try{new Function("gobbo",stampedCode)({log:()=>{}})}finally{console.log=originalConsoleLog}
-assert.match(logged,/soul config loaded$/);
-console.log("PASS stamped customCode executes with mock gobbo; syntax and runtime errors are fatal.");
+const hookHandlers={};
+const mockThread={id:"soul-ci-thread",personaName:"Test User",messages:[
+ {role:"user",content:"I enjoy quiet evenings and tea.",timestamp:Date.now()-1000},
+ {role:"assistant",content:"That sounds peaceful.",timestamp:Date.now()-500}
+]};
+const engineLogs=[],askCalls=[];
+const mockGobbo={
+ thread:mockThread,store:{},
+ log(...args){engineLogs.push(args.join(" "))},save(){},note(){},
+ on(name,fn){hookHandlers[name]=fn},
+ every(interval,fn){this.periodic=fn},
+ async ask(prompt,options){askCalls.push({prompt,options});return askCalls.length===1?"NONE":"MOOD: SAME | 0\\nCLOSER: 0"}
+};
+const previousSoul=globalThis.soul;
+try{
+ delete globalThis.soul;
+ new Function("gobbo",stampedCode)(mockGobbo);
+ assert.equal(typeof hookHandlers.context,"function","Context hook must register.");
+ assert.equal(typeof hookHandlers.activate,"function","Activate hook must register.");
+ assert.equal(typeof mockGobbo.periodic,"function","Periodic pass must register.");
+ hookHandlers.activate();
+ assert.equal(typeof globalThis.soul.runPassNow,"function","Console API must be exposed.");
+ const contextMessages=mockThread.messages.map(m=>({...m}));
+ hookHandlers.context({thread:mockThread,messages:contextMessages});
+ assert.ok(contextMessages.some(m=>m.role==="system"&&m.content.startsWith("[SOUL STATE]")),"Context hook must inject the tagged state block.");
+ await globalThis.soul.runPassNow();
+ assert.equal(mockGobbo.store.soul.v,1,"Engine must initialize persisted state.");
+ assert.equal(askCalls.length,2,"Background pass must run extraction and state calls.");
+ hookHandlers.deactivate();
+ assert.equal(globalThis.soul,undefined,"Deactivation must remove the console API.");
+}finally{
+ if(previousSoul===undefined)delete globalThis.soul;else globalThis.soul=previousSoul;
+}
+assert.ok(engineLogs.some(x=>x.includes("soul-engine v1 loaded for Iris Vale")),"Engine must log successful startup.");
+console.log("PASS stamped Soul Engine executes, registers hooks, injects state, persists, and tears down with mock gobbo.");
 console.log("Soul Config validator: 3/3 seeded configs PASS; reversed-card, mood-chain, Markdown, named-entity, trigger, stage, and tier-boundary guards PASS.");
