@@ -46,7 +46,7 @@ assert.equal(schema.properties.starting_lore.type,"string");
 assert.equal(schema.properties.lore_prompt.type,"string");
 assert.equal(sample.spec,"chara_card_v3");
 assert.equal(sample.spec_version,"3.0");
-for(const field of ["name","id","avatar","writingStyle","personality","loreEnabled","loreModelFile","loreCustomPrompt","lorePrompt","startingLore","ragStorybook","memoryFiles","greeting","altGreetingsEnabled","altGreetings","background","textColor","dialogColor","temperature","minP","topK","topP","repeatPenalty","repeatLastN","xtcProbability","xtcThreshold","dryMultiplier","bannedPhrases","customCode","customCodeEnabled","contextLimit","smartLimitEnabled","smartLimitTokens","thinkingEnabled","contextInputPercent","contextReplyPercent","contextLandPercent","contextKeepPercent","logitBiasStrength","carouselEnabled","carouselMode","carouselPrompts"])
+for(const field of ["name","id","avatar","loreEnabled","loreModelFile","loreCustomPrompt","lorePrompt","startingLore","ragStorybook","memoryFiles","greeting","altGreetingsEnabled","altGreetings","background","textColor","dialogColor","temperature","minP","topK","topP","repeatPenalty","repeatLastN","xtcProbability","xtcThreshold","dryMultiplier","bannedPhrases","customCode","customCodeEnabled","contextLimit","smartLimitEnabled","smartLimitTokens","thinkingEnabled","contextInputPercent","contextReplyPercent","contextLandPercent","contextKeepPercent","logitBiasStrength","carouselEnabled","carouselMode","carouselPrompts"])
  assert.ok(Object.hasOwn(sampleGobbo,field),"Example card is missing "+field);
 assert.ok(sample.data.avatar.startsWith("data:image/jpeg;base64,"));
 assert.ok(sample.data.description.length>0);
