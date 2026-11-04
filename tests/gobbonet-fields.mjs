@@ -126,7 +126,7 @@ try {
 } finally {
  if(previousSoul===undefined) delete globalThis.soul; else globalThis.soul=previousSoul;
 }
-assert.equal(sampleGobbo.ragStorybook.split(/^# --- /m).length-1,8);
+assert.equal(sampleGobbo.ragStorybook.split(/^# --- /m).length-1,20,"Example Storybook must contain exactly twenty retrieval topics.");
 assert.equal(sampleGobbo.carouselPrompts.split("\n").length,12);
 assert.ok(!Object.hasOwn(sampleGobbo,"_import"));
 
