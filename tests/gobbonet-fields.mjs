@@ -7,6 +7,21 @@ const contract=fs.readFileSync("docs/reference/gobbonet-compatibility.md","utf8"
 const schema=JSON.parse(fs.readFileSync("docs/reference/gobbonet-generation.schema.json","utf8"));
 const sample=JSON.parse(fs.readFileSync("examples/iris-vale-gobbonet-card.json","utf8"));
 const sampleGobbo=sample.data.extensions.gobbonet;
+const sampleWriting=sample.data.description;
+const samplePersonality=sample.data.personality;
+const exampleCarousel=sampleGobbo.carouselPrompts.split("\n");
+assert.equal((sampleWriting.match(/^User:/gm)||[]).length,5,"Example fixture must contain exactly five exchanges");
+assert.ok(sampleWriting.includes("Examples show tone only. Never repeat them or write a speaker label."));
+assert.ok(sampleWriting.includes("When someone is vulnerable"));
+assert.ok(sampleWriting.includes("make you tea")&&sampleWriting.includes("Come sit with me"),"At least two sample exchanges must demonstrate warmth or play");
+for(const word of ["practical","useful","functional"]){
+ const count=(sampleWriting+" "+samplePersonality).match(new RegExp("\\b"+word+"\\b","gi"))||[];
+ assert.ok(count.length<=2,"Repeated adjective limit exceeded: "+word);
+}
+assert.ok(exampleCarousel.length>=12&&exampleCarousel.length<=20);
+assert.ok(exampleCarousel.filter(line=>/unrelated|absurdity|personal taste|pleasant sound|purely for pleasure|silly makes you laugh|aesthetic preference|playful disagreement/i.test(line)).length>=3,"Sample Carousel must redirect away from Iris's dominant trait");
+assert.ok(exampleCarousel.every(line=>! /\\b(work|workplace|job|task|tasks|duties|productivity)\\b/i.test(line)),"Sample Carousel must not mention work or tasks");
+assert.ok(sampleGobbo.ragStorybook.includes("swims twice a week")&&sampleGobbo.ragStorybook.includes("amateur astronomy")&&sampleGobbo.ragStorybook.includes("odd postcards"),"Sample character must have three non-occupational interests");
 for(const field of ["writing_style","personality","greeting","alternate_greetings","starting_lore","lore_prompt","storybook","carousel_prompts","custom_code"])
  assert.ok(app.includes('["'+field+'"')||app.includes('"'+field+'"'),"Missing authoring field: "+field);
 assert.match(app,/writingStyle","writing_style"/);
