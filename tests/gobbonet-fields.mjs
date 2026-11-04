@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 const app=fs.readFileSync("app.js","utf8");
 const html=fs.readFileSync("index.html","utf8");
-const stub=fs.readFileSync("soul-engine.js","utf8");
+const engine=fs.readFileSync("soul-engine.js","utf8");
 const contract=fs.readFileSync("docs/reference/gobbonet-compatibility.md","utf8");
 const schema=JSON.parse(fs.readFileSync("docs/reference/gobbonet-generation.schema.json","utf8"));
 const sample=JSON.parse(fs.readFileSync("examples/iris-vale-gobbonet-card.json","utf8"));
@@ -53,7 +53,9 @@ assert.match(app,/const avatar="data:image\/jpeg;base64,/);
 assert.match(app,/ragStorybook:card\.storybook/);
 assert.match(app,/carouselPrompts:card\.carousel_prompts\.join/);
 assert.match(app,/console\.log\(SOUL_CONFIG\.name \+ " soul config loaded"\);/);
-assert.match(stub,/console\.log\(SOUL_CONFIG\.name \+ " soul config loaded"\);/);
+assert.match(engine,/soul-engine v1/);
+assert.match(engine,/gobbo\.on\("context"/);
+assert.match(engine,/gobbo\.every\(PASS_EVERY/);
 assert.match(html,/relationshipTrack/);
 assert.match(html,/startingFamiliarity/);
 assert.match(html,/copySoulPrompt/);
@@ -81,7 +83,42 @@ assert.equal(sampleGobbo.carouselEnabled,true);
 assert.equal(sampleGobbo.carouselMode,"random");
 assert.equal(sampleGobbo.customCodeEnabled,true);
 assert.ok(sampleGobbo.customCode.includes("/* SOUL_CONFIG_START */"));
-assert.ok(sampleGobbo.customCode.endsWith('console.log(SOUL_CONFIG.name + " soul config loaded");\n'));
+assert.ok(sampleGobbo.customCode.includes(engine.trim()),"The exported Custom Code must stamp the complete Soul Engine source.");
+assert.equal(sampleGobbo.customCode, "/* SOUL_CONFIG_START */\\nvar SOUL_CONFIG = "+JSON.stringify(sampleGobbo.soulConfig,null,2)+";\\n/* SOUL_CONFIG_END */\\n\\n"+engine.trim()+"\\n");
+
+// Execute the exact stamped Custom Code with GobboNet documented API mocked.
+const hookHandlers={};
+const mockThread={id:"ci-thread",personaName:"Test User",messages:[
+ {role:"user",content:"I enjoy quiet evenings and tea.",timestamp:Date.now()-1000},
+ {role:"assistant",content:"That sounds peaceful.",timestamp:Date.now()-500}
+]};
+const askCalls=[];
+const mockGobbo={
+ thread:mockThread,store:{},save(){},log(){},note(){},
+ on(name,fn){hookHandlers[name]=fn;},
+ every(interval,fn){this.periodic=fn;},
+ async ask(prompt,options){askCalls.push({prompt,options});return askCalls.length===1?"NONE":"MOOD: SAME | 0\\nCLOSER: 0";}
+};
+const previousSoul=globalThis.soul;
+try {
+ delete globalThis.soul;
+ new Function("gobbo",sampleGobbo.customCode)(mockGobbo);
+ assert.equal(typeof hookHandlers.context,"function","Stamped engine must register context hook.");
+ assert.equal(typeof hookHandlers.activate,"function","Stamped engine must register activate hook.");
+ assert.equal(typeof mockGobbo.periodic,"function","Stamped engine must register periodic background pass.");
+ hookHandlers.activate();
+ assert.equal(typeof globalThis.soul.runPassNow,"function","Soul console API must be exposed on activation.");
+ const contextMessages=mockThread.messages.map(m=>({...m}));
+ hookHandlers.context({thread:mockThread,messages:contextMessages});
+ assert.ok(contextMessages.some(m=>m.role==="system"&&m.content.startsWith("[SOUL STATE]")),"Engine must inject its tagged state block before the user message.");
+ await globalThis.soul.runPassNow();
+ assert.equal(mockGobbo.store.soul.v,1,"Background pass must initialize persisted Soul state.");
+ assert.equal(askCalls.length,2,"Background pass should make extraction and state calls.");
+ hookHandlers.deactivate();
+ assert.equal(globalThis.soul,undefined,"Deactivation must remove the console API.");
+} finally {
+ if(previousSoul===undefined) delete globalThis.soul; else globalThis.soul=previousSoul;
+}
 assert.equal(sampleGobbo.ragStorybook.split(/^# --- /m).length-1,8);
 assert.equal(sampleGobbo.carouselPrompts.split("\n").length,12);
 assert.ok(!Object.hasOwn(sampleGobbo,"_import"));
