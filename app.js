@@ -359,7 +359,7 @@ function exportCard(){
    system_prompt:"",post_history_instructions:"",alternate_greetings:card.alternate_greetings,
    tags:["Persona Crucis"],creator:"Persona Crucis",character_version:"1.0",
    avatar:gobbo.avatar,id:gobbo.id,
-   extensions:{gobbonet:{ragStorybook:gobbo.ragStorybook,ragWordsToFire:gobbo.ragWordsToFire,memoryFiles:gobbo.memoryFiles,customCode:gobbo.customCode,lorePrompt:gobbo.lorePrompt,seed:data.seed,soulConfig:soul}},
+   extensions:{gobbonet:{...(({writingStyle,personality,...rest})=>rest)(gobbo),seed:data.seed,soulConfig:soul}},
    group_only_greetings:[],assets:[{type:"icon",uri:"ccdefault:",name:"main",ext:"png"}],
    creation_date:Date.now(),modification_date:Date.now()
   }
