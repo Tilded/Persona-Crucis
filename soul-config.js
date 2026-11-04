@@ -49,7 +49,7 @@ function validateSoulConfig(c){
    req(x,20,"openThreads["+i+"]");
    if(typeof x==="string"){
     if(/\b(?:may|might|could|perhaps|possibly|maybe|something|someone|somewhere)\b|\ba personal\b|\ba project\b|\ba routine\b/i.test(x))err("openThreads["+i+"]","hedged or vague; name a concrete object, person, or place");
-    if(!/\b(?:is|are|was|were|has|have|had|awaits?|awaiting|stalled|paused|halfway|unfinished|completed|finished|repaired|broken|scheduled|booked|moved|delayed|drafted|submitted|approved|rejected|underway|progress|remaining|left)\b/i.test(x))err("openThreads["+i+"]","must state the concrete referent's current progress or status");
+    if(!/\b(?:awaits?|awaiting|waiting|stalled|paused|halfway|unfinished|completed|finished|repaired|broken|missing|scheduled|booked|moved|delayed|drafted|submitted|approved|rejected|underway|progress|remaining|left)\b/i.test(x))err("openThreads["+i+"]","must state the concrete referent's current progress or status");
    }
   });
  if(!isObj(c.privateAgenda))err("privateAgenda","required object");else exact(c.privateAgenda,["secret","wants","avoids"],"privateAgenda");["secret","wants","avoids"].forEach(k=>req(c.privateAgenda&&c.privateAgenda[k],30,"privateAgenda."+k));
