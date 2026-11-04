@@ -84,7 +84,7 @@ assert.equal(sampleGobbo.carouselMode,"random");
 assert.equal(sampleGobbo.customCodeEnabled,true);
 assert.ok(sampleGobbo.customCode.includes("/* SOUL_CONFIG_START */"));
 assert.ok(sampleGobbo.customCode.includes(engine.trim()),"The exported Custom Code must stamp the complete Soul Engine source.");
-assert.equal(sampleGobbo.customCode, "/* SOUL_CONFIG_START */\\nvar SOUL_CONFIG = "+JSON.stringify(sampleGobbo.soulConfig,null,2)+";\\n/* SOUL_CONFIG_END */\\n\\n"+engine.trim()+"\\n");
+assert.equal(sampleGobbo.customCode, "/* SOUL_CONFIG_START */\nvar SOUL_CONFIG = "+JSON.stringify(sampleGobbo.soulConfig,null,2)+";\n/* SOUL_CONFIG_END */\n\n"+engine.trim()+"\n");
 
 // Execute the exact stamped Custom Code with GobboNet documented API mocked.
 const hookHandlers={};
@@ -97,7 +97,7 @@ const mockGobbo={
  thread:mockThread,store:{},save(){},log(){},note(){},
  on(name,fn){hookHandlers[name]=fn;},
  every(interval,fn){this.periodic=fn;},
- async ask(prompt,options){askCalls.push({prompt,options});return askCalls.length===1?"NONE":"MOOD: SAME | 0\\nCLOSER: 0";}
+ async ask(prompt,options){askCalls.push({prompt,options});return askCalls.length===1?"NONE":"MOOD: SAME | 0\nCLOSER: 0";}
 };
 const previousSoul=globalThis.soul;
 try {
