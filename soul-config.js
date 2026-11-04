@@ -13,7 +13,6 @@ function validateSoulConfig(c){
  const list=(v,min,max,p)=>{if(!Array.isArray(v)||v.length<min||v.length>max){err(p,"must contain "+min+"–"+max+" items");return false}return true};
  const en=(v,values,p)=>{if(!values.includes(v))err(p,"invalid enum; expected "+values.join(", "))};
  Object.keys(c).forEach(k=>{if(!ALLOWED_KEYS.includes(k))err(k,"unsupported field; v1 has only frozen identity/stances and temporary mood");});
- const bytes=utf8Bytes(JSON.stringify(c));if(bytes>6144)err("soulConfig","must be under 6 KB; currently "+bytes+" bytes");
  if(c.schemaVersion!==1)err("schemaVersion","must be 1");
  req(c.name,8,"name");req(c.voiceSummary,25,"voiceSummary");if(c.screenName!==undefined)req(c.screenName,6,"screenName");["schemaVersion","name","voiceSummary","relationshipTrack","startingFamiliarity","closenessPace","coreIdentity","stances","stages","mood","triggers","selfFacts","openThreads","privateAgenda","diaryVoice","factPriorities","provenance"].forEach(k=>{if(!Object.prototype.hasOwnProperty.call(c,k))err(k,"required field missing")});
  en(c.relationshipTrack,ENUMS.relationshipTrack,"relationshipTrack");en(c.startingFamiliarity,ENUMS.startingFamiliarity,"startingFamiliarity");en(c.closenessPace,ENUMS.closenessPace,"closenessPace");
