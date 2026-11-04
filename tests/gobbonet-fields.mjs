@@ -11,7 +11,7 @@ const sampleWriting=sample.data.description;
 const samplePersonality=sample.data.personality;
 const exampleCarousel=sampleGobbo.carouselPrompts.split("\n");
 assert.deepEqual(sampleGobbo.soulConfig.openThreads,[
- "She has spent three weeks trying to stop an old toaster from tripping the kitchen breaker.",
+ "Her old toaster has tripped the kitchen breaker repeatedly; diagnosis is unfinished.",
  "She has ordered a replacement handle for her brass kettle and is waiting for the parcel."
 ],"Example openThreads must be concrete, with a specific referent and current status.");
 assert.ok(sampleGobbo.customCode.includes("soul-engine.js v1"),"Example Custom Code must stamp Soul Engine v1.");
