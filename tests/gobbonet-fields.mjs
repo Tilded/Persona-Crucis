@@ -123,4 +123,4 @@ assert.equal(sampleGobbo.ragStorybook.split(/^# --- /m).length-1,8);
 assert.equal(sampleGobbo.carouselPrompts.split("\n").length,12);
 assert.ok(!Object.hasOwn(sampleGobbo,"_import"));
 
-console.log("GobboNet field contract checks passed: full fields, Character Card V3 wrapper, Soul Config stamping, stub, and import reminder.");
+console.log("GobboNet field contract checks passed: full fields, Character Card V3 wrapper, complete Soul Engine stamping, and import reminder.");
