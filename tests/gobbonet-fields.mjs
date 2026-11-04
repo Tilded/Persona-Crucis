@@ -44,7 +44,7 @@ assert.match(app,/loreCustomPrompt:true/);
 assert.match(app,/altGreetingsEnabled:true/);
 assert.match(app,/carouselMode:"random"/);
 assert.match(app,/At least two exchanges must show genuine warmth or play/,"Examples must include warmth or play.");
-assert.match(app,/Examples show tone only\. Never repeat them or write a speaker label\\./,"Example exchanges must be explicitly tone-only and unlabeled.");
+assert.match(app,/Examples show tone only\. Never repeat them or write a speaker label\./,"Example exchanges must be explicitly tone-only and unlabeled.");
 assert.match(app,/one concise, explicit one-line rule for how the character responds when the user is vulnerable/,"Writing Style must define a vulnerability response.");
 assert.match(app,/each of the words "practical", "useful", and "functional" no more than twice/,"Avoid adjective fixation across always-on fields.");
 assert.match(app,/2–3 specific interests outside the character’s occupation/,"Every character needs interests beyond their occupation.");
