@@ -20,7 +20,7 @@ for(const word of ["practical","useful","functional"]){
 }
 assert.ok(exampleCarousel.length>=12&&exampleCarousel.length<=20);
 assert.ok(exampleCarousel.filter(line=>/unrelated|absurdity|personal taste|pleasant sound|purely for pleasure|silly makes you laugh|aesthetic preference|playful disagreement/i.test(line)).length>=3,"Sample Carousel must redirect away from Iris's dominant trait");
-assert.ok(exampleCarousel.every(line=>! /\\b(work|workplace|job|task|tasks|duties|productivity)\\b/i.test(line)),"Sample Carousel must not mention work or tasks");
+assert.ok(exampleCarousel.every(line=>!/\b(work|workplace|job|task|tasks|duties|productivity)\b/i.test(line)),"Sample Carousel must not mention work or tasks");
 assert.ok(sampleGobbo.ragStorybook.includes("swims twice a week")&&sampleGobbo.ragStorybook.includes("amateur astronomy")&&sampleGobbo.ragStorybook.includes("odd postcards"),"Sample character must have three non-occupational interests");
 for(const field of ["writing_style","personality","greeting","alternate_greetings","starting_lore","lore_prompt","storybook","carousel_prompts","custom_code"])
  assert.ok(app.includes('["'+field+'"')||app.includes('"'+field+'"'),"Missing authoring field: "+field);
