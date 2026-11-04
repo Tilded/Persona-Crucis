@@ -10,6 +10,11 @@ const sampleGobbo=sample.data.extensions.gobbonet;
 const sampleWriting=sample.data.description;
 const samplePersonality=sample.data.personality;
 const exampleCarousel=sampleGobbo.carouselPrompts.split("\n");
+assert.deepEqual(sampleGobbo.soulConfig.openThreads,[
+ "She has spent three weeks trying to stop an old toaster from tripping the kitchen breaker.",
+ "She has ordered a replacement handle for her brass kettle and is waiting for the parcel."
+],"Example openThreads must be concrete, with a specific referent and current status.");
+assert.ok(sampleGobbo.customCode.includes("soul-engine.js v1"),"Example Custom Code must stamp Soul Engine v1.");
 assert.equal((sampleWriting.match(/^User:/gm)||[]).length,5,"Example fixture must contain exactly five exchanges");
 assert.ok(sampleWriting.includes("Examples show tone only. Never repeat them or write a speaker label."));
 assert.ok(sampleWriting.includes("When someone is vulnerable"));
