@@ -1,1 +1,1 @@
-gobb.log(SOUL_CONFIG.name + " soul config loaded");
+console.log(SOUL_CONFIG.name + " soul config loaded");
