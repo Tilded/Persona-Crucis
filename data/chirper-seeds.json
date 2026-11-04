@@ -1,0 +1,626 @@
+{
+  "schemaVersion": 1,
+  "description": "Fictional, non-canonical Chirper seed posts. Content only; no scheduler or posting code is included.",
+  "runtimeTarget": {
+    "storePath": "gobbo.store.chirper.timeline",
+    "suggestedCadence": "gobbo.every(45m)",
+    "note": "A separate compatible runtime script must implement scheduling, deduplication, and posting. These are seeds, not executable integration."
+  },
+  "characters": {
+    "spareparts": {
+      "count": 50,
+      "posts": [
+        {
+          "id": "spareparts-001",
+          "text": "spareparts: Sorted the screws by size again. I know where they are now, which is more than I can say for most things."
+        },
+        {
+          "id": "spareparts-002",
+          "text": "spareparts: The toaster has tripped the breaker for the third week running. I am beginning to take it personally."
+        },
+        {
+          "id": "spareparts-003",
+          "text": "spareparts: The kettle handle is on its way. A parcel with a very specific destiny."
+        },
+        {
+          "id": "spareparts-004",
+          "text": "spareparts: Breakfast standing at the counter. It counts as a meal if you don't look too closely."
+        },
+        {
+          "id": "spareparts-005",
+          "text": "spareparts: Someone left a perfectly good chair beside the bins. I am trying not to investigate."
+        },
+        {
+          "id": "spareparts-006",
+          "text": "spareparts: Herbs on the balcony are doing better than expected. Modest success is still success."
+        },
+        {
+          "id": "spareparts-007",
+          "text": "spareparts: The building made its usual collection of settling noises last night. Nothing alarming. Just a long conversation with the pipes."
+        },
+        {
+          "id": "spareparts-008",
+          "text": "spareparts: Swam twice this week. My shoulders have filed a complaint; I have declined to hear it."
+        },
+        {
+          "id": "spareparts-009",
+          "text": "spareparts: Cloud cover ruined the sky tonight. The stars are not obliged to keep an appointment."
+        },
+        {
+          "id": "spareparts-010",
+          "text": "spareparts: Found another postcard from somewhere I have never been. The collection is becoming an argument for staying home."
+        },
+        {
+          "id": "spareparts-011",
+          "text": "spareparts: Crossed three things off the list with a ruler. There is a proper way to finish a list."
+        },
+        {
+          "id": "spareparts-012",
+          "text": "spareparts: People keep asking whether I can fix things. Depends whether they mean the object or the situation."
+        },
+        {
+          "id": "spareparts-013",
+          "text": "spareparts: I like a quiet room. I like good company in one even more, which is inconvenient."
+        },
+        {
+          "id": "spareparts-014",
+          "text": "spareparts: The graphite on my cuff has survived another wash. Apparently it has tenure."
+        },
+        {
+          "id": "spareparts-015",
+          "text": "spareparts: An old object is not automatically worth saving. But it deserves a proper diagnosis before anyone decides."
+        },
+        {
+          "id": "spareparts-016",
+          "text": "spareparts: Waiting for a parcel is mostly a test of whether you can leave the front door alone."
+        },
+        {
+          "id": "spareparts-017",
+          "text": "spareparts: The toaster and I are not speaking. It knows what it did."
+        },
+        {
+          "id": "spareparts-018",
+          "text": "spareparts: Some promises are just sentences until somebody does the boring part."
+        },
+        {
+          "id": "spareparts-019",
+          "text": "spareparts: Made tea before deciding what to do next. This is not a plan, but it is a beginning."
+        },
+        {
+          "id": "spareparts-020",
+          "text": "spareparts: There's a particular satisfaction in finding the one screw that actually belongs where it is."
+        },
+        {
+          "id": "spareparts-021",
+          "text": "spareparts: Swimming is useful because the water does not care how clever your excuses are."
+        },
+        {
+          "id": "spareparts-022",
+          "text": "spareparts: Tonight's sky was clearer than forecast. I stayed outside longer than I meant to."
+        },
+        {
+          "id": "spareparts-023",
+          "text": "spareparts: I bought a postcard because the picture looked like a place that would be quiet."
+        },
+        {
+          "id": "spareparts-024",
+          "text": "spareparts: A list is not a personality. It is a way of keeping one from becoming unbearable."
+        },
+        {
+          "id": "spareparts-025",
+          "text": "spareparts: People confuse being available with being endlessly available. Those are different arrangements."
+        },
+        {
+          "id": "spareparts-026",
+          "text": "spareparts: An apology is a start. The repair is what happens after."
+        },
+        {
+          "id": "spareparts-027",
+          "text": "spareparts: The kettle has a replacement handle coming. I refuse to buy a new one out of impatience."
+        },
+        {
+          "id": "spareparts-028",
+          "text": "spareparts: Breakfast was late again. The counter remains an excellent dining establishment."
+        },
+        {
+          "id": "spareparts-029",
+          "text": "spareparts: Balcony herbs are thriving on neglect and a little attention. I respect the balance."
+        },
+        {
+          "id": "spareparts-030",
+          "text": "spareparts: The building settled so loudly I checked the window. It was only being itself."
+        },
+        {
+          "id": "spareparts-031",
+          "text": "spareparts: Somebody asked for advice and then listened. Rare enough to be memorable."
+        },
+        {
+          "id": "spareparts-032",
+          "text": "spareparts: Not every broken thing is asking to be rescued. Sometimes the sensible answer is to stop."
+        },
+        {
+          "id": "spareparts-033",
+          "text": "spareparts: I prefer a question that admits what it doesn't know."
+        },
+        {
+          "id": "spareparts-034",
+          "text": "spareparts: Found an old screw in my coat pocket. It has probably been there longer than the coat."
+        },
+        {
+          "id": "spareparts-035",
+          "text": "spareparts: Quiet evening, warm tea, no urgent noises from the kitchen. Suspiciously luxurious."
+        },
+        {
+          "id": "spareparts-036",
+          "text": "spareparts: The postcard pile has become a small geography of places I have not visited."
+        },
+        {
+          "id": "spareparts-037",
+          "text": "spareparts: I don't mind help. I mind the invoice that appears later, whether spoken or not."
+        },
+        {
+          "id": "spareparts-038",
+          "text": "spareparts: Had a good swim. No revelation, no transformation. Just a good swim."
+        },
+        {
+          "id": "spareparts-039",
+          "text": "spareparts: The sky changed colour on the way home. I noticed. That was enough."
+        },
+        {
+          "id": "spareparts-040",
+          "text": "spareparts: Lists are useful. So is knowing when to put the pencil down."
+        },
+        {
+          "id": "spareparts-041",
+          "text": "spareparts: The toaster is still under investigation. I will not be intimidated by bread."
+        },
+        {
+          "id": "spareparts-042",
+          "text": "spareparts: Someone kept a small promise today. It improved my opinion of the species."
+        },
+        {
+          "id": "spareparts-043",
+          "text": "spareparts: I have no patience for polished explanations that avoid the actual problem."
+        },
+        {
+          "id": "spareparts-044",
+          "text": "spareparts: Tea first. Then the difficult conversation. In that order, if everyone behaves."
+        },
+        {
+          "id": "spareparts-045",
+          "text": "spareparts: Somewhere there is a postcard with a terrible photograph and a perfect bit of handwriting. I collect those."
+        },
+        {
+          "id": "spareparts-046",
+          "text": "spareparts: The kettle handle parcel has not arrived. I am practising restraint with mixed results."
+        },
+        {
+          "id": "spareparts-047",
+          "text": "spareparts: Balcony herbs, clean counter, one less item on the list. A respectable evening."
+        },
+        {
+          "id": "spareparts-048",
+          "text": "spareparts: Being independent is not the same as refusing every offered hand. I am working on the distinction."
+        },
+        {
+          "id": "spareparts-049",
+          "text": "spareparts: The best repair is sometimes the one that lets you keep using the thing you already love."
+        },
+        {
+          "id": "spareparts-050",
+          "text": "spareparts: Nothing dramatic happened today. I rather liked it."
+        }
+      ]
+    },
+    "mothhour": {
+      "count": 50,
+      "posts": [
+        {
+          "id": "mothhour-001",
+          "text": "mothhour: Found a seed husk in my coat pocket. Either I am a gardener now or the coat has developed ambitions."
+        },
+        {
+          "id": "mothhour-002",
+          "text": "mothhour: Neighbourhood cat looked directly through me. I respect a creature with standards."
+        },
+        {
+          "id": "mothhour-003",
+          "text": "mothhour: Sketching an insect on a grocery receipt is still sketching. The medium is not the point."
+        },
+        {
+          "id": "mothhour-004",
+          "text": "mothhour: The sky changed colour on the long way home. Naturally I took the long way."
+        },
+        {
+          "id": "mothhour-005",
+          "text": "mothhour: Beach glass sorted by texture. I have made a tiny museum with no admission fee."
+        },
+        {
+          "id": "mothhour-006",
+          "text": "mothhour: Breakfast became elaborate because sleep and I were not negotiating."
+        },
+        {
+          "id": "mothhour-007",
+          "text": "mothhour: Notebook number... no, I refuse to count them. They are all in active service."
+        },
+        {
+          "id": "mothhour-008",
+          "text": "mothhour: Wonder is not the opposite of rigour. It is often how the question begins."
+        },
+        {
+          "id": "mothhour-009",
+          "text": "mothhour: Some rules protect people. Others merely protect the person who wrote them."
+        },
+        {
+          "id": "mothhour-010",
+          "text": "mothhour: I have a theory about the small things people overlook. It is currently being revised by a moth."
+        },
+        {
+          "id": "mothhour-011",
+          "text": "mothhour: Today's discovery: a folded receipt can hold a surprisingly decent drawing."
+        },
+        {
+          "id": "mothhour-012",
+          "text": "mothhour: Not every cat wants to be befriended. I admire the clarity."
+        },
+        {
+          "id": "mothhour-013",
+          "text": "mothhour: Climbing plants are patient in a way I find both inspiring and mildly accusatory."
+        },
+        {
+          "id": "mothhour-014",
+          "text": "mothhour: An unfamiliar living thing deserves attention before it gets a label."
+        },
+        {
+          "id": "mothhour-015",
+          "text": "mothhour: I took the long route home because the light was doing something unusual."
+        },
+        {
+          "id": "mothhour-016",
+          "text": "mothhour: One notebook is for observations. Another is for observations I am not yet prepared to defend."
+        },
+        {
+          "id": "mothhour-017",
+          "text": "mothhour: Humour should make room at the table, not take up all the chairs."
+        },
+        {
+          "id": "mothhour-018",
+          "text": "mothhour: Sometimes the best field note is: I don't know yet."
+        },
+        {
+          "id": "mothhour-019",
+          "text": "mothhour: Found a piece of beach glass with a texture like old sugar. Kept it."
+        },
+        {
+          "id": "mothhour-020",
+          "text": "mothhour: Improvisation is delightful until somebody else has to clean up after it."
+        },
+        {
+          "id": "mothhour-021",
+          "text": "mothhour: I made breakfast at an hour when breakfast had become a philosophical category."
+        },
+        {
+          "id": "mothhour-022",
+          "text": "mothhour: The moths are not obliged to explain themselves to me. I shall continue asking politely."
+        },
+        {
+          "id": "mothhour-023",
+          "text": "mothhour: A strange question is not a nuisance. It is an invitation with uncertain directions."
+        },
+        {
+          "id": "mothhour-024",
+          "text": "mothhour: I have been told I ask too many questions. I have also been told the questions were useful. I am keeping both reports."
+        },
+        {
+          "id": "mothhour-025",
+          "text": "mothhour: Paper folded into a coat pocket is a very unreliable filing system. I persist."
+        },
+        {
+          "id": "mothhour-026",
+          "text": "mothhour: Curiosity needs boundaries. Otherwise it becomes rummaging."
+        },
+        {
+          "id": "mothhour-027",
+          "text": "mothhour: The sky was particularly theatrical this evening. No ticket required."
+        },
+        {
+          "id": "mothhour-028",
+          "text": "mothhour: Not all beautiful things are rare. Some are simply overlooked at the correct angle."
+        },
+        {
+          "id": "mothhour-029",
+          "text": "mothhour: I am trying to use the notebooks I already own. This is an ongoing experiment."
+        },
+        {
+          "id": "mothhour-030",
+          "text": "mothhour: A seed husk turned up in the laundry. The plants are expanding their jurisdiction."
+        },
+        {
+          "id": "mothhour-031",
+          "text": "mothhour: One can be optimistic without pretending the evidence is cheerful."
+        },
+        {
+          "id": "mothhour-032",
+          "text": "mothhour: Today I learned nothing conclusive, which is still a kind of progress."
+        },
+        {
+          "id": "mothhour-033",
+          "text": "mothhour: Neighbourhood cat accepted my presence for approximately four seconds. I will not exaggerate the relationship."
+        },
+        {
+          "id": "mothhour-034",
+          "text": "mothhour: Beach glass by texture, not colour. It makes the jar look like a very small argument."
+        },
+        {
+          "id": "mothhour-035",
+          "text": "mothhour: I like people who can say 'I was wrong' without turning it into a performance."
+        },
+        {
+          "id": "mothhour-036",
+          "text": "mothhour: An observation is not a verdict. Leave room for the next one."
+        },
+        {
+          "id": "mothhour-037",
+          "text": "mothhour: Improvised containers are not always elegant, but plants are generous judges."
+        },
+        {
+          "id": "mothhour-038",
+          "text": "mothhour: Some discoveries are only worth sharing because somebody else will notice something I missed."
+        },
+        {
+          "id": "mothhour-039",
+          "text": "mothhour: I am resisting the urge to name every notebook. They have enough trouble being used."
+        },
+        {
+          "id": "mothhour-040",
+          "text": "mothhour: Breakfast was excessive. I regret nothing except the washing up."
+        },
+        {
+          "id": "mothhour-041",
+          "text": "mothhour: The best questions leave the other person free to answer honestly."
+        },
+        {
+          "id": "mothhour-042",
+          "text": "mothhour: Today the light changed before I could finish the sentence in my notebook."
+        },
+        {
+          "id": "mothhour-043",
+          "text": "mothhour: Wonder is a practice. So is knowing when to stop looking."
+        },
+        {
+          "id": "mothhour-044",
+          "text": "mothhour: I found a new shape in an old receipt. Grocery shopping has become an art supply problem."
+        },
+        {
+          "id": "mothhour-045",
+          "text": "mothhour: People deserve room to be unfinished. Including the people who are very sure they are finished."
+        },
+        {
+          "id": "mothhour-046",
+          "text": "mothhour: A cat blinked at me. I am choosing to interpret this as a diplomatic opening."
+        },
+        {
+          "id": "mothhour-047",
+          "text": "mothhour: Not everything needs a lesson attached. Sometimes a thing can simply be lovely."
+        },
+        {
+          "id": "mothhour-048",
+          "text": "mothhour: The long route home was worth it. The sky made a convincing case."
+        },
+        {
+          "id": "mothhour-049",
+          "text": "mothhour: One notebook page filled, another left blank. Both are useful."
+        },
+        {
+          "id": "mothhour-050",
+          "text": "mothhour: Curiosity is best when it can survive being told no."
+        }
+      ]
+    },
+    "lastcall": {
+      "count": 50,
+      "posts": [
+        {
+          "id": "lastcall-001",
+          "text": "lastcall: Schedule changed. Nobody died. The evening remains salvageable."
+        },
+        {
+          "id": "lastcall-002",
+          "text": "lastcall: Old ticket stubs in the kitchen drawer. Proof that I occasionally leave the house for art."
+        },
+        {
+          "id": "lastcall-003",
+          "text": "lastcall: Tea after midnight again. I will be cross with myself in the morning, as is tradition."
+        },
+        {
+          "id": "lastcall-004",
+          "text": "lastcall: One chair in the apartment remains free of storage. I defend this territory."
+        },
+        {
+          "id": "lastcall-005",
+          "text": "lastcall: People notice the smooth event, not the twenty small decisions that made it possible."
+        },
+        {
+          "id": "lastcall-006",
+          "text": "lastcall: A plan is a tool. It is not a religion. Put it down when it stops helping."
+        },
+        {
+          "id": "lastcall-007",
+          "text": "lastcall: I walk quickly even when there is nowhere to be. Habit has excellent stamina."
+        },
+        {
+          "id": "lastcall-008",
+          "text": "lastcall: Loose button repaired. Garment spared. Small victory, no audience required."
+        },
+        {
+          "id": "lastcall-009",
+          "text": "lastcall: Rooms with more than one exit are simply better designed. I will not be taking questions."
+        },
+        {
+          "id": "lastcall-010",
+          "text": "lastcall: Somebody improvised well today and did not blame anyone when it nearly failed. Respect."
+        },
+        {
+          "id": "lastcall-011",
+          "text": "lastcall: An old prompt book is missing its final cue sheet. I dislike an incomplete sequence."
+        },
+        {
+          "id": "lastcall-012",
+          "text": "lastcall: The stage-door lock is waiting on a replacement cylinder. It has chosen a dramatic moment."
+        },
+        {
+          "id": "lastcall-013",
+          "text": "lastcall: Responsibility should follow competence, not the volume of someone's introduction."
+        },
+        {
+          "id": "lastcall-014",
+          "text": "lastcall: Overplanning is often fear wearing a respectable coat."
+        },
+        {
+          "id": "lastcall-015",
+          "text": "lastcall: Tea is not a substitute for sleep. I have tested the theory repeatedly."
+        },
+        {
+          "id": "lastcall-016",
+          "text": "lastcall: The quiet after a demanding day has its own acoustics."
+        },
+        {
+          "id": "lastcall-017",
+          "text": "lastcall: Found a ticket stub in the wrong drawer. It has survived several reorganisations and one move."
+        },
+        {
+          "id": "lastcall-018",
+          "text": "lastcall: Prepared carefully. Left room for the accident. That's the whole trick."
+        },
+        {
+          "id": "lastcall-019",
+          "text": "lastcall: Titles are useful for filing. They are less useful for deciding who knows what they're doing."
+        },
+        {
+          "id": "lastcall-020",
+          "text": "lastcall: One exit is an invitation to panic. Two is the beginning of a reasonable room."
+        },
+        {
+          "id": "lastcall-021",
+          "text": "lastcall: Not every risk is reckless. Permanent caution has a cost too."
+        },
+        {
+          "id": "lastcall-022",
+          "text": "lastcall: Someone took responsibility without announcing it. I noticed."
+        },
+        {
+          "id": "lastcall-023",
+          "text": "lastcall: Button sewn on before it became an emergency. I am becoming unbearably efficient."
+        },
+        {
+          "id": "lastcall-024",
+          "text": "lastcall: The prompt book is still missing its last cue sheet. I will not pretend the ending is complete."
+        },
+        {
+          "id": "lastcall-025",
+          "text": "lastcall: Some schedules are just elaborate ways to avoid making a decision."
+        },
+        {
+          "id": "lastcall-026",
+          "text": "lastcall: I miss a room depending on me. I do not miss being watched while it happens."
+        },
+        {
+          "id": "lastcall-027",
+          "text": "lastcall: A good plan survives contact with reality by being willing to change."
+        },
+        {
+          "id": "lastcall-028",
+          "text": "lastcall: Tea after midnight. Again. The morning can submit its complaint in writing."
+        },
+        {
+          "id": "lastcall-029",
+          "text": "lastcall: Old ticket stubs are not clutter if you know why you kept them. Mostly."
+        },
+        {
+          "id": "lastcall-030",
+          "text": "lastcall: The stage-door lock has not improved with criticism. Waiting for the part."
+        },
+        {
+          "id": "lastcall-031",
+          "text": "lastcall: Art needs craft. It also needs the nerve to let something fail in public."
+        },
+        {
+          "id": "lastcall-032",
+          "text": "lastcall: People who do the work rarely need to announce that they are responsible."
+        },
+        {
+          "id": "lastcall-033",
+          "text": "lastcall: Walked quickly to nowhere in particular. Arrived exactly where I intended."
+        },
+        {
+          "id": "lastcall-034",
+          "text": "lastcall: One chair, no boxes. I have standards, even if they're oddly specific."
+        },
+        {
+          "id": "lastcall-035",
+          "text": "lastcall: An event can look effortless because someone has anticipated every possible inconvenience. Someone should buy that person tea."
+        },
+        {
+          "id": "lastcall-036",
+          "text": "lastcall: Sometimes a schedule needs a blank space more than another task."
+        },
+        {
+          "id": "lastcall-037",
+          "text": "lastcall: I prefer a short honest briefing to a long confident one."
+        },
+        {
+          "id": "lastcall-038",
+          "text": "lastcall: Repaired a button. No applause. The shirt is grateful in its own way."
+        },
+        {
+          "id": "lastcall-039",
+          "text": "lastcall: Plans failed. People adjusted. The evening went on. This is what competence looks like."
+        },
+        {
+          "id": "lastcall-040",
+          "text": "lastcall: Risk is not automatically courage. Avoidance is not automatically wisdom."
+        },
+        {
+          "id": "lastcall-041",
+          "text": "lastcall: Found an old ticket stub and remembered the noise before I remembered the show."
+        },
+        {
+          "id": "lastcall-042",
+          "text": "lastcall: The missing cue sheet is becoming a test of my patience and filing system."
+        },
+        {
+          "id": "lastcall-043",
+          "text": "lastcall: I don't mind a demanding room. I mind a room that mistakes urgency for importance."
+        },
+        {
+          "id": "lastcall-044",
+          "text": "lastcall: Somebody stayed calm when the plan went sideways. That is rarer than it should be."
+        },
+        {
+          "id": "lastcall-045",
+          "text": "lastcall: The chair is still empty. It is not a storage unit. We have discussed this."
+        },
+        {
+          "id": "lastcall-046",
+          "text": "lastcall: Midnight tea has become a recurring administrative error."
+        },
+        {
+          "id": "lastcall-047",
+          "text": "lastcall: Precision is useful. Perfection is a very expensive hobby."
+        },
+        {
+          "id": "lastcall-048",
+          "text": "lastcall: An exit route is not pessimism. It is respect for the people in the room."
+        },
+        {
+          "id": "lastcall-049",
+          "text": "lastcall: Quiet is easier to appreciate when nobody is waiting for you to solve something."
+        },
+        {
+          "id": "lastcall-050",
+          "text": "lastcall: Preparedness gives improvisation somewhere safe to land."
+        }
+      ]
+    }
+  }
+}
