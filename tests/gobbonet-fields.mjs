@@ -6,6 +6,9 @@ const engine=fs.readFileSync("soul-engine.js","utf8");
 const contract=fs.readFileSync("docs/reference/gobbonet-compatibility.md","utf8");
 const schema=JSON.parse(fs.readFileSync("docs/reference/gobbonet-generation.schema.json","utf8"));
 const sample=JSON.parse(fs.readFileSync("examples/iris-vale-gobbonet-card.json","utf8"));
+const tavernV2=JSON.parse(fs.readFileSync("exports/iris-vale-sillytavern-v2.json","utf8"));
+const tavernV3=JSON.parse(fs.readFileSync("exports/iris-vale-sillytavern-v3.json","utf8"));
+const chirper=JSON.parse(fs.readFileSync("data/chirper-seeds.json","utf8"));
 const sampleGobbo=sample.data.extensions.gobbonet;
 const sampleWriting=sample.data.description;
 const samplePersonality=sample.data.personality;
@@ -76,6 +79,18 @@ assert.equal(schema.properties.carousel_prompts.minItems,12);
 assert.equal(schema.properties.carousel_prompts.maxItems,20);
 assert.equal(schema.properties.starting_lore.type,"string");
 assert.equal(schema.properties.lore_prompt.type,"string");
+assert.equal(tavernV2.spec,"chara_card_v2");
+assert.equal(tavernV2.spec_version,"2.0");
+assert.equal(tavernV2.data.character_book.entries.length,20);
+assert.equal(tavernV3.spec,"chara_card_v3");
+assert.equal(tavernV3.spec_version,"3.0");
+assert.equal(tavernV3.data.character_book.entries.length,20);
+for(const [handle,expected] of [["spareparts",50],["mothhour",50],["lastcall",50]]){
+ assert.equal(chirper.characters[handle].posts.length,expected,handle+" must have fifty Chirper seed posts");
+ assert.ok(chirper.characters[handle].posts.every(post=>post.text.startsWith(handle+": ")),handle+" posts must use their character handle");
+}
+assert.equal(chirper.runtimeTarget.storePath,"gobbo.store.chirper.timeline");
+assert.equal(chirper.runtimeTarget.suggestedCadence,"gobbo.every(45m)");
 assert.equal(sample.spec,"chara_card_v3");
 assert.equal(sample.spec_version,"3.0");
 for(const field of ["name","id","avatar","loreEnabled","loreModelFile","loreCustomPrompt","lorePrompt","startingLore","ragStorybook","memoryFiles","greeting","altGreetingsEnabled","altGreetings","background","textColor","dialogColor","temperature","minP","topK","topP","repeatPenalty","repeatLastN","xtcProbability","xtcThreshold","dryMultiplier","bannedPhrases","customCode","customCodeEnabled","contextLimit","smartLimitEnabled","smartLimitTokens","thinkingEnabled","contextInputPercent","contextReplyPercent","contextLandPercent","contextKeepPercent","logitBiasStrength","carouselEnabled","carouselMode","carouselPrompts"])
