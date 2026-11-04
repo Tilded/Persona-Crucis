@@ -46,7 +46,9 @@ function validateSoulConfig(c){
   (Array.isArray(c.openThreads)?c.openThreads:[]).forEach((x,i)=>{
    req(x,20,"openThreads["+i+"]");
    if(typeof x==="string"){
-    if(/\b(?:may|might|could|perhaps|possibly|maybe|something|someone|somewhere)\b|\ba personal\b|\ba project\b|\ba routine\b/i.test(x))err("openThreads["+i+"]","hedged or vague; name a concrete object, person, or place");
+    if(/\b(?:may|might|could|perhaps|possibly|maybe|something|someone|somewhere)\b|\ba personal\b|\b(?:a|the) (?:personal )?(?:project|routine|thing|stuff|idea|situation|plan|goal|task)\b/i.test(x))err("openThreads["+i+"]","hedged or vague; name a concrete object, person, or place");
+    const referent=(x.match(/\b(?:her|his|their|the)\s+((?:[a-z][a-z-]*\s+){0,3}[a-z][a-z-]*)/i)||[])[1];
+    if(!referent||/^(?:project|routine|thing|stuff|idea|situation|plan|goal|task)$/i.test(referent.trim().split(/\s+/).pop()))err("openThreads["+i+"]","must identify a specific object, person, or place, not an abstract placeholder");
     if(!/\b(?:awaits?|awaiting|waiting|stalled|paused|halfway|unfinished|completed|finished|repaired|broken|missing|scheduled|booked|moved|delayed|drafted|submitted|approved|rejected|underway|progress|remaining|left)\b/i.test(x))err("openThreads["+i+"]","must state the concrete referent's current progress or status");
    }
   });
