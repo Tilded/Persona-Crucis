@@ -14,7 +14,7 @@ A browser-only tarot-to-character workshop. Tarot supplies symbolic creative mat
 
 ## Run
 
-Open index.html in a modern desktop browser. GitHub Pages can host the repository directly. All work stays in browser local storage unless the user downloads or copies it.
+Use GitHub Pages or serve the project over HTTP in a modern desktop browser. Opening index.html directly with a file:// URL cannot load the separate Soul Engine source, so export is deliberately blocked rather than silently stamping a nonfunctional stub. All work stays in browser local storage unless the user downloads or copies it.
 
 ## Current implementation
 
