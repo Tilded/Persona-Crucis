@@ -96,7 +96,7 @@ This is a field-structure reference, not a request to copy Mara's biography, voi
 9. Review the stamped Soul Engine source in Custom Code. Imported cards arrive with it disabled; enable it manually only after reviewing the code.
 10. Save the card, reopen it, and verify that the fields stayed separate.
 
-The downloadable JSON is a backup artifact. It is not the primary installation instruction and the user should not be told to rely on a generic card importer to distribute these fields.
+The downloadable JSON is a backup artifact. It is not the primary installation instruction and the user should not be told to rely on a generic card importer to distribute these fields. The generator must load the actual soul-engine.js source before export; if it cannot, export is blocked rather than silently stamping the old logging-only stub.
 
 
 ## Character Card JSON import contract (verified against GobboNet `js/16-card-io.js`)
