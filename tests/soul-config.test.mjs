@@ -38,6 +38,7 @@ const badSoftens=buildDemoConfig("bad-softens",0).config;badSoftens.mood.vocabul
 const badStages=buildDemoConfig("bad-stages",0).config;badStages.stages[2].minCloseness=10;assert.equal(validateSoulConfig(badStages).valid,false,"Stage thresholds must ascend from zero");
 const vagueThread=buildDemoConfig("vague-thread",0).config;vagueThread.openThreads[0]="A personal project might move forward soon.";assert.equal(validateSoulConfig(vagueThread).valid,false,"Vague or hedged openThreads must be rejected");
 const statuslessThread=buildDemoConfig("statusless-thread",0).config;statuslessThread.openThreads[0]="Her brass kettle is an interesting object.";assert.equal(validateSoulConfig(statuslessThread).valid,false,"OpenThreads must state concrete progress or status");
+const abstractThread=buildDemoConfig("abstract-thread",0).config;abstractThread.openThreads[0]="The project is underway.";assert.equal(validateSoulConfig(abstractThread).valid,false,"OpenThreads must identify a concrete referent, not an abstract placeholder");
 
 const exported=JSON.parse(fs.readFileSync("examples/iris-vale-gobbonet-card.json","utf8"));
 const exportedSoul=exported.data.extensions.gobbonet.soulConfig;
