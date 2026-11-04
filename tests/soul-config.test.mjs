@@ -59,7 +59,7 @@ const mockGobbo={
  log(...args){engineLogs.push(args.join(" "))},save(){},note(){},
  on(name,fn){hookHandlers[name]=fn},
  every(interval,fn){this.periodic=fn},
- async ask(prompt,options){askCalls.push({prompt,options});return askCalls.length===1?"NONE":"MOOD: SAME | 0\\nCLOSER: 0"}
+ async ask(prompt,options){askCalls.push({prompt,options});return askCalls.length===1?"NONE":"MOOD: SAME | 0\nCLOSER: 0"}
 };
 const previousSoul=globalThis.soul;
 try{
