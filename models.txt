@@ -1,0 +1,186 @@
+PERSONA CRUCIS — LOCAL MODEL MASTER LIST
+Machine: Windows 11 | RTX 3060 8 GB | 16 GB RAM
+GobboNet: 1.7.9-go-nogit
+llama-server: embedding port 11436 | main generation port 11437
+
+This is an inventory and setup guide, not a claim that every model is installed.
+Sizes marked approximate are planning estimates. Exact GGUF size depends on
+the publisher's build. VRAM depends on GPU layers, context/KV cache, llama.cpp
+build, and other GPU processes. Do not load multiple large main models at once.
+
+FOLDER LAYOUT
+models/
+  00-embed/
+  01-daily/
+  02-rp/
+  03-wacky/
+  99-archive/
+
+00-embed/ — EMBEDDING SERVER
+----------------------------
+nomic-embed-text-v1.5.Q8_0.gguf
+  Quant: Q8_0 | Disk: approximately 0.3 GB class; verify actual file
+  VRAM: 0 GB model offload, CPU-only
+  Context: use embedding model's supported sequence length
+  Purpose: retrieval embeddings for Storybook and memory
+
+REQUIRED SETTINGS, DO NOT CHANGE:
+  --batch-size 384 --ubatch-size 384 --threads 2 --n-gpu-layers 0
+
+Tested behavior: lower batch settings fail around token 186/214. A batch size
+of 2048 OOMs after approximately 24 seconds. Keep the exact 384/384, 2-thread,
+zero-GPU-layer configuration.
+
+Windows restart-loop pattern:
+  :loop
+  llama-server.exe [established embedding arguments, including required settings]
+  goto loop
+
+Use port 11436. The loop restarts after process exit; it does not fix invalid
+arguments or prevent repeated crashes.
+
+01-daily/ — GENERAL CHAT / FACT EXTRACTION
+------------------------------------------
+Qwen_Qwen3-8B-Q6_K.gguf
+  Quant: Q6_K | Disk: approximately 6.3 GB
+  VRAM: high; user's tested 37 GPU layers at context 8192 are stable on 8 GB
+  Context: 8192 (known stable)
+  Use: daily reasoning and fact extraction; the "accountant"
+
+Qwen2.5-7B-Q4_K_M.gguf
+  Quant: Q4_K_M | Disk: 4.4 GB (user-observed)
+  VRAM: approximately 5–6.5 GB depending on offload/context
+  Context: 8192 starting point; reduce if memory pressure appears
+  Use: daily chat and continuity/fact extraction
+
+Qwen2.5-3B-Q4_K_M.gguf
+  Quant: Q4_K_M | Disk: 2.0 GB (user-observed)
+  VRAM: approximately 2.5–3.5 GB with full/near-full offload
+  Context: 8192 starting point
+  Use: lightweight daily assistant and extraction
+
+Llama-3.1-8B-Q4_K_M.gguf
+  Quant: Q4_K_M | Disk: approximately 4.9 GB
+  VRAM: approximately 5.5–7 GB depending on context/offload
+  Context: 8192 starting point
+  Use: general daily chat / comparison alternative to Qwen
+
+02-rp/ — ROLEPLAY / CHARACTER PERFORMANCE
+-----------------------------------------
+L3-8B-Stheno-v3.2-Q4_K_M.gguf
+  Quant: Q4_K_M | Disk: 4.2 GB (user-observed)
+  VRAM: approximately 5–6 GB depending on context/offload
+  Context: 8192 starting point
+  Use: RP, character voice, improvisation, date-night conversation
+  Preferred "actress" after character break-in
+
+Mistral-Nemo-Instruct-2407-Q4_K_M.gguf
+  Quant: Q4_K_M | Disk: approximately 7.5 GB class; verify exact file
+  VRAM: approximately 6.2 GB user-observed planning figure; leave KV/runtime headroom
+  Context: 8192 maximum recommended on this 8 GB card; NOT 16384
+  Use: RP / instruction following when memory headroom permits
+  WARNING: 12B Nemo Q4 at context 16384 is a crash risk on RTX 3060 8 GB.
+  Keep context at 8192.
+
+MythoMax-L2-13B-Q3_K_M.gguf
+  Quant: Q3_K_M | Disk: 5.8 GB (user-observed)
+  VRAM: approximately 6.5–7.8 GB with substantial GPU offload
+  Context: 4096–8192; start at 4096 if other GPU work is active
+  Use: larger-character RP
+
+Nemo-12B-Q3_K_M.gguf
+  Quant: Q3_K_M | Disk: 5.2 GB (user-observed)
+  VRAM: approximately 5.8–7.2 GB depending on offload/context
+  Context: 8192 starting point
+  Use: RP alternative when Q4 Nemo is too tight
+
+03-wacky/ — EXPERIMENTAL / JANITORAI-TYPE / HIGH-VARIANCE
+---------------------------------------------------------
+Optional experiments, not the dependable daily stack. Several labels below
+are model families or shorthand, not complete filenames. Confirm exact GGUF,
+parameter count, quant, and size before downloading/loading.
+
+Goliath-120B (distilled concept)
+  Quant/size: no single GGUF specified. "120B professor -> 7B student -> Q3
+  photocopy" is a distillation analogy, not a literal 120B model for this PC.
+  VRAM: a real 120B model is not viable on 8 GB VRAM / 16 GB RAM.
+  Context: not applicable until a specific student GGUF is identified
+  Use: conceptual lineage / experimental distilled-character model
+
+Toppy-M
+  Quant/size/VRAM: variant not specified; inspect exact GGUF metadata
+  Context: start 4096, test 8192 only if memory permits
+  Use: experimental RP / high-variance character output
+
+Chronos-Hermes
+  Quant/size/VRAM: variant not specified; inspect exact GGUF metadata
+  Context: start 4096, test 8192 only if memory permits
+  Use: experimental RP / alternate conversational style
+
+Airoboros
+  Quant/size/VRAM: family name; parameter count and quant not specified
+  Context: start 4096, test 8192 only if memory permits
+  Use: experimental instruction/RP behavior
+
+Magnum-v4-12B-Q3
+  Quant: Q3 (exact suffix/build to verify) | Disk: approximately 5.2 GB estimate
+  VRAM: approximately 5.8–7.2 GB depending on offload/context
+  Context: 4096–8192; start at 4096
+  Use: experimental 12B RP
+
+Euryale-7B
+  Quant: unspecified; a 7B Q4 build is roughly 4–4.5 GB, not guaranteed
+  VRAM: approximately 5–6.5 GB for a 7B Q4 build, depending on context/offload
+  Context: 4096–8192 depending on exact quant/offload
+  Use: experimental RP / character voice
+
+Behemoth / Synatra-7.2B-Q4
+  Quant: Q4 (exact suffix unspecified) | Disk: approximately 4.4–4.8 GB estimate
+  VRAM: approximately 5–6.5 GB depending on context/offload
+  Context: 4096–8192
+  Use: experimental RP
+
+Dolphin-2.9.2-Qwen2-7B-Q4
+  Quant: Q4 (exact suffix unspecified) | Disk: approximately 4.4 GB estimate
+  VRAM: approximately 5–6.5 GB depending on context/offload
+  Context: 4096–8192
+  Use: experimental instruction/RP
+
+Lexi-Uncensored-Q4
+  Quant: Q4; exact parameter count/build unspecified
+  Disk/VRAM: cannot be stated reliably without parameter count and exact GGUF
+  Context: start at 4096 after identifying model size
+  Use: experimental uncensored-style RP
+
+99-archive/ — EVERYTHING ELSE
+-----------------------------
+Retired, duplicate, superseded, benchmark, and unused GGUF files go here.
+Keep active folders small and obvious.
+
+WORKFLOW: QWEN ACCOUNTANT -> STHENO ACTRESS
+-------------------------------------------
+1. Start a new character with Qwen (prefer the stable Qwen3-8B Q6_K setup,
+   or Qwen2.5-7B Q4_K_M for more VRAM headroom).
+2. Spend approximately 15 messages establishing the character and allowing
+   continuity facts to accumulate.
+3. Inspect soul.dump(). Wait until verified facts are at least 3. Do not count
+   invented or unsupported claims.
+4. Use GobboNet's model dropdown to switch the main model to
+   L3-8B-Stheno-v3.2-Q4_K_M.
+5. Continue RP with Stheno. Qwen is the careful fact-extraction model;
+   Stheno is the character-performance model.
+
+Embedding remains on 11436. Main generation remains on 11437. Changing the
+main model does not mean changing the embedding model.
+
+VRAM / MEMORY RULES
+-------------------
+- RTX 3060 has 8 GB VRAM. Leave room for KV cache, compute buffers, Windows,
+  display use, and other GPU processes.
+- 16 GB system RAM is a constraint. Large models spilling into RAM may be slow.
+- Context length consumes memory. Lower context before assuming the quant is bad.
+- Do not load two large main models onto the GPU simultaneously.
+- Nemo 12B Q4 at context 16384: crash risk on this 8 GB setup. Use 8192.
+- Embedding settings are fixed: batch 384, ubatch 384, threads 2, GPU layers 0.
+- VRAM figures are estimates unless explicitly marked user-observed. Actual use
+  depends on llama.cpp build, layer split, KV cache type, context, and processes.

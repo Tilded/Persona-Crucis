@@ -1,0 +1,57 @@
+{
+  "type": "object",
+  "properties": {
+    "display_name": {
+      "type": "string"
+    },
+    "writing_style": {
+      "type": "string",
+      "minLength": 1
+    },
+    "personality": {
+      "type": "string",
+      "minLength": 1
+    },
+    "greeting": {
+      "type": "string",
+      "minLength": 1
+    },
+    "alternate_greetings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "starting_lore": {
+      "type": "string"
+    },
+    "lore_prompt": {
+      "type": "string"
+    },
+    "storybook": {
+      "type": "string"
+    },
+    "carousel_prompts": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "string",
+        "maxLength": 180,
+        "description": "Maximum 20 words; every line begins with the same 'This turn, ...' frame."
+      },
+      "minItems": 12,
+      "description": "12–20 character-specific behavioral texture lines; one line per response nudge, no mood labels or topic obsessions."
+    }
+  },
+  "required": [
+    "writing_style",
+    "personality",
+    "greeting",
+    "alternate_greetings",
+    "starting_lore",
+    "lore_prompt",
+    "storybook",
+    "carousel_prompts"
+  ],
+  "additionalProperties": false
+}
